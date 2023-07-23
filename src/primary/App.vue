@@ -18,6 +18,7 @@ import { useInstrumentStore } from '@/primary/infrastructure/store/InstrumentSto
 import DegreeSelector from '@/primary/components/DegreeSelector.vue';
 import { useNotesStore } from '@/primary/infrastructure/store/NotesStore';
 import { MajorScale } from '@/domain/MajorScale';
+import { makeChord } from '@/secondary/utils/chordMaker';
 
 const instrumentStore = useInstrumentStore();
 const notesStore = useNotesStore();
@@ -41,13 +42,18 @@ const trigger = () => {
     if (!notesStore.degree) return;
 
     const majorScale = new MajorScale();
-    const chord = majorScale
-        .getChord(notesStore.tonalCenter, notesStore.degree)
-        .map((note) => note + '4');
+    const chordNotes = majorScale.getNotes(
+        notesStore.tonalCenter,
+        notesStore.degree
+    );
 
-    keys.triggerAttack(chord);
-    bass.triggerAttack(chord[0]);
-    synth.triggerAttack(chord);
+    const keyChord = makeChord(chordNotes, 3);
+    const bassChord = makeChord(chordNotes, 2);
+    const padChord = keyChord;
+
+    keys.triggerAttack(keyChord);
+    bass.triggerAttack(bassChord[0]);
+    synth.triggerAttack(padChord);
 };
 
 const releaseAll = () => {

@@ -17,7 +17,7 @@ export class MajorScale {
     private scaleBehavior = [2, 2, 1, 2, 2, 2, 1];
     private relevantIntervals = [1, 3, 5, 7];
 
-    getChord(root: string, degree: number): string[] {
+    getNotes(root: string, degree: number): string[] {
         const notesInScale = this.getNotesInScale(root, degree);
 
         const chord = this.relevantIntervals.map((interval) => {
@@ -39,7 +39,7 @@ export class MajorScale {
 
         return [
             ...notesInScale.slice(degree - 1),
-            ...notesInScale.slice(0, degree - 1)
+            ...notesInScale.slice(0, degree - 1).map((note) => note + '+')
         ];
     }
 
