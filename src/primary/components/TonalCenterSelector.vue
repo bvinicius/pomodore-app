@@ -1,23 +1,19 @@
 <template>
     <div class="flex gap-2">
-        <div
+        <CircleToggleButton
             v-for="key in allKeys"
             :key="key"
-            class="flex"
-        >
-            <input
-                type="checkbox"
-                :checked="notesStore.tonalCenter === key"
-                @change="notesStore.tonalCenter = key"
-            />
-            <span>{{ key }}</span>
-        </div>
+            :label="key"
+            :checked="notesStore.tonalCenter === key"
+            @select="notesStore.tonalCenter = key"
+        />
     </div>
 </template>
 
 <script setup lang="ts">
 import { allKeys } from '@/secondary/utils/music-theory';
 import { useNotesStore } from '../infrastructure/store/NotesStore';
+import CircleToggleButton from './atoms/CircleToggleButton.vue';
 
 const notesStore = useNotesStore();
 
