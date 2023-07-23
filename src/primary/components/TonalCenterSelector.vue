@@ -1,18 +1,18 @@
 <template>
     <div class="flex flex-col gap-4">
-        <div class="flex gap-4 ml-7">
+        <div class="flex gap-6 ml-9">
             <ToggleButton
                 v-for="key in sharpNotes"
                 :key="key"
                 :label="key"
-                :class="{ 'ml-14': key === 'F#' }"
+                :class="{ 'ml-18': key === 'F#' }"
                 :checked="notesStore.tonalCenter === key"
                 class="rounded-full w-12 h-12"
                 exclusive
                 @select="notesStore.tonalCenter = key"
             />
         </div>
-        <div class="flex gap-4">
+        <div class="flex gap-6">
             <ToggleButton
                 v-for="key in naturalNotes"
                 :key="key"

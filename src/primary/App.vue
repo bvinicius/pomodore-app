@@ -4,12 +4,14 @@
             Sound Machine
         </h1>
 
-        <div class="flex justify-between">
-            <div class="flex flex-col gap-8">
-                <DegreeSelector />
+        <div class="flex justify-between px-24 py-12 h-5/6">
+            <div class="flex flex-col gap-8 items-center justify-evenly">
                 <TonalCenterSelector />
+                <DegreeSelector />
             </div>
-            <InstrumentSelector />
+            <div class="flex flex-col justify-evenly">
+                <InstrumentSelector />
+            </div>
         </div>
     </div>
 </template>
