@@ -5,9 +5,10 @@
                 v-for="key in sharpNotes"
                 :key="key"
                 :label="key"
-                class="rounded-full w-12 h-12"
                 :class="{ 'ml-14': key === 'F#' }"
                 :checked="notesStore.tonalCenter === key"
+                class="rounded-full w-12 h-12"
+                exclusive
                 @select="notesStore.tonalCenter = key"
             />
         </div>
@@ -16,8 +17,9 @@
                 v-for="key in naturalNotes"
                 :key="key"
                 :label="key"
-                class="rounded-full w-12 h-12"
                 :checked="notesStore.tonalCenter === key"
+                class="rounded-full w-12 h-12"
+                exclusive
                 @select="notesStore.tonalCenter = key"
             />
         </div>

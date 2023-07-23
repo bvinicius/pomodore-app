@@ -9,6 +9,7 @@
                 class="w-16 h-18 rounded"
                 :checked="notesStore.degree === i"
                 @select="notesStore.degree = i"
+                @unselect="notesStore.degree = undefined"
             >
                 {{ i }}
             </ToggleButton>
