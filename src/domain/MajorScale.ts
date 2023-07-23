@@ -29,7 +29,7 @@ export class MajorScale {
 
     private getNotesInScale(root: string, degree: number): string[] {
         const chromaticScale = this.startScaleFromNote(root);
-        const notesInScale: string[] = [];
+        let notesInScale: string[] = [];
 
         let currentGap = 0;
         this.scaleBehavior.forEach((gap) => {
@@ -37,14 +37,39 @@ export class MajorScale {
             currentGap += gap;
         });
 
-        return [
-            ...notesInScale.slice(degree - 1),
-            ...notesInScale.slice(0, degree - 1).map((note) => note + '+')
+        const startingNote = notesInScale[degree - 1];
+        currentGap = 0;
+        notesInScale = [];
+
+        const behaviorDegree = [
+            ...this.scaleBehavior.slice(degree - 1),
+            ...this.scaleBehavior.slice(0, degree - 1)
         ];
+
+        behaviorDegree.forEach((gap) => {
+            const note = this.increment(startingNote, currentGap);
+            notesInScale.push(note);
+            currentGap += gap;
+        });
+
+        return notesInScale;
     }
 
     private startScaleFromNote(note: string) {
         const index = allKeys.indexOf(note);
-        return [...allKeys.slice(index), ...allKeys.slice(0, index)];
+        return [
+            ...allKeys.slice(index).map((note) => note + '0'),
+            ...allKeys.slice(0, index).map((note) => note + '1')
+        ];
+    }
+
+    private increment(note: string, interval: number) {
+        const strNote = note.slice(0, -1);
+        const octave = Number(note.slice(-1));
+
+        const index = allKeys.indexOf(strNote);
+        const newIndex = index + interval;
+        const newOctave = Math.floor(newIndex / allKeys.length) + octave;
+        return allKeys[newIndex % allKeys.length] + newOctave;
     }
 }

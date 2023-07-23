@@ -1,7 +1,8 @@
 export const makeChord = (notes: string[], baseOctave: number) => {
-    return notes.map((note) =>
-        note.endsWith('+')
-            ? note.slice(0, -1) + (baseOctave + 1)
-            : note + baseOctave
-    );
+    return notes.map((note) => {
+        const strNote = note.slice(0, -1);
+        const octave = note.slice(-1);
+
+        return strNote + (Number(octave) + baseOctave);
+    });
 };
