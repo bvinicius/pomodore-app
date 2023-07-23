@@ -5,7 +5,10 @@
         </h1>
 
         <div class="flex justify-between">
-            <div class="flex flex-col"><DegreeSelector /></div>
+            <div class="flex flex-col gap-8">
+                <DegreeSelector />
+                <TonalCenterSelector />
+            </div>
             <InstrumentSelector />
         </div>
     </div>
@@ -19,6 +22,7 @@ import DegreeSelector from '@/primary/components/DegreeSelector.vue';
 import { useNotesStore } from '@/primary/infrastructure/store/NotesStore';
 import { MajorScale } from '@/domain/MajorScale';
 import { makeChord } from '@/secondary/utils/chordMaker';
+import TonalCenterSelector from './components/TonalCenterSelector.vue';
 
 const instrumentStore = useInstrumentStore();
 const notesStore = useNotesStore();

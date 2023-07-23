@@ -1,17 +1,4 @@
-const allKeys = [
-    'C',
-    'C#',
-    'D',
-    'D#',
-    'E',
-    'F',
-    'F#',
-    'G',
-    'G#',
-    'A',
-    'A#',
-    'B'
-];
+import { allKeys } from '@/secondary/utils/music-theory';
 
 export class MajorScale {
     private scaleBehavior = [2, 2, 1, 2, 2, 2, 1];
