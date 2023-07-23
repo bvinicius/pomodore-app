@@ -14,6 +14,11 @@ module.exports = {
                     500: '#A0B4E8'
                 },
                 'on-primary': {
+                    400: '#F5F5F5',
+                    500: '#D9D9D9'
+                },
+                'primary-container': {
+                    400: '#F5F5F5',
                     500: '#D9D9D9'
                 }
             },
@@ -25,8 +30,9 @@ module.exports = {
                 68: '17rem',
                 94: '23.5rem'
             },
-            boxShadow: {
-                primary: '0px 3px 16px rgba(10, 48, 143, 0.1)'
+            dropShadow: {
+                primary: '0px 2px 2px rgba(0, 0, 0, 0.25)',
+                'primary-active': '0px 0px 6px #F5F5F5'
             }
         }
     },

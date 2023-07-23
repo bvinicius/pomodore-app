@@ -1,7 +1,11 @@
 <template>
     <div
         class="cursor-pointer flex justify-center items-center"
-        :class="[checked ? 'bg-white' : 'bg-black']"
+        :class="[
+            checked
+                ? 'bg-primary-container-400 drop-shadow-primary-active border border-primary-container-500'
+                : 'bg-primary-container-500 drop-shadow-primary'
+        ]"
         @click="onClick"
     >
         <slot></slot>

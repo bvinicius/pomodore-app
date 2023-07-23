@@ -11,7 +11,9 @@
                 @select="notesStore.degree = i"
                 @unselect="notesStore.degree = undefined"
             >
-                {{ i }}
+                <div class="text-white font-bold text-4xl">
+                    {{ romanNumerals[i - 1] }}
+                </div>
             </ToggleButton>
         </div>
     </div>
@@ -24,6 +26,8 @@ import ToggleButton from '@/primary/components/atoms/ToggleButton.vue';
 const notesStore = useNotesStore();
 
 const eventKeys = [1, 2, 3, 4, 5, 6, 7];
+
+const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
 
 document.addEventListener('keydown', (event) => {
     const nKey = Number(event.key);

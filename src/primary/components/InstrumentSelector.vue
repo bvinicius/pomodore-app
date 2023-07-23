@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col gap-4">
         <div class="flex flex-col gap-2">
-            <span>keys</span>
+            <span class="text-on-primary-400">keys</span>
             <ToggleButton
                 class="rounded w-16 h-16"
                 :checked="instrumentStore.keys"
@@ -10,7 +10,7 @@
             />
         </div>
         <div class="flex flex-col gap-2">
-            <span>bass</span>
+            <span class="text-on-primary-400">bass</span>
             <ToggleButton
                 class="rounded w-16 h-16"
                 :checked="instrumentStore.bass"
@@ -19,7 +19,7 @@
             />
         </div>
         <div class="flex flex-col gap-2">
-            <span>synth</span>
+            <span class="text-on-primary-400">synth</span>
             <ToggleButton
                 class="rounded w-16 h-16"
                 :checked="instrumentStore.synth"
