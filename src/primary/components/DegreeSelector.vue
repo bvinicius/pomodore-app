@@ -20,7 +20,7 @@ import { useNotesStore } from '@/primary/infrastructure/store/NotesStore';
 
 const notesStore = useNotesStore();
 
-const eventKeys = [1, 2, 3, 4, 5, 6, 7, 8];
+const eventKeys = [1, 2, 3, 4, 5, 6, 7];
 
 document.addEventListener('keydown', (event) => {
     const nKey = Number(event.key);
