@@ -1,31 +1,31 @@
 <template>
     <div class="flex flex-col gap-4">
-        <div class="flex items-end gap-2">
+        <div class="flex flex-col gap-2">
+            <span>keys</span>
             <ToggleButton
                 class="rounded w-16 h-16"
                 :checked="instrumentStore.keys"
                 @select="instrumentStore.keys = true"
                 @unselect="instrumentStore.keys = false"
             />
-            <span>keys</span>
         </div>
-        <div class="flex items-end gap-2">
+        <div class="flex flex-col gap-2">
+            <span>bass</span>
             <ToggleButton
                 class="rounded w-16 h-16"
                 :checked="instrumentStore.bass"
                 @select="instrumentStore.bass = true"
                 @unselect="instrumentStore.bass = false"
             />
-            <span>bass</span>
         </div>
-        <div class="flex items-end gap-2">
+        <div class="flex flex-col gap-2">
+            <span>synth</span>
             <ToggleButton
                 class="rounded w-16 h-16"
                 :checked="instrumentStore.synth"
                 @select="instrumentStore.synth = true"
                 @unselect="instrumentStore.synth = false"
             />
-            <span>synth</span>
         </div>
     </div>
 </template>
