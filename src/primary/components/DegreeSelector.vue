@@ -5,18 +5,20 @@
             :key="i"
             class="flex"
         >
-            <input
-                type="checkbox"
+            <ToggleButton
+                class="w-16 h-18 rounded"
                 :checked="notesStore.degree === i"
-                @change="notesStore.degree = i"
-            />
-            {{ i }}
+                @select="notesStore.degree = i"
+            >
+                {{ i }}
+            </ToggleButton>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { useNotesStore } from '@/primary/infrastructure/store/NotesStore';
+import ToggleButton from '@/primary/components/atoms/ToggleButton.vue';
 
 const notesStore = useNotesStore();
 

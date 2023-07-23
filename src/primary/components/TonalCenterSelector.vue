@@ -1,20 +1,22 @@
 <template>
     <div class="flex flex-col gap-4">
         <div class="flex gap-4 ml-7">
-            <CircleToggleButton
+            <ToggleButton
                 v-for="key in sharpNotes"
                 :key="key"
                 :label="key"
+                class="rounded-full w-12 h-12"
                 :class="{ 'ml-14': key === 'F#' }"
                 :checked="notesStore.tonalCenter === key"
                 @select="notesStore.tonalCenter = key"
             />
         </div>
         <div class="flex gap-4">
-            <CircleToggleButton
+            <ToggleButton
                 v-for="key in naturalNotes"
                 :key="key"
                 :label="key"
+                class="rounded-full w-12 h-12"
                 :checked="notesStore.tonalCenter === key"
                 @select="notesStore.tonalCenter = key"
             />
@@ -24,8 +26,8 @@
 
 <script setup lang="ts">
 import { allKeys } from '@/secondary/utils/music-theory';
-import { useNotesStore } from '../infrastructure/store/NotesStore';
-import CircleToggleButton from './atoms/CircleToggleButton.vue';
+import { useNotesStore } from '@/primary/infrastructure/store/NotesStore';
+import ToggleButton from '@/primary/components/atoms/ToggleButton.vue';
 
 const notesStore = useNotesStore();
 

@@ -1,9 +1,11 @@
 <template>
     <div
-        class="rounded-full cursor-pointer w-10 h-10"
+        class="cursor-pointer flex justify-center items-center"
         :class="[checked ? 'bg-white' : 'bg-black']"
         @click="emit('select')"
-    ></div>
+    >
+        <slot></slot>
+    </div>
 </template>
 
 <script setup lang="ts">
