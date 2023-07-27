@@ -4,7 +4,7 @@
     <h3>A browser-friendly chord generator</h3>
 </div>
 
-[Sound Machine](https://sound-machine.vercel.app/) is a chord player. It's an instrument meant to be fun and easy to play with a computer keyboard or with a large-sized touch screen device.
+[Sound Machine](https://sound-machine.vercel.app/){:target="_blank"} is a chord player. It's an instrument meant to be fun and easy to play with a computer keyboard or with a large-sized touch screen device.
 
 ### How It Works
 **Sound Machine** functions based on the **major scale** (all the white keys on the piano, if you're starting from the note **C**). The **C major scale**, for example, has 7 notes (Do, Re, Mi, Fa, Sol, La, Si 🎵) and each of them represents a chord that is "relevant" within the scale. That means that any chord you play with **Sound Machine** will be good to hear. No mistakes :)
@@ -45,4 +45,4 @@ To make it interesing, **Sound Machine** has currently 3 instruments that can pl
 
 ## Demo
 
-Now that you know how this chord maker works, you're ready to try it out [here](https://sound-machine.vercel.app/) :)
+Now that you know how this chord maker works, you're ready to try it out [here](https://sound-machine.vercel.app/){:target="_blank"} :)
