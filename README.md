@@ -45,4 +45,4 @@ To make it interesing, **Sound Machine** has currently 3 instruments that can pl
 
 ## Demo
 
-Now that you know how this chord maker works, you're ready to try it out [here]([url](https://sound-machine.vercel.app/)https://sound-machine.vercel.app) :)
+Now that you know how this chord maker works, you're ready to try it out [here](https://sound-machine.vercel.app/) :)
