@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-row lg:flex-col gap-4">
         <div class="flex flex-col gap-2">
             <span class="text-on-primary-400">keys</span>
             <ToggleButton
@@ -37,21 +37,16 @@ import ToggleButton from '@/primary/components/atoms/ToggleButton.vue';
 const instrumentStore = useInstrumentStore();
 
 const eventKeys = {
-    keys: 'v',
-    bass: 'b',
-    synth: 'n'
+    v: () => (instrumentStore.keys = !instrumentStore.keys),
+    b: () => (instrumentStore.bass = !instrumentStore.bass),
+    n: () => (instrumentStore.synth = !instrumentStore.synth)
 };
 
 const onKeyDown = (event: KeyboardEvent) => {
-    if (event.key === eventKeys.keys) {
-        instrumentStore.keys = !instrumentStore.keys;
-    }
-    if (event.key === eventKeys.bass) {
-        instrumentStore.bass = !instrumentStore.bass;
-    }
-    if (event.key === eventKeys.synth) {
-        instrumentStore.synth = !instrumentStore.synth;
-    }
+    const key = event.key.toLowerCase();
+
+    if (!(key in eventKeys)) return;
+    eventKeys[key as keyof typeof eventKeys]();
 };
 
 document.addEventListener('keydown', onKeyDown);
