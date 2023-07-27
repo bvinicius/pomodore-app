@@ -43,3 +43,6 @@ To make it interesing, **Sound Machine** has currently 3 instruments that can pl
 
 <img width="109" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/1a178bf9-00be-4c1a-a7aa-667eec04638c">
 
+## Demo
+
+Now that you know how this chord maker works, you're ready to try it out [here]([url](https://sound-machine.vercel.app/)https://sound-machine.vercel.app) :)
