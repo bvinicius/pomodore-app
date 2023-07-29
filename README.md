@@ -14,11 +14,13 @@
 On its first verion, **Sound Machine** has three main sections:
 
 ### Chords
-To play any sound, simply press the keys 1-7 on your keyboard. Each of them represent the **degrees** of the scale.
-
 <img width="533" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/77963a3b-781b-45b0-8841-04773018112d">
 
+To play any sound, simply press the keys 1-7 on your keyboard. Each of them represent the **degrees** of the scale.
+
 ### The main key
+<img width="529" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/9da35167-8b18-4981-a0e7-3aed6ebdbb70">
+
 The main key tells which note the chords start from. To change the main note you can simply click on each circle button or press the letter keys on your keyboard, as they were the shape of a tiny piano. Here is the full key map:
 
 | Keyboard key    | Note |
@@ -36,12 +38,10 @@ The main key tells which note the chords start from. To change the main note you
 |u|A# |
 |j| B|
 
-<img width="529" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/9da35167-8b18-4981-a0e7-3aed6ebdbb70">
-
 ### Instruments
-To make it interesing, **Sound Machine** has currently 3 instruments that can play the chords simultaneously. Again, just click on each instrument you want to enable/disable or use the keys **v**, **b** and **n** to toggle the Keys, the Bass and the Synth, respectively.
-
 <img width="109" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/1a178bf9-00be-4c1a-a7aa-667eec04638c">
+
+To make it interesing, **Sound Machine** has currently 3 instruments that can play the chords simultaneously. Again, just click on each instrument you want to enable/disable or use the keys **v**, **b** and **n** to toggle the Keys, the Bass and the Synth, respectively.
 
 ## Demo
 
