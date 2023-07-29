@@ -1,0 +1,12 @@
+{
+    "extends": "./tsconfig.app.json",
+    "include": ["tests/**/*.ts"],
+    "compilerOptions": {
+        "composite": true,
+        "lib": [],
+        "types": ["node", "jsdom"],
+        "paths": {
+            "@tests/*": ["./tests/*"]
+        }
+    }
+}
