@@ -19,7 +19,7 @@ To play any sound, simply press the keys 1-7 on your keyboard. Each of them repr
 <img width="533" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/77963a3b-781b-45b0-8841-04773018112d">
 
 ### The main key
-The main key tells which note the chords start from. To change the main note you can simply click on each circle button or press the letter keys on your keyboard, as they were the shape of a piano octave. Here is the full key map:
+The main key tells which note the chords start from. To change the main note you can simply click on each circle button or press the letter keys on your keyboard, as they were the shape of a tiny piano. Here is the full key map:
 
 | Keyboard key    | Note |
 | -------- | ------- |
