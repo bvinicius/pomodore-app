@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { MajorScale } from '../../src/domain/MajorScale';
+import { MajorScale } from '@/domain/MajorScale';
 import { majorScaleFixture } from '@tests/music-theory/fixtures/major-fixtures';
 
 const majorScale: MajorScale | undefined = new MajorScale();
