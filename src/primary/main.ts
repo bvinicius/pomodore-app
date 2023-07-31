@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import App from './App.vue';
-import './index.css';
+import App from '@/primary/App.vue';
+import '@/primary/index.css';
 
 const app = createApp(App);
 
