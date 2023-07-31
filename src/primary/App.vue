@@ -84,4 +84,11 @@ watch(
         val ? trigger() : releaseAll();
     }
 );
+
+watch(
+    () => notesStore.tonalCenter,
+    () => {
+        trigger();
+    }
+);
 </script>
