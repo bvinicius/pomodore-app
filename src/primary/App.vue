@@ -5,7 +5,7 @@
         </h1>
 
         <div
-            class="hidden md:flex flex-col lg:flex-row justify-evenly lg:justify-between px-24 py-12 h-5/6"
+            class="hidden md:flex flex-col lg:flex-row justify-evenly lg:justify-between px-24 py-12 h-5/6 max-w-[1200px] mx-auto"
         >
             <div
                 class="flex flex-col gap-16 lg:gap-8 items-center justify-evenly"
