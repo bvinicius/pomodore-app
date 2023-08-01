@@ -29,6 +29,7 @@ import { useNotesStore } from '@/primary/infrastructure/store/NotesStore';
 import { MajorScale } from '@/domain/MajorScale';
 import { makeChord } from '@/secondary/utils/chordMaker';
 import TonalCenterSelector from './components/TonalCenterSelector.vue';
+import { keysPreset, bassPreset, synthPreset } from '@/data/presets';
 
 const instrumentStore = useInstrumentStore();
 const notesStore = useNotesStore();
@@ -37,12 +38,9 @@ const keys = new PolySynth().toDestination();
 const bass = new Synth().toDestination();
 const synth = new PolySynth().toDestination();
 
-keys.set({ oscillator: { type: 'sine' } });
-bass.set({ oscillator: { type: 'triangle' } });
-synth.set({
-    oscillator: { type: 'sawtooth' },
-    envelope: { attack: 6 }
-});
+keys.set(keysPreset);
+bass.set(bassPreset);
+synth.set(synthPreset);
 
 start();
 
@@ -73,9 +71,11 @@ const releaseAll = () => {
 };
 
 watchEffect(() => {
-    keys.set({ volume: instrumentStore.keys ? -10 : -Infinity });
-    bass.set({ volume: instrumentStore.bass ? -10 : -Infinity });
-    synth.set({ volume: instrumentStore.synth ? -10 : -Infinity });
+    keys.set({ volume: instrumentStore.keys ? keysPreset.volume : -Infinity });
+    bass.set({ volume: instrumentStore.bass ? bassPreset.volume : -Infinity });
+    synth.set({
+        volume: instrumentStore.synth ? synthPreset.volume : -Infinity
+    });
 });
 
 watch(
