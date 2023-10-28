@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { ChordGenerator } from '@/domain/ChordGenerator';
-import { majorScaleFixture } from './fixtures/major-fixtures';
 import { ScaleType } from '@/domain/ScaleType';
+import { majorScaleFixture } from './fixtures/chord-fixtures';
 
 const chordGenerator: ChordGenerator | undefined = new ChordGenerator();
 
