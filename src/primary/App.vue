@@ -22,9 +22,8 @@
                 <InstrumentSelector />
             </div>
         </div>
+        <CreditsComponent />
     </div>
-
-    <CreditsComponent v-if="false" />
 </template>
 <script setup lang="ts">
 import { reactive, watch, watchEffect } from 'vue';
@@ -42,15 +41,6 @@ import CreditsComponent from '@/primary/components/CreditsComponent.vue';
 
 const instrumentStore = useInstrumentStore();
 const notesStore = useNotesStore();
-
-console.log(`
-    USER INFO:
-    FULLNAME: ${import.meta.env.VITE_USER_FULLNAME}
-    EMAIL: ${import.meta.env.VITE_USER_EMAIL}
-    GITHUB_URL: ${import.meta.env.VITE_USER_GITHUB_URL}
-    LINKEDIN_URL: ${import.meta.env.VITE_USER_LINKEDIN_URL}
-    INSTAGRAM_URL: ${import.meta.env.VITE_USER_INSTAGRAM_URL}
-`);
 
 const isStatsOn = false;
 const stats = reactive<Record<string, unknown>>({
