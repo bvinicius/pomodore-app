@@ -40,7 +40,7 @@ import StatsComponent from '@/primary/components/molecules/StatsComponent.vue';
 const instrumentStore = useInstrumentStore();
 const notesStore = useNotesStore();
 
-const isStatsOn = import.meta.env.DEV;
+const isStatsOn = false;
 const stats = reactive<Record<string, unknown>>({
     bpm: Transport.bpm.value,
     time: 0
