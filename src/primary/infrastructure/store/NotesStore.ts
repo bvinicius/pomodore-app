@@ -9,5 +9,6 @@ export const useNotesStore = defineStore('notes', {
     state: (): NotesState => ({
         tonalCenter: 'C',
         degree: undefined
-    })
+    }),
+    persist: true
 });

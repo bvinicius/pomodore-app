@@ -11,5 +11,6 @@ export const useInstrumentStore = defineStore('instrument', {
         keys: true,
         bass: true,
         synth: true
-    })
+    }),
+    persist: true
 });
