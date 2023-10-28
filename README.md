@@ -14,9 +14,9 @@
 On its first verion, **Sound Machine** has three main sections:
 
 ### Chords
-<img width="533" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/77963a3b-781b-45b0-8841-04773018112d">
+<img width="611" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/f50dc764-6c1d-41b3-b1be-5a4e04a7396f">
 
-To play any sound, simply press the keys from `1` to `7` on your keyboard. Each of them represent the **degrees** of the scale.
+To play any sound, simply press the keys from `1` to `8` on your keyboard. Each of them represent the **degrees** of the scale.
 
 ### The main key
 <img width="529" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/9da35167-8b18-4981-a0e7-3aed6ebdbb70">
