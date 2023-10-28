@@ -4,26 +4,29 @@
     >
         <div class="flex gap-2">
             <a
-                class="rounded-full border border-on-primary-500 p-1"
+                class="credit-link"
+                title="Github"
                 :href="contacts.githubUrl"
-                ><PhGithubLogo class="h-6 w-6"
-            /></a>
-            <a
-                class="rounded-full border border-on-primary-500 p-1"
-                :href="contacts.linkedinUrl"
-            >
-                <PhLinkedinLogo class="h-6 w-6" />
+                ><PhGithubLogo />
             </a>
             <a
-                class="rounded-full border border-on-primary-500 p-1"
-                :href="contacts.instagramUrl"
-                ><PhInstagramLogo class="h-6 w-6"
-            /></a>
+                class="credit-link"
+                title="Linkedin"
+                :href="contacts.linkedinUrl"
+                ><PhLinkedinLogo />
+            </a>
             <a
-                class="rounded-full border border-on-primary-500 p-1"
+                class="credit-link"
+                title="Instagram"
+                :href="contacts.instagramUrl"
+                ><PhInstagramLogo />
+            </a>
+            <a
+                class="credit-link"
+                title="Email"
                 :href="`mailto:${contacts.email}`"
-                ><PhEnvelope class="h-6 w-6"
-            /></a>
+                ><PhEnvelope />
+            </a>
         </div>
         <span class="font-bold">{{ contacts.name }}</span>
     </div>
@@ -38,3 +41,12 @@ import {
     PhLinkedinLogo
 } from '@phosphor-icons/vue';
 </script>
+
+<style>
+.credit-link {
+    @apply rounded-full border border-primary-500 p-2 bg-primary-container-500 shadow-sm;
+}
+.credit-link * {
+    @apply h-6 w-6 text-primary-500;
+}
+</style>
