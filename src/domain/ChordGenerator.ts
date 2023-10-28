@@ -30,6 +30,11 @@ export class ChordGenerator {
             currentGap += gap;
         });
 
+        notesInScale = [
+            ...notesInScale,
+            ...notesInScale.map((e) => e.replace('0', '1'))
+        ];
+
         const startingNote = notesInScale[degree - 1];
         currentGap = 0;
         notesInScale = [];

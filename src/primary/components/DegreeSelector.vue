@@ -31,9 +31,8 @@ const props = defineProps<{
 
 const notesStore = useNotesStore();
 
-const eventKeys = [1, 2, 3, 4, 5, 6, 7];
-
-const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'].map(
+const eventKeys = [1, 2, 3, 4, 5, 6, 7, 8];
+const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'].map(
     (n, index) => (isDegreeMinor(index + 1, props.scale) ? n.toLowerCase() : n)
 );
 
