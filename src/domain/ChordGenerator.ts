@@ -30,10 +30,7 @@ export class ChordGenerator {
             currentGap += gap;
         });
 
-        notesInScale = [
-            ...notesInScale,
-            ...notesInScale.map((e) => e.replace('0', '1'))
-        ];
+        notesInScale = this.replicateScale(notesInScale);
 
         const startingNote = notesInScale[degree - 1];
         currentGap = 0;
@@ -50,7 +47,7 @@ export class ChordGenerator {
             currentGap += gap;
         });
 
-        return notesInScale;
+        return this.replicateScale(notesInScale);
     }
 
     private startScaleFromNote(note: string) {
@@ -69,5 +66,19 @@ export class ChordGenerator {
         const newIndex = index + interval;
         const newOctave = Math.floor(newIndex / allKeys.length) + octave;
         return allKeys[newIndex % allKeys.length] + newOctave;
+    }
+
+    private replicateScale(notes: string[]): string[] {
+        const result = [...notes];
+        let currNotes = [...notes];
+        for (let i = 1; i < 4; i++) {
+            currNotes = currNotes.map((e) => {
+                const n = e.slice(0, -1);
+                const oct = Number(e.slice(-1));
+                return `${n}${oct + 1}`;
+            });
+            result.push(...currNotes);
+        }
+        return result;
     }
 }
