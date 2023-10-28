@@ -1,5 +1,10 @@
 <template>
     <div class="bg-primary-500 h-screen w-screen px-8 py-4 select-none">
+        <StatsComponent
+            v-if="isStatsOn"
+            :data="stats"
+        />
+
         <h1 class="text-4xl mt-8 font-bold text-on-primary-500 text-center">
             Sound Machine
         </h1>
@@ -20,19 +25,26 @@
     </div>
 </template>
 <script setup lang="ts">
-import { watch, watchEffect } from 'vue';
-import { PolySynth, Synth, start } from 'tone';
+import { reactive, watch, watchEffect } from 'vue';
+import { PolySynth, Synth, Transport, start } from 'tone';
 import InstrumentSelector from '@/primary/components/InstrumentSelector.vue';
 import { useInstrumentStore } from '@/primary/infrastructure/store/InstrumentStore';
 import DegreeSelector from '@/primary/components/DegreeSelector.vue';
 import { useNotesStore } from '@/primary/infrastructure/store/NotesStore';
 import { MajorScale } from '@/domain/MajorScale';
 import { makeChord } from '@/secondary/utils/chordMaker';
-import TonalCenterSelector from './components/TonalCenterSelector.vue';
+import TonalCenterSelector from '@/primary/components/TonalCenterSelector.vue';
 import { keysPreset, bassPreset, synthPreset } from '@/data/presets';
+import StatsComponent from '@/primary/components/molecules/StatsComponent.vue';
 
 const instrumentStore = useInstrumentStore();
 const notesStore = useNotesStore();
+
+const isStatsOn = import.meta.env.DEV;
+const stats = reactive<Record<string, unknown>>({
+    bpm: Transport.bpm.value,
+    time: 0
+});
 
 const keys = new PolySynth().toDestination();
 const bass = new Synth().toDestination();
