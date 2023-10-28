@@ -11,17 +11,17 @@
 
 ## How to use it
 
-On its first verion, **Sound Machine** has three main sections:
+On its first version, **Sound Machine** has three main sections:
 
 ### Chords
 <img width="611" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/f50dc764-6c1d-41b3-b1be-5a4e04a7396f">
 
-To play any sound, simply press the keys from `1` to `8` on your keyboard. Each of them represent the **degrees** of the scale.
+To play any sound, simply press the keys from `1` to `8` on your keyboard. Each of them represents one **degree** of the scale.
 
-### The main key
+### The Main Note
 <img width="529" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/9da35167-8b18-4981-a0e7-3aed6ebdbb70">
 
-The main key tells which note the chords start from. To change the main note you can simply click on each circle button or press the letter keys on your keyboard, as they were the shape of a tiny piano. Here is the full key map:
+The main note tells which note the chords start from. It's the note of the 1st chord, A.K.A. the **Tonal Center**. To change the tonal center you can simply click on each circle button or press the letter keys on your keyboard, as they were the shape of a tiny piano. Here is the full key map:
 
 | Keyboard key    | Note |
 | -------- | ------- |
@@ -39,10 +39,10 @@ The main key tells which note the chords start from. To change the main note you
 |j| B|
 
 ### Instruments
-<img width="109" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/1a178bf9-00be-4c1a-a7aa-667eec04638c">
+<img width="290" alt="image" src="https://github.com/bvinicius/sound-machine/assets/48422883/878425bf-4ad3-451a-833c-88c8586835b2">
 
-To make it interesing, **Sound Machine** has currently 3 instruments that can play the chords simultaneously. Again, just click on each instrument you want to enable/disable or use the keys `v`, `b` and `n` to toggle the Keys, the Bass and the Synth, respectively.
+To make it interesing, **Sound Machine** has currently 3 instruments that can play the chords simultaneously. Again, just click on each instrument you want to enable/disable or press the keys `v`, `b` and `n` to toggle the Keys, the Bass and the Synth, respectively.
 
 ## Demo
 
-Now that you know how this chord maker works, you're ready to try it out <a href="https://sound-machine.vercel.app/">here</a> :)
+Now that you know how **Sound Machine** works, you're ready to try it out <a href="https://sound-machine.vercel.app/">here</a> :)
