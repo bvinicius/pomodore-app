@@ -1,11 +1,11 @@
 import { allKeys } from '@/secondary/utils/music-theory';
+import { ScaleType } from './ScaleType';
 
-export class MajorScale {
-    private scaleBehavior = [2, 2, 1, 2, 2, 2, 1];
+export class ChordGenerator {
     private relevantIntervals = [1, 3, 5, 7];
 
-    getNotes(root: string, degree: number): string[] {
-        const notesInScale = this.getNotesInScale(root, degree);
+    getNotes(root: string, degree: number, scaleType: ScaleType): string[] {
+        const notesInScale = this.getNotesInScale(root, degree, scaleType);
 
         const chord = this.relevantIntervals.map((interval) => {
             return notesInScale[interval - 1];
@@ -14,12 +14,18 @@ export class MajorScale {
         return chord;
     }
 
-    private getNotesInScale(root: string, degree: number): string[] {
+    private getNotesInScale(
+        root: string,
+        degree: number,
+        scaleType: ScaleType
+    ): string[] {
         const chromaticScale = this.startScaleFromNote(root);
+        const scaleBehavior = scaleType.split('').map(Number);
+
         let notesInScale: string[] = [];
 
         let currentGap = 0;
-        this.scaleBehavior.forEach((gap) => {
+        scaleBehavior.forEach((gap) => {
             notesInScale.push(chromaticScale[currentGap]);
             currentGap += gap;
         });
@@ -29,8 +35,8 @@ export class MajorScale {
         notesInScale = [];
 
         const behaviorDegree = [
-            ...this.scaleBehavior.slice(degree - 1),
-            ...this.scaleBehavior.slice(0, degree - 1)
+            ...scaleBehavior.slice(degree - 1),
+            ...scaleBehavior.slice(0, degree - 1)
         ];
 
         behaviorDegree.forEach((gap) => {

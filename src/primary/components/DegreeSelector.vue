@@ -22,6 +22,11 @@
 <script setup lang="ts">
 import { useNotesStore } from '@/primary/infrastructure/store/NotesStore';
 import ToggleButton from '@/primary/components/atoms/ToggleButton.vue';
+import { ScaleType } from '@/domain/ScaleType';
+
+defineProps<{
+    scale: ScaleType;
+}>();
 
 const notesStore = useNotesStore();
 

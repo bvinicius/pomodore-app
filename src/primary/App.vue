@@ -16,7 +16,7 @@
                 class="flex flex-col gap-16 lg:gap-8 items-center justify-evenly"
             >
                 <TonalCenterSelector />
-                <DegreeSelector />
+                <DegreeSelector :scale="notesStore.scale" />
             </div>
             <div class="flex flex-col justify-evenly items-center">
                 <InstrumentSelector />
@@ -32,7 +32,7 @@ import InstrumentSelector from '@/primary/components/InstrumentSelector.vue';
 import { useInstrumentStore } from '@/primary/infrastructure/store/InstrumentStore';
 import DegreeSelector from '@/primary/components/DegreeSelector.vue';
 import { useNotesStore } from '@/primary/infrastructure/store/NotesStore';
-import { MajorScale } from '@/domain/MajorScale';
+import { ChordGenerator } from '@/domain/ChordGenerator';
 import { makeChord } from '@/secondary/utils/chordMaker';
 import TonalCenterSelector from '@/primary/components/TonalCenterSelector.vue';
 import { keysPreset, bassPreset, synthPreset } from '@/data/presets';
@@ -41,6 +41,8 @@ import CreditsComponent from '@/primary/components/CreditsComponent.vue';
 
 const instrumentStore = useInstrumentStore();
 const notesStore = useNotesStore();
+
+const chordGenerator = new ChordGenerator();
 
 const isStatsOn = false;
 const stats = reactive<Record<string, unknown>>({
@@ -63,10 +65,10 @@ const trigger = () => {
 
     if (!notesStore.degree) return;
 
-    const majorScale = new MajorScale();
-    const chordNotes = majorScale.getNotes(
+    const chordNotes = chordGenerator.getNotes(
         notesStore.tonalCenter,
-        notesStore.degree
+        notesStore.degree,
+        notesStore.scale
     );
 
     const keyChord = makeChord(chordNotes, 3);

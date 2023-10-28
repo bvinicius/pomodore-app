@@ -1,15 +1,20 @@
 import { describe, expect, test } from 'vitest';
-import { MajorScale } from '@/domain/MajorScale';
+import { ChordGenerator } from '@/domain/ChordGenerator';
 import { majorScaleFixture } from './fixtures/major-fixtures';
+import { ScaleType } from '@/domain/ScaleType';
 
-const majorScale: MajorScale | undefined = new MajorScale();
+const chordGenerator: ChordGenerator | undefined = new ChordGenerator();
 
 describe('testing major scale', () => {
     test.each(majorScaleFixture)(
         'testing $degree degree chord of $root major scale.',
         async ({ root, degree, expected }) => {
             test('should give the correct chords in each degree of the given scale maj scale', async () => {
-                const notes = majorScale?.getNotes(root, degree);
+                const notes = chordGenerator?.getNotes(
+                    root,
+                    degree,
+                    ScaleType.MAJOR
+                );
                 expect(notes).toEqual(expected);
             });
         }
