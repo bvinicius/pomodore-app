@@ -33,7 +33,7 @@ import { useInstrumentStore } from '@/primary/infrastructure/store/InstrumentSto
 import DegreeSelector from '@/primary/components/DegreeSelector.vue';
 import { useNotesStore } from '@/primary/infrastructure/store/NotesStore';
 import { ChordGenerator } from '@/domain/ChordGenerator';
-import { makeChord } from '@/secondary/utils/chordMaker';
+import { makeChord } from '@/secondary/utils/music-utils';
 import TonalCenterSelector from '@/primary/components/TonalCenterSelector.vue';
 import { keysPreset, bassPreset, synthPreset } from '@/data/presets';
 import StatsComponent from '@/primary/components/molecules/StatsComponent.vue';

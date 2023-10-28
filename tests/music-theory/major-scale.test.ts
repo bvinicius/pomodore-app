@@ -8,15 +8,13 @@ const chordGenerator: ChordGenerator | undefined = new ChordGenerator();
 describe('testing major scale', () => {
     test.each(majorScaleFixture)(
         'testing $degree degree chord of $root major scale.',
-        async ({ root, degree, expected }) => {
-            test('should give the correct chords in each degree of the given scale maj scale', async () => {
-                const notes = chordGenerator?.getNotes(
-                    root,
-                    degree,
-                    ScaleType.MAJOR
-                );
-                expect(notes).toEqual(expected);
-            });
+        ({ root, degree, expected }) => {
+            const notes = chordGenerator?.getNotes(
+                root,
+                degree,
+                ScaleType.MAJOR
+            );
+            expect(notes).toEqual(expected);
         }
     );
 });

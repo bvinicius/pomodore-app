@@ -23,8 +23,9 @@
 import { useNotesStore } from '@/primary/infrastructure/store/NotesStore';
 import ToggleButton from '@/primary/components/atoms/ToggleButton.vue';
 import { ScaleType } from '@/domain/ScaleType';
+import { isDegreeMinor } from '@/secondary/utils/music-utils';
 
-defineProps<{
+const props = defineProps<{
     scale: ScaleType;
 }>();
 
@@ -32,7 +33,13 @@ const notesStore = useNotesStore();
 
 const eventKeys = [1, 2, 3, 4, 5, 6, 7];
 
-const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
+const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'].map(
+    (n, index) => (isDegreeMinor(index + 1, props.scale) ? n.toLowerCase() : n)
+);
+
+eventKeys.forEach((e) => {
+    console.log(e, isDegreeMinor(e, props.scale));
+});
 
 document.addEventListener('keydown', (event) => {
     const nKey = Number(event.key);
