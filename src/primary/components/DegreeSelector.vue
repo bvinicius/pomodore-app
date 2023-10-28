@@ -36,10 +36,6 @@ const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'].map(
     (n, index) => (isDegreeMinor(index + 1, props.scale) ? n.toLowerCase() : n)
 );
 
-eventKeys.forEach((e) => {
-    console.log(e, isDegreeMinor(e, props.scale));
-});
-
 document.addEventListener('keydown', (event) => {
     const nKey = Number(event.key);
 
