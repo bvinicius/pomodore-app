@@ -15,5 +15,14 @@ export const useNotesStore = defineStore('notes', {
         scale: ScaleType.MAJOR,
         tonalCenter: 'C'
     }),
+    actions: {
+        toggleExtension(ext: number) {
+            this.intervals.includes(ext)
+                ? this.intervals.splice(this.intervals.indexOf(ext), 1)
+                : this.intervals.push(ext);
+
+            this.intervals.sort();
+        }
+    },
     persist: true
 });

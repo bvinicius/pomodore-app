@@ -16,7 +16,11 @@
                 class="flex flex-col gap-16 lg:gap-8 items-center justify-evenly"
             >
                 <TonalCenterSelector />
-                <DegreeSelector :scale="notesStore.scale" />
+
+                <div class="flex flex-col gap-2">
+                    <DegreeSelector :scale="notesStore.scale" />
+                    <ChordExtensionSelector />
+                </div>
             </div>
             <div class="flex flex-col justify-evenly items-center">
                 <InstrumentSelector />
@@ -38,6 +42,7 @@ import TonalCenterSelector from '@/primary/components/TonalCenterSelector.vue';
 import { keysPreset, bassPreset, synthPreset } from '@/data/presets';
 import StatsComponent from '@/primary/components/molecules/StatsComponent.vue';
 import CreditsComponent from '@/primary/components/CreditsComponent.vue';
+import ChordExtensionSelector from '@/primary/components/ChordExtensionSelector.vue';
 
 const instrumentStore = useInstrumentStore();
 const notesStore = useNotesStore();

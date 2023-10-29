@@ -4,7 +4,7 @@
         :class="[
             checked
                 ? 'bg-primary-container-400 drop-shadow-primary-active border border-primary-container-500'
-                : 'bg-primary-container-500 drop-shadow-primary'
+                : 'bg-primary-container-500 drop-shadow-primary border'
         ]"
         @click="onClick"
     >
