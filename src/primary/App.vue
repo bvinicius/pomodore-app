@@ -68,7 +68,8 @@ const trigger = () => {
     const chordNotes = chordGenerator.getNotes(
         notesStore.tonalCenter,
         notesStore.degree,
-        notesStore.scale
+        notesStore.scale,
+        notesStore.intervals
     );
 
     const keyChord = makeChord(chordNotes, 3);

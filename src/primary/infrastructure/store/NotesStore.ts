@@ -2,16 +2,18 @@ import { ScaleType } from '@/domain/ScaleType';
 import { defineStore } from 'pinia';
 
 interface NotesState {
+    degree?: number;
+    intervals: number[];
     scale: ScaleType;
     tonalCenter: string;
-    degree?: number;
 }
 
 export const useNotesStore = defineStore('notes', {
     state: (): NotesState => ({
-        tonalCenter: 'C',
         degree: undefined,
-        scale: ScaleType.MAJOR
+        intervals: [1, 3, 5, 7],
+        scale: ScaleType.MAJOR,
+        tonalCenter: 'C'
     }),
     persist: true
 });

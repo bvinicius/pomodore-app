@@ -2,12 +2,15 @@ import { allKeys } from '@/secondary/utils/music-theory';
 import { ScaleType } from './ScaleType';
 
 export class ChordGenerator {
-    private relevantIntervals = [1, 3, 5, 7];
-
-    getNotes(root: string, degree: number, scaleType: ScaleType): string[] {
+    getNotes(
+        root: string,
+        degree: number,
+        scaleType: ScaleType,
+        relevantIntervals: number[]
+    ): string[] {
         const notesInScale = this.getNotesInScale(root, degree, scaleType);
 
-        const chord = this.relevantIntervals.map((interval) => {
+        const chord = relevantIntervals.map((interval) => {
             return notesInScale[interval - 1];
         });
 
