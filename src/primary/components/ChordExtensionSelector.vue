@@ -1,11 +1,11 @@
 <template>
     <div class="flex">
         <ToggleButton
-            v-for="ext in extensions"
+            v-for="ext in CHORD_EXTENSIONS"
             :key="ext"
-            :checked="notesStore.intervals.includes(ext)"
+            :checked="notesStore.intervals.includes(toNumber(ext))"
             class="py-2 px-4 rounded-sm text-white"
-            @click="notesStore.toggleExtension(ext)"
+            @click="notesStore.toggleExtension(toNumber(ext))"
         >
             {{ ext }}
         </ToggleButton>
@@ -16,7 +16,9 @@
 import { useNotesStore } from '../infrastructure/store/NotesStore';
 import ToggleButton from './atoms/ToggleButton.vue';
 
+const CHORD_EXTENSIONS = ['1st', '3rd', '5th', '7th', '9th'];
+
 const notesStore = useNotesStore();
 
-const extensions = [1, 3, 5, 7, 9];
+const toNumber = (extension: string) => Number(extension.slice(0, -2));
 </script>
