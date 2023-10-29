@@ -55,6 +55,7 @@ document.addEventListener('keypress', (event) => {
     const key = event.key.toLowerCase();
     if (!(key in eventKeys)) return;
 
+    notesStore.tonalCenter = '';
     notesStore.tonalCenter = eventKeys[key as keyof typeof eventKeys];
 });
 </script>

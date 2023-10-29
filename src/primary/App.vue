@@ -107,18 +107,7 @@ watch(
     }
 );
 
-watch(
-    () => notesStore.tonalCenter,
-    () => {
-        trigger();
-    }
-);
+watch(() => notesStore.tonalCenter, trigger, { deep: true });
 
-watch(
-    () => notesStore.intervals,
-    () => {
-        trigger();
-    },
-    { deep: true }
-);
+watch(() => notesStore.intervals, trigger, { deep: true });
 </script>
