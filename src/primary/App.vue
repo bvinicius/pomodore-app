@@ -113,4 +113,12 @@ watch(
         trigger();
     }
 );
+
+watch(
+    () => notesStore.intervals,
+    () => {
+        trigger();
+    },
+    { deep: true }
+);
 </script>
