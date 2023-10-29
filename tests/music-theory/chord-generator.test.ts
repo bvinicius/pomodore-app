@@ -12,7 +12,8 @@ describe('testing major scale', () => {
             const notes = chordGenerator?.getNotes(
                 root,
                 degree,
-                ScaleType.MAJOR
+                ScaleType.MAJOR,
+                [1, 3, 5, 7]
             );
             expect(notes).toEqual(expected);
         }

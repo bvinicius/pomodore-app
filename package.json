@@ -3,14 +3,14 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "build": "run-p type-check build-only",
+        "build": "run-p type-check build-only test",
         "build-only": "vite build",
         "coverage": "vitest run --coverage",
         "dev": "vite",
         "format": "prettier --write src/",
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
         "preview": "vite preview",
-        "test": "vitest",
+        "test": "vitest --watch false",
         "type-check": "vue-tsc --noEmit -p tsconfig.json --composite false"
     },
     "dependencies": {
