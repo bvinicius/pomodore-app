@@ -18,5 +18,5 @@ import ToggleButton from './atoms/ToggleButton.vue';
 
 const notesStore = useNotesStore();
 
-const extensions = [1, 3, 5, 7];
+const extensions = [1, 3, 5, 7, 9];
 </script>
