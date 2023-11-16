@@ -52,6 +52,8 @@ const naturalNotes = allKeys.filter((key) => !key.includes('#'));
 const sharpNotes = allKeys.filter((key) => key.includes('#'));
 
 document.addEventListener('keypress', (event) => {
+    if (event.repeat) return;
+
     const key = event.key.toLowerCase();
     if (!(key in eventKeys)) return;
 
