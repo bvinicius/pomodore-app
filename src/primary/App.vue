@@ -92,6 +92,8 @@ const releaseAll = () => {
     synth.releaseAll();
 };
 
+window.onblur = releaseAll;
+
 watchEffect(() => {
     keys.set({ volume: instrumentStore.keys ? keysPreset.volume : -Infinity });
     bass.set({ volume: instrumentStore.bass ? bassPreset.volume : -Infinity });
