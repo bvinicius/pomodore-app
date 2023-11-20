@@ -3,23 +3,24 @@ module.exports = {
     content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
     theme: {
         fontFamily: {
-            sans: ['Karla', 'sans-serif']
+            sans: ['Montserrat', 'sans-serif']
         },
         extend: {
             fontSize: {
-                '4xl': '2.375rem'
+                '4xl': '2.375rem',
+                '6xl': '3.562rem'
             },
             colors: {
                 primary: {
-                    500: '#A0B4E8'
+                    400: '#41A3CD',
+                    500: '#4B8AA5'
                 },
-                'on-primary': {
-                    400: '#F5F5F5',
-                    500: '#D9D9D9'
+                'on-container': {
+                    400: '#919191'
                 },
                 'primary-container': {
-                    400: '#F5F5F5',
-                    500: '#D9D9D9'
+                    400: '#323240',
+                    500: '#222230'
                 }
             },
             spacing: {
