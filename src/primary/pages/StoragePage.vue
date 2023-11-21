@@ -11,7 +11,7 @@
             @drop.prevent.stop="upload($event)"
         >
             <h1 class="text-primary-400 text-6xl font-bold">
-                Drop the low pressure songs here...
+                Drop the songs here...
             </h1>
         </div>
         <div
@@ -36,19 +36,44 @@
             </ul>
         </div>
     </section>
+    <h1
+        v-if="currentlyPlayingSong"
+        class="flex items-end text-2xl text-gray-400"
+    >
+        Now playing: {{ currentlyPlayingSong }}
+    </h1>
+    <ThePlayer
+        :play-button="isPlaying"
+        :player-progress="playerProgress"
+        :time-of-the-song="timeOfTheSong"
+        :time-to-end="timeToEnd"
+        @skip-back="previousTrack"
+        @play-pause="togglePlay"
+        @skip-forward="nextTrack"
+    />
 </template>
 
 <script lang="ts">
 import firebase from '@/includes/firebase';
+import ThePlayer from '@/primary/components/ThePlayer.vue';
 import { Howl } from 'howler';
 export default {
     name: 'StoragePage',
+    components: {
+        ThePlayer
+    },
     data() {
         return {
             is_dragover: false,
             songs: [],
             sound: null || '',
-            isSongPlaying: false
+            isSongPlaying: false,
+            currentSongIndex: 0,
+            currentlyPlayingSong: '',
+            playerProgress: '0%',
+            timeOfTheSong: '',
+            timeToEnd: '',
+            isPlaying: false
         };
     },
 
@@ -59,6 +84,9 @@ export default {
                 this.songs.push(file);
             });
         });
+        setInterval(() => {
+            this.progress();
+        }, 1000);
     },
 
     methods: {
@@ -82,6 +110,9 @@ export default {
             });
         },
         playSong(song) {
+            this.currentSongIndex = this.songs.indexOf(song);
+            this.currentlyPlayingSong = song.name;
+
             const storageRef = firebase.storage().ref();
             storageRef
                 .child(song.name)
@@ -93,10 +124,54 @@ export default {
                             html5: true
                         });
                         this.sound.play();
+                        this.isPlaying = true;
                     } else {
                         this.sound.pause();
+                        this.isPlaying = false;
                     }
                 });
+        },
+        togglePlay() {
+            if (this.sound) {
+                if (this.sound.playing()) {
+                    this.sound.pause();
+                    this.isPlaying = false;
+                } else {
+                    this.sound.play();
+                    this.isPlaying = true;
+                }
+            }
+        },
+        async previousTrack() {
+            if (this.currentSongIndex > 0) {
+                this.sound.pause();
+                this.playSong(this.songs[this.currentSongIndex - 1]);
+            } else {
+                this.sound.pause();
+                this.playSong(this.songs[this.songs.length - 1]);
+            }
+        },
+        async nextTrack() {
+            if (this.currentSongIndex < this.songs.length - 1) {
+                this.sound.pause();
+                this.playSong(this.songs[this.currentSongIndex + 1]);
+            } else {
+                this.sound.pause();
+                this.playSong(this.songs[0]);
+            }
+        },
+        progress() {
+            this.timeToEnd = `${Math.floor(
+                this.sound.duration() / 60
+            )}:${Math.floor(this.sound.duration() % 60)}`;
+            this.timeOfTheSong = `${Math.floor(
+                this.sound.seek() / 60
+            )}:${Math.floor(this.sound.seek() % 60)
+                .toString()
+                .padStart(2, '0')}`;
+            this.playerProgress = `${
+                (this.sound.seek() / this.sound.duration()) * 100
+            }%`;
         }
     }
 };
