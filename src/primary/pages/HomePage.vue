@@ -3,6 +3,18 @@
         Nasty Funk Pomodore
     </h1>
 
+    <p class="text-xl text-center text-primary-400">
+        {{ currentSession }}
+    </p>
+
+    <button
+        v-if="isSessionOver"
+        class="bg-primary-container-400 text-primary-500 font-bold rounded-md px-4 py-2"
+        @click="nextSession"
+    >
+        Next session
+    </button>
+
     <div class="flex gap-3">
         <input
             v-model="pomodore.workSessionLength"
@@ -10,14 +22,9 @@
             placeholder="Work session"
         />
         <input
-            v-model="pomodore.chillSessionLength"
+            v-model="pomodore.breakSessionLength"
             type="number"
             placeholder="Chill session"
-        />
-        <input
-            v-model="pomodore.sessions"
-            type="number"
-            placeholder="Sessions"
         />
     </div>
 
@@ -31,24 +38,46 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { Pomodore } from '@/domain/Pomodore';
-import { PomodoreRunner } from '@/secondary/PomodoreRunner';
-import { formatTime } from '@/secondary/utils/date-utils';
+import { PomoSettings, PomoSessionType } from '@/domain/Pomodore';
+import { PomoRunner } from '@/secondary/PomodoreRunner';
+import { toMinuteFormat } from '@/secondary/utils/date-utils';
+import { usePomoStore } from '../infrastructure/store/pomoStore';
 
-const pomodore = reactive<Pomodore>({
-    workSessionLength: 25,
-    chillSessionLength: 5,
-    sessions: 3
+const pomoStore = usePomoStore();
+
+const pomodore = reactive<PomoSettings>({
+    workSessionLength: pomoStore.workSession || 1,
+    breakSessionLength: pomoStore.breakSession || 1,
+    sessions: pomoStore.pomodore?.sessions || 1
 });
 
-const runner = ref<PomodoreRunner>();
+const currentSession = ref<PomoSessionType>();
+const isSessionOver = ref(false);
+
+const runner = ref<PomoRunner>();
 
 const start = () => {
-    runner.value = new PomodoreRunner(pomodore);
-    runner.value.start();
+    runner.value = new PomoRunner(pomodore);
 
-    setInterval(() => {
-        runner.value && console.log(formatTime(runner.value.timeLeft));
-    }, 1000);
+    runner.value.onSessionStart((session) => {
+        console.log('session start', session);
+        currentSession.value = session;
+        isSessionOver.value = false;
+    });
+
+    runner.value.onTick((secondsLeft) => {
+        console.log('tick', toMinuteFormat(secondsLeft));
+    });
+
+    runner.value.onSessionEnd((session) => {
+        console.log('session end', session);
+        isSessionOver.value = true;
+    });
+
+    runner.value.startNextSession();
+};
+
+const nextSession = () => {
+    runner.value?.startNextSession();
 };
 </script>

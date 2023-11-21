@@ -1,5 +1,15 @@
-export interface Pomodore {
+export interface PomoSettings {
     workSessionLength: number;
-    chillSessionLength: number;
+    breakSessionLength: number;
     sessions: number;
+}
+
+export interface PomoSession {
+    type: PomoSessionType;
+    minutes: number;
+}
+
+export enum PomoSessionType {
+    WORK = 'WORK',
+    BREAK = 'BREAK'
 }
