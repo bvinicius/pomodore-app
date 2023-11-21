@@ -6,7 +6,7 @@ import PhosphorIcons from '@phosphor-icons/vue';
 
 import '@/primary/index.css';
 import router from '@/primary/infrastructure/router';
-
+import '../includes/firebase';
 const app = createApp(App);
 app.use(router);
 
