@@ -8,9 +8,10 @@ enum PomoRunnerEvent {
 }
 
 export class PomoRunner {
-    private currentSession?: PomoSessionType;
-
     private readonly eventEmitter = new EventEmitter();
+    private currentSession?: PomoSessionType;
+    private _isPaused = false;
+    private _started = false;
 
     constructor(private pomodore: PomoSettings) {}
 
@@ -23,9 +24,12 @@ export class PomoRunner {
             : this.pomodore.breakSessionLength;
     }
 
-    startNextSession() {
-        this.skipSession();
-        this.startSessionCountdown();
+    get isPaused() {
+        return this._isPaused;
+    }
+
+    get started() {
+        return this._started;
     }
 
     onSessionStart(cb: (session: PomoSessionType) => void) {
@@ -38,6 +42,20 @@ export class PomoRunner {
 
     onTick(cb: (secondsLeft: number) => void) {
         this.eventEmitter.on(PomoRunnerEvent.TICK, cb);
+    }
+
+    pause() {
+        this._isPaused = true;
+    }
+
+    resume() {
+        this._isPaused = false;
+    }
+
+    startNextSession() {
+        this._started = true;
+        this.skipSession();
+        this.startSessionCountdown();
     }
 
     private skipSession() {
@@ -55,9 +73,12 @@ export class PomoRunner {
     private startSessionCountdown() {
         this.emitSessionStart();
 
+        const sessionLengthSeconds = this.currentSessionLength * 60;
+        this.emitTick(sessionLengthSeconds);
+
         let secondsPassed = 0;
         const interval = setInterval(() => {
-            const sessionLengthSeconds = this.currentSessionLength * 60;
+            if (this._isPaused) return;
 
             secondsPassed++;
 

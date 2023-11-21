@@ -1,5 +1,5 @@
-import { PomoSettings } from '@/domain/Pomodore';
 import { defineStore } from 'pinia';
+import { PomoSettings } from '@/domain/Pomodore';
 
 export const usePomoStore = defineStore('pomodore', {
     state: (): { pomodore?: PomoSettings } => ({
