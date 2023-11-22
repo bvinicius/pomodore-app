@@ -61,7 +61,6 @@ export default {
         }
     },
     emits: ['play-pause', 'skip-back', 'skip-forward'],
-
     methods: {
         handlePlayPauseClick() {
             this.$emit('play-pause');
