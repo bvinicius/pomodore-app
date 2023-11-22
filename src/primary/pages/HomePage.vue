@@ -12,16 +12,12 @@
     </button>
 
     <div class="flex gap-3">
-        <input
-            v-model="pomodore.workSessionLength"
-            type="number"
-            placeholder="Work session"
-        />
-        <input
-            v-model="pomodore.breakSessionLength"
-            type="number"
-            placeholder="Chill session"
-        />
+        <PomoInputContainer>
+            <PomoInput
+                type="number"
+                class="w-full py-4 font-bold text-4xl !text-primary-500 text-center"
+            />
+        </PomoInputContainer>
     </div>
 
     <button
@@ -56,6 +52,8 @@ import { PomoSettings, PomoSessionType } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
 import { toMinuteFormat } from '@/secondary/utils/date-utils';
+import PomoInput from '../components/atoms/PomoInput.vue';
+import PomoInputContainer from '../components/molecules/PomoInputContainer.vue';
 
 const pomoStore = usePomoStore();
 
