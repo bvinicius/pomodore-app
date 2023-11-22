@@ -50,10 +50,10 @@
 import { reactive, ref } from 'vue';
 import { PomoSettings, PomoSessionType } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
+import PomoInput from '@/primary/components/atoms/PomoInput.vue';
+import PomoInputContainer from '@/primary/components/molecules/PomoInputContainer.vue';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
 import { toMinuteFormat } from '@/secondary/utils/date-utils';
-import PomoInput from '../components/atoms/PomoInput.vue';
-import PomoInputContainer from '../components/molecules/PomoInputContainer.vue';
 
 const pomoStore = usePomoStore();
 
