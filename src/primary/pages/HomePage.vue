@@ -11,13 +11,15 @@
         Next session
     </button>
 
-    <div class="flex gap-3">
-        <PomoInputContainer>
-            <PomoInput
-                type="number"
-                class="w-full py-4 font-bold text-4xl !text-primary-500 text-center"
-            />
-        </PomoInputContainer>
+    <div class="flex justify-center gap-12 py-12">
+        <PomoSessionInput
+            v-model="pomodore.workSessionLength"
+            hint="min"
+        />
+        <PomoSessionInput
+            v-model="pomodore.breakSessionLength"
+            hint="min"
+        />
     </div>
 
     <button
@@ -50,10 +52,9 @@
 import { reactive, ref } from 'vue';
 import { PomoSettings, PomoSessionType } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
-import PomoInput from '@/primary/components/atoms/PomoInput.vue';
-import PomoInputContainer from '@/primary/components/molecules/PomoInputContainer.vue';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
 import { toMinuteFormat } from '@/secondary/utils/date-utils';
+import PomoSessionInput from '../components/molecules/PomoSessionInput.vue';
 
 const pomoStore = usePomoStore();
 
