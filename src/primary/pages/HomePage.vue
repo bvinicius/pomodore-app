@@ -27,9 +27,9 @@ import { Ref, inject, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { PomoSettings } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
+import PomoSessionInput from '@/primary/components/molecules/PomoSessionInput.vue';
 import { RootPage } from '@/primary/infrastructure/router';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
-import PomoSessionInput from '../components/molecules/PomoSessionInput.vue';
 
 const pomoStore = usePomoStore();
 const router = useRouter();

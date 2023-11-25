@@ -3,20 +3,19 @@
         <div class="flex flex-col gap-2">
             <div
                 class="rounded-full bg-primary-container-400 w-8 h-8 text-white font-bold text-center"
-                @click="() => pomoInputWrapper?.stepUp()"
+                @click="stepUp"
             >
                 ^
             </div>
             <div
                 class="rounded-full bg-primary-container-400 w-8 h-8 text-white font-bold text-center rotate-180"
-                @click="() => pomoInputWrapper?.stepDown()"
+                @click="stepDown"
             >
                 ^
             </div>
         </div>
         <div class="w-32 relative">
             <PomoInput
-                ref="pomoInputWrapper"
                 v-model="vModel"
                 type="number"
                 class="w-full py-3 font-semibold text-6xl !text-primary-500 text-center rounded-xl pb-6 pomp-input spin-buttons-none"
@@ -32,10 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import PomoInput, {
-    PomoInputWrapper
-} from '@/primary/components/atoms/PomoInput.vue';
+import { computed } from 'vue';
+import PomoInput from '@/primary/components/atoms/PomoInput.vue';
 
 const props = defineProps<{
     modelValue?: number;
@@ -46,8 +43,6 @@ const emit = defineEmits<{
     (e: 'update:model-value', v: number | undefined): void;
 }>();
 
-const pomoInputWrapper = ref<PomoInputWrapper | null>(null);
-
 const vModel = computed<number | undefined>({
     get() {
         return props.modelValue;
@@ -56,4 +51,20 @@ const vModel = computed<number | undefined>({
         emit('update:model-value', v);
     }
 });
+
+const stepUp = () => {
+    if (!vModel.value) {
+        vModel.value = 0;
+    }
+
+    vModel.value++;
+};
+
+const stepDown = () => {
+    if (!vModel.value) {
+        vModel.value = 0;
+    }
+
+    vModel.value--;
+};
 </script>

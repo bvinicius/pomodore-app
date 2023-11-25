@@ -8,12 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { ComponentPublicInstance, computed, ref } from 'vue';
-
-export interface PomoInputWrapper extends ComponentPublicInstance {
-    stepUp: () => void;
-    stepDown: () => void;
-}
+import { computed, ref } from 'vue';
 
 const props = defineProps<{ modelValue?: unknown }>();
 
@@ -30,10 +25,5 @@ const vModel = computed({
     set(v: unknown) {
         emit('update:model-value', v);
     }
-});
-
-defineExpose({
-    stepUp: () => input.value?.stepUp(),
-    stepDown: () => input.value?.stepDown()
 });
 </script>
