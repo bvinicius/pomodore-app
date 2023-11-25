@@ -7,7 +7,13 @@
 <script setup lang="ts">
 import { provide, ref } from 'vue';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
+import { usePomoStore } from './infrastructure/store/pomoStore';
 
-const runner = ref<PomoRunner>();
+const pomoStore = usePomoStore();
+
+const runner = pomoStore.settings
+    ? ref<PomoRunner>(new PomoRunner(pomoStore.settings))
+    : ref<PomoRunner>();
+
 provide('runner', runner);
 </script>
