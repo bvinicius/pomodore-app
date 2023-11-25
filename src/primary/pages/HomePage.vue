@@ -5,11 +5,11 @@
 
     <div class="flex justify-center gap-12 py-12">
         <PomoSessionInput
-            v-model="pomodore.workSessionLength"
+            v-model="pomoStore.settings.workSessionLength"
             hint="min"
         />
         <PomoSessionInput
-            v-model="pomodore.breakSessionLength"
+            v-model="pomoStore.settings.breakSessionLength"
             hint="min"
         />
     </div>

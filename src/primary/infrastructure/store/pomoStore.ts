@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { PomoSessionType, PomoSettings } from '@/domain/Pomodore';
 
 interface PomoState {
-    settings?: PomoSettings;
+    settings: PomoSettings;
     session: Partial<{
         current: PomoSessionType;
         timeLeft: string;
@@ -23,5 +23,6 @@ export const usePomoStore = defineStore('pomodore', {
         workSession: (state) => state.settings?.workSessionLength,
         breakSession: (state) => state.settings?.breakSessionLength,
         sessions: (state) => state.settings?.sessions
-    }
+    },
+    persist: true
 });
