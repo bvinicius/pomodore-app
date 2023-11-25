@@ -38,6 +38,15 @@ module.exports = {
             dropShadow: {
                 primary: '0px 2px 2px rgba(0, 0, 0, 0.25)',
                 'primary-active': '0px 0px 6px #F5F5F5'
+            },
+            animation: {
+                fade: 'fade 0.3s ease-in-out'
+            },
+            keyframes: {
+                fade: {
+                    '0%': { opacity: 0 },
+                    '100%': { opacity: 1 }
+                }
             }
         }
     },

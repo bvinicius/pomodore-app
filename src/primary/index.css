@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer base {
+    body {
+        @apply text-on-container-300;
+    }
+
     .spin-buttons-none {
         -webkit-appearance: textfield;
         -moz-appearance: textfield;

@@ -1,13 +1,17 @@
 <template>
-    <div class="w-screen h-screen bg-primary-container-500 px-24 py-12">
-        <router-view></router-view>
+    <div
+        class="w-screen h-screen bg-primary-container-500 px-12 py-8 md:px-24 md:py-12"
+    >
+        <div class="animate-fade">
+            <router-view> </router-view>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { provide, ref } from 'vue';
+import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
-import { usePomoStore } from './infrastructure/store/pomoStore';
 
 const pomoStore = usePomoStore();
 

@@ -1,25 +1,32 @@
 <template>
-    <h1 class="text-6xl text-center font-semibold text-primary-400">
-        Nasty Funk Pomodore
-    </h1>
+    <div class="flex flex-col justify-center">
+        <h1
+            class="text-4xl md:text-6xl text-center font-semibold text-primary-400 select-none"
+        >
+            Pomodore
+        </h1>
 
-    <div class="flex justify-center gap-12 py-12">
-        <PomoSessionInput
-            v-model="pomoStore.settings.workSessionLength"
-            hint="min"
-        />
-        <PomoSessionInput
-            v-model="pomoStore.settings.breakSessionLength"
-            hint="min"
-        />
+        <p class="text-center">Please configure your pomodore as you wish.</p>
+
+        <div
+            class="flex flex-col md:flex-row justify-center items-center gap-12 md:gap-24 py-12"
+        >
+            <PomoSessionInput
+                v-model="pomoStore.settings.workSessionLength"
+                label="Work session"
+                hint="min"
+            />
+            <PomoSessionInput
+                v-model="pomoStore.settings.breakSessionLength"
+                label="Break session"
+                hint="min"
+            />
+        </div>
+
+        <div class="flex justify-center">
+            <PomoButton @click="startSession"> Start </PomoButton>
+        </div>
     </div>
-
-    <button
-        class="bg-primary-container-400 text-primary-500 font-bold rounded-md px-4 py-2"
-        @click="startSession"
-    >
-        Start
-    </button>
 </template>
 
 <script setup lang="ts">
@@ -29,6 +36,7 @@ import { PomoSettings } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionInput from '@/primary/components/molecules/PomoSessionInput.vue';
 import { RootPage } from '@/primary/infrastructure/router';
+import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
 
 const pomoStore = usePomoStore();
