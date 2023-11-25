@@ -32,16 +32,21 @@ export class PomoRunner {
         return this._started;
     }
 
-    onSessionStart(cb: (session: PomoSessionType) => void) {
-        this.eventEmitter.on(PomoRunnerEvent.SESSION_START, cb);
+    onSessionStart(callback: (session: PomoSessionType) => void) {
+        this.eventEmitter.on(PomoRunnerEvent.SESSION_START, callback);
+        return () =>
+            this.eventEmitter.off(PomoRunnerEvent.SESSION_START, callback);
     }
 
-    onSessionEnd(cb: (endedSession: PomoSessionType) => void) {
-        this.eventEmitter.on(PomoRunnerEvent.SESSION_END, cb);
+    onSessionEnd(callback: (endedSession: PomoSessionType) => void) {
+        this.eventEmitter.on(PomoRunnerEvent.SESSION_END, callback);
+        return () =>
+            this.eventEmitter.off(PomoRunnerEvent.SESSION_END, callback);
     }
 
-    onTick(cb: (secondsLeft: number) => void) {
-        this.eventEmitter.on(PomoRunnerEvent.TICK, cb);
+    onTick(callback: (secondsLeft: number) => void) {
+        this.eventEmitter.on(PomoRunnerEvent.TICK, callback);
+        return () => this.eventEmitter.on(PomoRunnerEvent.TICK, callback);
     }
 
     pause() {

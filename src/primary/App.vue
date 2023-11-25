@@ -4,4 +4,10 @@
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { provide, ref } from 'vue';
+import { PomoRunner } from '@/secondary/PomodoreRunner';
+
+const runner = ref<PomoRunner>();
+provide('runner', runner);
+</script>
