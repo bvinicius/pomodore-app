@@ -3,3 +3,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    .spin-buttons-none {
+        -webkit-appearance: textfield;
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+
+    .spin-buttons-none::-webkit-inner-spin-button,
+    .spin-buttons-none::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+}

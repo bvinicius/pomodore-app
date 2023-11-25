@@ -3,16 +3,14 @@
         Nasty Funk Pomodore
     </h1>
 
-    <div class="flex gap-3">
-        <input
+    <div class="flex justify-center gap-12 py-12">
+        <PomoSessionInput
             v-model="pomodore.workSessionLength"
-            type="number"
-            placeholder="Work session"
+            hint="min"
         />
-        <input
+        <PomoSessionInput
             v-model="pomodore.breakSessionLength"
-            type="number"
-            placeholder="Chill session"
+            hint="min"
         />
     </div>
 
@@ -31,6 +29,7 @@ import { PomoSettings } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { RootPage } from '@/primary/infrastructure/router';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
+import PomoSessionInput from '../components/molecules/PomoSessionInput.vue';
 
 const pomoStore = usePomoStore();
 const router = useRouter();

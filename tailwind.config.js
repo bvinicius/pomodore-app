@@ -16,11 +16,15 @@ module.exports = {
                     500: '#4B8AA5'
                 },
                 'on-container': {
+                    300: '#aaa',
                     400: '#919191'
                 },
                 'primary-container': {
                     400: '#323240',
                     500: '#222230'
+                },
+                gray: {
+                    777: '#777'
                 }
             },
             spacing: {
