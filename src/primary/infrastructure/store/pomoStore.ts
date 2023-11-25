@@ -13,8 +13,8 @@ interface PomoState {
 export const usePomoStore = defineStore('pomodore', {
     state: (): PomoState => ({
         settings: {
-            workSessionLength: 0.1,
-            breakSessionLength: 0.2,
+            workSessionLength: 40,
+            breakSessionLength: 5,
             sessions: 3
         },
         session: {}

@@ -23,7 +23,9 @@
                 </span>
             </div>
         </div>
-        <div class="text-on-container-300 font-semibold text-sm md:text-base">
+        <div
+            class="text-on-container-300 font-semibold text-sm md:text-base select-none"
+        >
             {{ label }}
         </div>
     </div>

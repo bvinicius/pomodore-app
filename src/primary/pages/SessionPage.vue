@@ -63,15 +63,21 @@ const addListeners = () => {
         })
     );
 
-    runner.value.onTick((secondsLeft) => {
-        pomoStore.session.timeLeft = toMinuteFormat(secondsLeft);
-    });
+    subscriptions.value.push(
+        runner.value.onTick((secondsLeft) => {
+            pomoStore.session.timeLeft = toMinuteFormat(secondsLeft);
+        })
+    );
 
-    runner.value.onSessionEnd(() => {
-        pomoStore.session.isOver = true;
-    });
+    subscriptions.value.push(
+        runner.value.onSessionEnd(() => {
+            pomoStore.session.isOver = true;
+        })
+    );
 
-    runner.value.startNextSession();
+    if (!runner.value.started) {
+        runner.value.startNextSession();
+    }
 };
 
 const checkPomodoreRunner = () => {
@@ -85,6 +91,10 @@ onBeforeMount(checkPomodoreRunner);
 onMounted(addListeners);
 
 onBeforeUnmount(() =>
-    subscriptions.value.forEach((unsubscribe) => unsubscribe())
+    subscriptions.value.forEach((unsubscribe) => {
+        console.log(unsubscribe);
+
+        unsubscribe();
+    })
 );
 </script>
