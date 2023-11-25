@@ -24,7 +24,7 @@
         </div>
 
         <div class="flex justify-center">
-            <PomoButton @click="startSession"> Start </PomoButton>
+            <PomoButton @click="startSession"> START </PomoButton>
         </div>
     </div>
 </template>

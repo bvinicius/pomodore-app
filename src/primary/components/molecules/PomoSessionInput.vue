@@ -10,6 +10,7 @@
             </div>
             <div class="w-24 md:w-32 relative">
                 <PomoInput
+                    v-bind="$attrs"
                     v-model="vModel"
                     type="number"
                     class="w-full py-3 font-semibold text-4xl md:text-6xl !text-primary-500 text-center rounded-xl pb-6 pomo-input spin-buttons-none"
@@ -32,6 +33,8 @@
 import { computed } from 'vue';
 import PomoInput from '@/primary/components/atoms/PomoInput.vue';
 import PomoArrowButton from '@/primary/components/atoms/PomoArrowButton.vue';
+
+defineOptions({ inheritAttrs: false });
 
 const props = defineProps<{
     modelValue?: number;
