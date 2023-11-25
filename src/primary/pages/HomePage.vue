@@ -1,5 +1,5 @@
 <template>
-    <h1 class="text-6xl text-center font-bold text-primary-400">
+    <h1 class="text-6xl text-center font-semibold text-primary-400">
         Nasty Funk Pomodore
     </h1>
 
