@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col justify-center gap-6">
+    <div class="flex flex-col justify-center gap-8">
         <h1
-            class="text-4xl md:text-6xl text-center font-semibold text-primary-400 select-none"
+            class="text-4xl sm:text-6xl md:text-8xl text-center font-semibold text-primary-400 select-none"
         >
             Pomodore
         </h1>

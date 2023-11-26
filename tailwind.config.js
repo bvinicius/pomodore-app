@@ -8,7 +8,8 @@ module.exports = {
         extend: {
             fontSize: {
                 '4xl': '2.375rem',
-                '6xl': '3.562rem'
+                '6xl': '3.562rem',
+                '8xl': '4.750rem'
             },
             colors: {
                 primary: {
