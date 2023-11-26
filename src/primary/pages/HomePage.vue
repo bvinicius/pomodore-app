@@ -1,12 +1,12 @@
 <template>
     <div class="flex flex-col justify-center gap-8">
         <h1
-            class="text-4xl sm:text-6xl md:text-8xl text-center font-semibold text-primary-400 select-none"
+            class="text-4xl sm:text-6xl text-center font-semibold text-primary-400 select-none"
         >
             Pomodore
         </h1>
 
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-12">
             <p class="text-center text-xs sm:text-sm md:text-base">
                 Please configure your pomodore as you wish.
             </p>
@@ -27,7 +27,13 @@
         </div>
 
         <div class="flex justify-center mt-24">
-            <PomoButton @click="startSession"> START </PomoButton>
+            <PomoButton
+                class="flex items-center gap-2"
+                @click="startSession"
+            >
+                <PomoIcon name="play_arrow" />
+                <span>START</span>
+            </PomoButton>
         </div>
     </div>
 </template>
@@ -40,6 +46,7 @@ import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionInput from '@/primary/components/molecules/PomoSessionInput.vue';
 import { RootPage } from '@/primary/infrastructure/router';
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
+import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
 
 const pomoStore = usePomoStore();

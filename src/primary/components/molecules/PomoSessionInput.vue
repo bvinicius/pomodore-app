@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col items-center">
         <div class="relatve flex items-center gap-2">
-            <div class="absolute z-50 -translate-x-8 flex flex-col gap-2">
+            <div class="absolute z-50 -translate-x-10 flex flex-col gap-2">
                 <PomoArrowButton @click="stepUp" />
                 <PomoArrowButton
                     down
