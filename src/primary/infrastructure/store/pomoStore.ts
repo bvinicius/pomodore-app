@@ -5,7 +5,7 @@ interface PomoState {
     settings: PomoSettings;
     session: Partial<{
         current: PomoSessionType;
-        timeLeft: string;
+        timeLeft: number;
         isOver: boolean;
     }>;
 }
@@ -22,6 +22,10 @@ export const usePomoStore = defineStore('pomodore', {
     getters: {
         workSession: (state) => state.settings?.workSessionLength,
         breakSession: (state) => state.settings?.breakSessionLength,
+        currentSessionLength: (state) =>
+            state.session.current === PomoSessionType.WORK
+                ? state.settings.workSessionLength
+                : state.settings.breakSessionLength,
         sessions: (state) => state.settings?.sessions
     },
     persist: true

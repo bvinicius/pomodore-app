@@ -1,29 +1,21 @@
 <template>
-    <button
-        v-if="pomoStore.session?.isOver"
-        class="bg-primary-container-400 text-primary-500 font-bold rounded-md px-4 py-2"
-        @click="runner?.startNextSession()"
-    >
-        Next session
-    </button>
-
-    <button
-        v-if="runner?.started"
-        class="bg-primary-container-400 text-primary-500 font-bold rounded-md px-4 py-2"
-        @click="runner?.isPaused ? runner?.resume() : runner?.pause()"
-    >
-        {{ runner?.isPaused ? 'Resume' : 'Pause' }}
-    </button>
-
-    <div
-        v-if="runner && runner.started"
-        class="flex flex-col gap-3 text-xl text-center text-primary-400"
-    >
-        <p>Current session: {{ pomoStore.session?.current }}</p>
-        <p>
-            {{ runner.isPaused ? 'paused' : 'running' }}
-        </p>
-        <p>Time left: {{ pomoStore.session?.timeLeft }}</p>
+    <div class="grid grid-cols-2 my-auto">
+        <PomoSessionCountdown
+            v-if="pomoStore.session.timeLeft"
+            :from="pomoStore.currentSessionLength * 60"
+            :radius="200"
+            :time-left="pomoStore.session.timeLeft"
+        />
+        <div
+            v-if="pomoStore.session.current"
+            class="text-center"
+        >
+            {{
+                pomoStore.session.current === PomoSessionType.WORK
+                    ? 'Work session'
+                    : 'Break session'
+            }}
+        </div>
     </div>
 </template>
 
@@ -37,10 +29,11 @@ import {
     ref
 } from 'vue';
 import { useRouter } from 'vue-router';
+import { PomoSessionType } from '@/domain/Pomodore';
+import { RootPage } from '@/primary/infrastructure/router';
+import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
+import PomoSessionCountdown from '@/primary/components/molecules/PomoSessionCountdown.vue';
 import { type PomoRunner } from '@/secondary/PomodoreRunner';
-import { toMinuteFormat } from '@/secondary/utils/date-utils';
-import { RootPage } from '../infrastructure/router';
-import { usePomoStore } from '../infrastructure/store/pomoStore';
 
 const router = useRouter();
 const pomoStore = usePomoStore();
@@ -65,7 +58,7 @@ const addListeners = () => {
 
     subscriptions.value.push(
         runner.value.onTick((secondsLeft) => {
-            pomoStore.session.timeLeft = toMinuteFormat(secondsLeft);
+            pomoStore.session.timeLeft = secondsLeft;
         })
     );
 
