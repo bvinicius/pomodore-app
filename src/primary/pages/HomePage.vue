@@ -32,14 +32,14 @@
                 @click="startSession"
             >
                 <PomoIcon name="play_arrow" />
-                <span>START</span>
+                <span>{{ runner.started ? 'Continue' : 'Start' }}</span>
             </PomoButton>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { Ref, inject, reactive } from 'vue';
+import { Ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { PomoSettings } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
@@ -47,12 +47,14 @@ import PomoSessionInput from '@/primary/components/molecules/PomoSessionInput.vu
 import { RootPage } from '@/primary/infrastructure/router';
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
+import { injectSafe } from '@/primary/infrastructure/dependency-injection';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
+import { POMO_RUNNER } from '@/primary/infrastructure/dependency-symbols';
 
 const pomoStore = usePomoStore();
 const router = useRouter();
 
-const runner = inject<Ref<PomoRunner>>('runner');
+const runner = injectSafe<Ref<PomoRunner>>(POMO_RUNNER);
 
 const pomodore = reactive<PomoSettings>({
     workSessionLength: pomoStore.workSession || 1,

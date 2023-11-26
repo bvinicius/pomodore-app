@@ -10,6 +10,7 @@
 
 <script setup lang="ts">
 import { provide, ref } from 'vue';
+import { POMO_RUNNER } from '@/primary/infrastructure/dependency-symbols';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
 
@@ -19,5 +20,5 @@ const runner = pomoStore.settings
     ? ref<PomoRunner>(new PomoRunner(pomoStore.settings))
     : ref<PomoRunner>();
 
-provide('runner', runner);
+provide(POMO_RUNNER, runner);
 </script>

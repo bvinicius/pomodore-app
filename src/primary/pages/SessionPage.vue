@@ -1,12 +1,5 @@
 <template>
-    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <PomoSessionCountdown
-            v-if="pomoStore.session.timeLeft"
-            class="mx-auto"
-            :from="pomoStore.currentSessionLength * 60"
-            :radius="200"
-            :time-left="pomoStore.session.timeLeft"
-        />
+    <div class="flex flex-col justify-between">
         <div
             v-if="pomoStore.session.current"
             class="flex justify-center items-center"
@@ -19,38 +12,36 @@
                 }}
             </span>
         </div>
+        <PomoSessionCountdown
+            v-if="pomoStore.session.timeLeft"
+            class="mx-auto"
+            :from="pomoStore.currentSessionLength * 60"
+            :radius="200"
+            :time-left="pomoStore.session.timeLeft"
+        />
     </div>
 </template>
 
 <script setup lang="ts">
-import {
-    Ref,
-    inject,
-    onBeforeMount,
-    onBeforeUnmount,
-    onMounted,
-    ref
-} from 'vue';
+import { Ref, onBeforeMount, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { PomoSessionType } from '@/domain/Pomodore';
 import { RootPage } from '@/primary/infrastructure/router';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionCountdown from '@/primary/components/molecules/PomoSessionCountdown.vue';
-import { type PomoRunner } from '@/secondary/PomodoreRunner';
+import { PomoRunner } from '@/secondary/PomodoreRunner';
+import { injectSafe } from '@/primary/infrastructure/dependency-injection';
+import { POMO_RUNNER } from '@/primary/infrastructure/dependency-symbols';
 
 const router = useRouter();
 const pomoStore = usePomoStore();
 
 const subscriptions = ref<(() => void)[]>([]);
 
-const runner = inject<Ref<PomoRunner>>('runner');
+const runner = injectSafe<Ref<PomoRunner>>(POMO_RUNNER);
 
 const addListeners = () => {
     subscriptions.value.push();
-
-    if (!runner?.value) {
-        throw 'Runner not injected!';
-    }
 
     subscriptions.value.push(
         runner.value.onSessionStart((session) => {
@@ -77,7 +68,7 @@ const addListeners = () => {
 };
 
 const checkPomodoreRunner = () => {
-    if (!runner?.value) {
+    if (!runner) {
         router.push({ name: RootPage.home });
     }
 };
