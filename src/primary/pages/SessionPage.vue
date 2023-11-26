@@ -1,20 +1,23 @@
 <template>
-    <div class="grid grid-cols-2 my-auto">
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <PomoSessionCountdown
             v-if="pomoStore.session.timeLeft"
+            class="mx-auto"
             :from="pomoStore.currentSessionLength * 60"
             :radius="200"
             :time-left="pomoStore.session.timeLeft"
         />
         <div
             v-if="pomoStore.session.current"
-            class="text-center"
+            class="flex justify-center items-center"
         >
-            {{
-                pomoStore.session.current === PomoSessionType.WORK
-                    ? 'Work session'
-                    : 'Break session'
-            }}
+            <span class="text-2xl md:text-3xl font-semibold text-primary-400">
+                {{
+                    pomoStore.session.current === PomoSessionType.WORK
+                        ? 'Work session'
+                        : 'Break session'
+                }}
+            </span>
         </div>
     </div>
 </template>

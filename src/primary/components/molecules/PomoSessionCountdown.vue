@@ -3,7 +3,9 @@
         :radius="200"
         :duration="from"
     >
-        <span class="text-4xl font-semibold text-primary-400 tabular-nums">
+        <span
+            class="text-2xl md:text-4xl font-semibold text-primary-400 tabular-nums"
+        >
             {{ toMinuteFormat(timeLeft) }}
         </span>
     </PomoCountdownSpinner>
