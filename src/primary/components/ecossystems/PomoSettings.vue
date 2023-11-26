@@ -1,11 +1,5 @@
 <template>
-    <div class="flex flex-col justify-center gap-8">
-        <h1
-            class="text-4xl sm:text-6xl text-center font-semibold text-primary-400 select-none"
-        >
-            Pomodore
-        </h1>
-
+    <div class="flex flex-col gap-8">
         <div class="flex flex-col gap-12">
             <p class="text-center text-xs sm:text-sm md:text-base">
                 Please configure your pomodore as you wish.
@@ -25,7 +19,6 @@
                 />
             </div>
         </div>
-
         <div class="flex justify-center mt-24">
             <PomoButton
                 class="flex items-center gap-2"

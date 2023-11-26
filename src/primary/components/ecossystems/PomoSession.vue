@@ -69,7 +69,7 @@ const addListeners = () => {
 
 const checkPomodoreRunner = () => {
     if (!runner) {
-        router.push({ name: RootPage.home });
+        router.push({ name: RootPage.settings });
     }
 };
 
