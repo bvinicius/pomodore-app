@@ -90,10 +90,12 @@ export default {
     },
 
     methods: {
-        upload($event) {
-            const files = $event.dataTransfer
-                ? [...$event.dataTransfer.files]
-                : [...$event.target.files];
+        upload(event: DragEvent) {
+            if (!event.dataTransfer) {
+                throw new Error('No data transfer in drag event!');
+            }
+
+            const files = [...event.dataTransfer.files];
 
             files.forEach((file) => {
                 if (file.type !== 'audio/mpeg') {

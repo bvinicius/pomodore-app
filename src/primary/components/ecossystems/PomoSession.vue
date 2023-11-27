@@ -26,12 +26,12 @@
 import { Ref, onBeforeMount, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { PomoSessionType } from '@/domain/Pomodore';
-import { RootPage } from '@/primary/infrastructure/router';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionCountdown from '@/primary/components/molecules/PomoSessionCountdown.vue';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
 import { injectSafe } from '@/primary/infrastructure/dependency-injection';
 import { POMO_RUNNER } from '@/primary/infrastructure/dependency-symbols';
+import { HomeView } from '@/primary/infrastructure/router/homeViews';
 
 const router = useRouter();
 const pomoStore = usePomoStore();
@@ -69,7 +69,7 @@ const addListeners = () => {
 
 const checkPomodoreRunner = () => {
     if (!runner) {
-        router.push({ name: RootPage.settings });
+        router.push({ name: HomeView.settings });
     }
 };
 
