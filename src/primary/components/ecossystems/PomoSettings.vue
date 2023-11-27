@@ -37,12 +37,12 @@ import { useRouter } from 'vue-router';
 import { PomoSettings } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionInput from '@/primary/components/molecules/PomoSessionInput.vue';
-import { RootPage } from '@/primary/infrastructure/router';
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import { injectSafe } from '@/primary/infrastructure/dependency-injection';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
 import { POMO_RUNNER } from '@/primary/infrastructure/dependency-symbols';
+import { HomeView } from '@/primary/infrastructure/router/homeViews';
 
 const pomoStore = usePomoStore();
 const router = useRouter();
@@ -63,6 +63,6 @@ const startSession = () => {
     if (!runner.value) {
         runner.value = new PomoRunner(pomodore);
     }
-    router.push({ name: RootPage.session });
+    router.push({ name: HomeView.session });
 };
 </script>

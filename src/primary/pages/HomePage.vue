@@ -1,8 +1,18 @@
 <template>
-    <div
-        class="w-screen h-screen bg-primary-container-500 px-12 py-8 md:px-24 md:py-12"
-    >
-        <router-view></router-view>
+    <div class="animate-fade">
+        <div class="flex flex-col justify-center gap-8">
+            <h1
+                class="text-4xl sm:text-6xl text-center font-semibold text-primary-400 select-none"
+            >
+                Pomodore
+            </h1>
+
+            <router-view
+                v-if="showRouter"
+                class="animate-fade"
+            >
+            </router-view>
+        </div>
     </div>
 </template>
 

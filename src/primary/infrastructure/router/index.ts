@@ -1,29 +1,24 @@
 import { RouteRecordRaw, createRouter, createWebHashHistory } from 'vue-router';
+import { homeViews } from '@/primary/infrastructure/router/homeViews';
 
-const PomoSettings = () =>
-    import('@/primary/components/ecossystems/PomoSettings.vue');
-const PomoSession = () =>
-    import('@/primary/components/ecossystems/PomoSession.vue');
+const HomePage = () => import('@/primary/pages/HomePage.vue');
 const StoragePage = () => import('@/primary/pages/StoragePage.vue');
 
 export enum RootPage {
-    settings = 'SETTINGS_PAGE',
-    session = 'SESSION_PAGE'
+    home = 'HOME_PAGE',
+    storage = 'STORAGE_PAGE'
 }
 
 export const routes: RouteRecordRaw[] = [
     {
-        component: PomoSettings,
-        name: RootPage.settings,
-        path: '/'
-    },
-    {
-        component: PomoSession,
-        name: RootPage.session,
-        path: '/session'
+        component: HomePage,
+        name: RootPage.home,
+        path: '/',
+        children: homeViews
     },
     {
         component: StoragePage,
+        name: RootPage.storage,
         path: '/storage'
     }
 ];
