@@ -54,9 +54,9 @@
 </template>
 
 <script lang="ts">
-import firebase from '@/includes/firebase';
-import ThePlayer from '@/primary/components/ThePlayer.vue';
 import { Howl } from 'howler';
+import firebase from '@/primary/infrastructure/firebase';
+import ThePlayer from '@/primary/components/ThePlayer.vue';
 export default {
     name: 'StoragePage',
     components: {
