@@ -1,10 +1,10 @@
 import { App, InjectionKey, inject } from 'vue';
-import { SONG_STORAGE } from './dependency-symbols';
-import { FirebaseFileStorage } from '@/secondary/song-storage/FirebaseFileStorage';
+import { FILE_SERVICE } from './dependency-symbols';
+import { FirebaseFileStorage } from '@/secondary/files-service/FirebaseFileService';
 import firebase from '@/primary/infrastructure/firebase';
 
 export const provide = (app: App) => {
-    app.provide(SONG_STORAGE, new FirebaseFileStorage(firebase));
+    app.provide(FILE_SERVICE, new FirebaseFileStorage(firebase));
 };
 
 export const injectSafe = <T>(key: InjectionKey<T>): T => {

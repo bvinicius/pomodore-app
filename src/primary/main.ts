@@ -1,11 +1,15 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { createPersistedState } from 'pinia-plugin-persistedstate';
+
+import '@/primary/index.css';
 import App from '@/primary/App.vue';
 import router from '@/primary/infrastructure/router';
-import '@/primary/index.css';
+import { provide } from '@/primary/infrastructure/dependency-injection';
 
 const app = createApp(App);
+
+provide(app);
 
 const pinia = createPinia();
 pinia.use(createPersistedState());

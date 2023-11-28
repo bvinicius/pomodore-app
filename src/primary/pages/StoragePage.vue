@@ -26,12 +26,7 @@
                     class="text-gray-600"
                 >
                     {{ song.name }}
-                    <button
-                        class="text-red-500"
-                        @click="playSong(song)"
-                    >
-                        Play Song
-                    </button>
+                    <button class="text-red-500">Play Song</button>
                 </li>
             </ul>
         </div>
@@ -42,7 +37,7 @@
     >
         Now playing: {{ currentlyPlayingSong }}
     </h1>
-    <ThePlayer
+    <!-- <ThePlayer
         :play-button="isPlaying"
         :player-progress="playerProgress"
         :time-of-the-song="timeOfTheSong"
@@ -50,131 +45,119 @@
         @skip-back="previousTrack"
         @play-pause="togglePlay"
         @skip-forward="nextTrack"
-    />
+    /> -->
 </template>
 
-<script lang="ts">
-import { Howl } from 'howler';
-import firebase from '@/primary/infrastructure/firebase';
-import ThePlayer from '@/primary/components/ThePlayer.vue';
-export default {
-    name: 'StoragePage',
-    components: {
-        ThePlayer
-    },
-    data() {
-        return {
-            is_dragover: false,
-            songs: [],
-            sound: null || '',
-            isSongPlaying: false,
-            currentSongIndex: 0,
-            currentlyPlayingSong: '',
-            playerProgress: '0%',
-            timeOfTheSong: '',
-            timeToEnd: '',
-            isPlaying: false
-        };
-    },
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+// import { Howl } from 'howler';
+// import firebase from '@/primary/infrastructure/firebase';
+// import ThePlayer from '@/primary/components/ThePlayer.vue';
+import { FileService } from '@/domain/FileService';
+import { FILE_SERVICE } from '../infrastructure/dependency-symbols';
+import { injectSafe } from '../infrastructure/dependency-injection';
+import { FileInfo } from '@/domain/FileInfo';
 
-    mounted() {
-        const storageRef = firebase.storage().ref();
-        storageRef.listAll().then((result) => {
-            result.items.forEach((file) => {
-                this.songs.push(file);
-            });
-        });
-        setInterval(() => {
-            this.progress();
-        }, 1000);
-    },
+const fileService = injectSafe<FileService>(FILE_SERVICE);
 
-    methods: {
-        upload(event: DragEvent) {
-            if (!event.dataTransfer) {
-                throw new Error('No data transfer in drag event!');
-            }
+const is_dragover = ref(false);
+const songs = ref<FileInfo[]>([]);
+const currentlyPlayingSong = ref('');
+// const playerProgress = ref('0%');
+// const timeOfTheSong = ref('');
+// const timeToEnd = ref('');
+// const isPlaying = ref(false);
 
-            const files = [...event.dataTransfer.files];
+onMounted(() => {
+    fileService.getAll().then((res) => {
+        songs.value = res as never[];
+    });
 
-            files.forEach((file) => {
-                if (file.type !== 'audio/mpeg') {
-                    return;
-                }
+    // setInterval(() => {
+    //     progress();
+    // }, 1000);
+});
 
-                if (file) {
-                    const storageRef = firebase.storage().ref();
-                    const fileRef = storageRef.child(file.name);
-                    fileRef.put(file).then(() => {
-                        console.log('Uploaded a file');
-                    });
-                }
-            });
-        },
-        playSong(song) {
-            this.currentSongIndex = this.songs.indexOf(song);
-            this.currentlyPlayingSong = song.name;
-
-            const storageRef = firebase.storage().ref();
-            storageRef
-                .child(song.name)
-                .getDownloadURL()
-                .then((url) => {
-                    if (!this.sound || !this.sound.playing()) {
-                        this.sound = new Howl({
-                            src: [url],
-                            html5: true
-                        });
-                        this.sound.play();
-                        this.isPlaying = true;
-                    } else {
-                        this.sound.pause();
-                        this.isPlaying = false;
-                    }
-                });
-        },
-        togglePlay() {
-            if (this.sound) {
-                if (this.sound.playing()) {
-                    this.sound.pause();
-                    this.isPlaying = false;
-                } else {
-                    this.sound.play();
-                    this.isPlaying = true;
-                }
-            }
-        },
-        async previousTrack() {
-            if (this.currentSongIndex > 0) {
-                this.sound.pause();
-                this.playSong(this.songs[this.currentSongIndex - 1]);
-            } else {
-                this.sound.pause();
-                this.playSong(this.songs[this.songs.length - 1]);
-            }
-        },
-        async nextTrack() {
-            if (this.currentSongIndex < this.songs.length - 1) {
-                this.sound.pause();
-                this.playSong(this.songs[this.currentSongIndex + 1]);
-            } else {
-                this.sound.pause();
-                this.playSong(this.songs[0]);
-            }
-        },
-        progress() {
-            this.timeToEnd = `${Math.floor(
-                this.sound.duration() / 60
-            )}:${Math.floor(this.sound.duration() % 60)}`;
-            this.timeOfTheSong = `${Math.floor(
-                this.sound.seek() / 60
-            )}:${Math.floor(this.sound.seek() % 60)
-                .toString()
-                .padStart(2, '0')}`;
-            this.playerProgress = `${
-                (this.sound.seek() / this.sound.duration()) * 100
-            }%`;
-        }
+const upload = (event: DragEvent) => {
+    if (!event.dataTransfer) {
+        throw new Error('No data transfer in drag event!');
     }
+
+    const files = [...event.dataTransfer.files];
+
+    files.forEach((file) => {
+        fileService.save(file).then(() => {
+            console.log('SAVED SONG', file.name);
+        });
+    });
 };
+
+// const playSong = (song) => {
+//     this.currentSongIndex = this.songs.indexOf(song);
+//     this.currentlyPlayingSong = song.name;
+
+//     const storageRef = firebase.storage().ref();
+//     storageRef
+//         .child(song.name)
+//         .getDownloadURL()
+//         .then((url) => {
+//             if (!this.sound || !this.sound.playing()) {
+//                 this.sound = new Howl({
+//                     src: [url],
+//                     html5: true
+//                 });
+//                 this.sound.play();
+//                 this.isPlaying = true;
+//             } else {
+//                 this.sound.pause();
+//                 this.isPlaying = false;
+//             }
+//         });
+// };
+
+// const togglePlay = () => {
+//     if (this.sound) {
+//         if (this.sound.playing()) {
+//             this.sound.pause();
+//             this.isPlaying = false;
+//         } else {
+//             this.sound.play();
+//             this.isPlaying = true;
+//         }
+//     }
+// };
+
+// const previousTrack = async () => {
+//     if (this.currentSongIndex > 0) {
+//         this.sound.pause();
+//         this.playSong(this.songs[this.currentSongIndex - 1]);
+//     } else {
+//         this.sound.pause();
+//         this.playSong(this.songs[this.songs.length - 1]);
+//     }
+// };
+
+// const nextTrack = async () => {
+//     if (this.currentSongIndex < this.songs.length - 1) {
+//         this.sound.pause();
+//         this.playSong(this.songs[this.currentSongIndex + 1]);
+//     } else {
+//         this.sound.pause();
+//         this.playSong(this.songs[0]);
+//     }
+// };
+
+// const progress = () => {
+//     this.timeToEnd = `${Math.floor(this.sound.duration() / 60)}:${Math.floor(
+//         this.sound.duration() % 60
+//     )}`;
+//     this.timeOfTheSong = `${Math.floor(this.sound.seek() / 60)}:${Math.floor(
+//         this.sound.seek() % 60
+//     )
+//         .toString()
+//         .padStart(2, '0')}`;
+//     this.playerProgress = `${
+//         (this.sound.seek() / this.sound.duration()) * 100
+//     }%`;
+// };
 </script>
