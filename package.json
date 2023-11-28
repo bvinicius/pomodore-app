@@ -14,6 +14,7 @@
         "type-check": "vue-tsc --noEmit -p tsconfig.json --composite false"
     },
     "dependencies": {
+        "@phosphor-icons/vue": "^2.1.6",
         "events": "^3.3.0",
         "firebase": "^8.10.1",
         "howler": "^2.2.4",
@@ -28,6 +29,7 @@
         "@rushstack/eslint-patch": "^1.2.0",
         "@tsconfig/node18": "^2.0.1",
         "@types/events": "^3.0.3",
+        "@types/howler": "^2.2.11",
         "@types/jsdom": "^21.1.1",
         "@types/node": "^18.16.17",
         "@vitejs/plugin-vue": "^4.2.3",

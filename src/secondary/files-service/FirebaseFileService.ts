@@ -12,12 +12,17 @@ export class FirebaseFileStorage implements FileService {
         return fileRef.put(file).then();
     }
 
-    getAll(): Promise<FileInfo[]> {
+    getFilesInformation(): Promise<FileInfo[]> {
         const storageRef = firebase.storage().ref();
         return storageRef.listAll().then((res) =>
             res.items.map((file) => ({
                 name: file.name
             }))
         );
+    }
+
+    getFileURL(fileName: string) {
+        const storageRef = firebase.storage().ref();
+        return storageRef.child(fileName).getDownloadURL();
     }
 }

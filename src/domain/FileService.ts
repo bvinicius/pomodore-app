@@ -1,6 +1,7 @@
 import { FileInfo } from './FileInfo';
 
 export interface FileService {
-    getAll(): Promise<FileInfo[]>;
+    getFilesInformation(): Promise<FileInfo[]>;
+    getFileURL(fileName: string): Promise<string>;
     save(song: unknown): Promise<void>;
 }
