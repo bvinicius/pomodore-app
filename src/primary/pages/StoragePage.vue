@@ -48,21 +48,25 @@
         :time-of-the-song="timeOfTheSong"
         :time-to-end="timeToEnd"
         @skip-back="previousTrack"
-        @play-pause="togglePlay"
+        @play-pause="() => musicPlayer.togglePlay()"
         @skip-forward="nextTrack"
     />
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { Howl } from 'howler';
+import { computed, onMounted, ref } from 'vue';
 import ThePlayer from '@/primary/components/ThePlayer.vue';
 import { FileService } from '@/domain/FileService';
-import { FILE_SERVICE } from '../infrastructure/dependency-symbols';
+import {
+    FILE_SERVICE,
+    MUSIC_PLAYER
+} from '../infrastructure/dependency-symbols';
 import { injectSafe } from '../infrastructure/dependency-injection';
 import { FileInfo } from '@/domain/FileInfo';
+import { MusicPlayer } from '@/domain/MusicPlayer';
 
 const fileService = injectSafe<FileService>(FILE_SERVICE);
+const musicPlayer = injectSafe<MusicPlayer>(MUSIC_PLAYER);
 
 const is_dragover = ref(false);
 const songs = ref<FileInfo[]>([]);
@@ -70,19 +74,9 @@ const currentlyPlayingSong = ref('');
 const playerProgress = ref('0%');
 const timeOfTheSong = ref('');
 const timeToEnd = ref('');
-const isPlaying = ref(false);
 const currentSongIndex = ref(0);
-const sound = ref<Howl>();
 
-onMounted(() => {
-    fileService.getFilesInformation().then((res) => {
-        songs.value = res as never[];
-    });
-
-    setInterval(() => {
-        progress();
-    }, 1000);
-});
+const isPlaying = computed(() => musicPlayer.isPlaying());
 
 const upload = (event: DragEvent) => {
     if (!event.dataTransfer) {
@@ -103,64 +97,48 @@ const playSong = (song: FileInfo) => {
     currentlyPlayingSong.value = song.name;
 
     fileService.getFileURL(song.name).then((url) => {
-        if (!sound.value || sound.value.playing()) {
-            sound.value = new Howl({
-                src: [url],
-                html5: true
-            });
-            sound.value.play();
-            isPlaying.value = true;
-        } else {
-            sound.value.pause();
-            isPlaying.value = false;
-        }
+        musicPlayer.play(url);
     });
-};
-
-const togglePlay = () => {
-    if (sound.value) {
-        if (sound.value.playing()) {
-            sound.value.pause();
-            isPlaying.value = false;
-        } else {
-            sound.value.play();
-            isPlaying.value = true;
-        }
-    }
 };
 
 const previousTrack = async () => {
     if (currentSongIndex.value > 0) {
-        sound.value?.pause();
         playSong(songs.value[currentSongIndex.value - 1]);
     } else {
-        sound.value?.pause();
         playSong(songs.value[songs.value.length - 1]);
     }
 };
 
 const nextTrack = async () => {
     if (currentSongIndex.value < songs.value.length - 1) {
-        sound.value?.pause();
         playSong(songs.value[currentSongIndex.value + 1]);
     } else {
-        sound.value?.pause();
         playSong(songs.value[0]);
     }
 };
 
 const progress = () => {
-    if (!sound.value) return;
-    timeToEnd.value = `${Math.floor(sound.value.duration() / 60)}:${Math.floor(
-        sound.value.duration() % 60
+    const currentTime = musicPlayer.getSongCurrentTime();
+    const duration = musicPlayer.getSongDuration();
+
+    timeToEnd.value = `${Math.floor(duration / 60)}:${Math.floor(
+        duration % 60
     )}`;
-    timeOfTheSong.value = `${Math.floor(sound.value.seek() / 60)}:${Math.floor(
-        sound.value.seek() % 60
+
+    timeOfTheSong.value = `${Math.floor(currentTime / 60)}:${Math.floor(
+        currentTime % 60
     )
         .toString()
         .padStart(2, '0')}`;
-    playerProgress.value = `${
-        (sound.value.seek() / sound.value.duration()) * 100
-    }%`;
+
+    playerProgress.value = `${(currentTime / duration) * 100}%`;
 };
+
+onMounted(() => {
+    fileService.getFilesInformation().then((res) => {
+        songs.value = res as never[];
+    });
+
+    setInterval(progress, 1000);
+});
 </script>
