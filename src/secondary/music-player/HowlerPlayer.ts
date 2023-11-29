@@ -40,4 +40,12 @@ export class HowlerPlayer implements MusicPlayer {
     getSongDuration(): number {
         return this.sound?.duration() ?? 0;
     }
+
+    onPlay(callback: () => void): void {
+        this.sound?.on('play', callback);
+    }
+
+    onPause(callback: () => void): void {
+        this.sound?.on('pause', callback);
+    }
 }

@@ -6,4 +6,6 @@ export interface MusicPlayer {
     togglePlay(): void;
     getSongDuration(): number;
     getSongCurrentTime(): number;
+    onPlay(callback: () => void): void;
+    onPause(callback: () => void): void;
 }

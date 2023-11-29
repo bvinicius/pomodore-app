@@ -43,7 +43,7 @@
         Now playing: {{ currentlyPlayingSong }}
     </h1>
     <ThePlayer
-        :play-button="isPlaying"
+        :play-button="playing"
         :player-progress="playerProgress"
         :time-of-the-song="timeOfTheSong"
         :time-to-end="timeToEnd"
@@ -54,16 +54,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import ThePlayer from '@/primary/components/ThePlayer.vue';
+import { onMounted, ref } from 'vue';
 import { FileService } from '@/domain/FileService';
+import { FileInfo } from '@/domain/FileInfo';
+import { MusicPlayer } from '@/domain/MusicPlayer';
+import ThePlayer from '@/primary/components/ThePlayer.vue';
 import {
     FILE_SERVICE,
     MUSIC_PLAYER
-} from '../infrastructure/dependency-symbols';
-import { injectSafe } from '../infrastructure/dependency-injection';
-import { FileInfo } from '@/domain/FileInfo';
-import { MusicPlayer } from '@/domain/MusicPlayer';
+} from '@/primary/infrastructure/dependency-symbols';
+import { injectSafe } from '@/primary/infrastructure/dependency-injection';
 
 const fileService = injectSafe<FileService>(FILE_SERVICE);
 const musicPlayer = injectSafe<MusicPlayer>(MUSIC_PLAYER);
@@ -76,7 +76,7 @@ const timeOfTheSong = ref('');
 const timeToEnd = ref('');
 const currentSongIndex = ref(0);
 
-const isPlaying = computed(() => musicPlayer.isPlaying());
+const playing = ref(false);
 
 const upload = (event: DragEvent) => {
     if (!event.dataTransfer) {
@@ -98,6 +98,14 @@ const playSong = (song: FileInfo) => {
 
     fileService.getFileURL(song.name).then((url) => {
         musicPlayer.play(url);
+
+        musicPlayer.onPlay(() => {
+            playing.value = true;
+        });
+
+        musicPlayer.onPause(() => {
+            playing.value = false;
+        });
     });
 };
 

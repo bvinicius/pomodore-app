@@ -4,27 +4,21 @@
             :style="{ left: playerProgress }"
             class="text-primary-400 flex items-center justify-center gap-8 mb-2"
         >
-            <ph-skip-back
-                class="cursor-pointer"
-                :size="32"
-                @click="handleSkipBackClick"
+            <PomoIcon
+                class="select-none cursor-pointer"
+                name="skip_previous"
+                @click="() => emit('skip-back')"
             />
-            <ph-pause
-                v-if="playButton"
-                class="cursor-pointer"
-                :size="32"
-                @click="handlePlayPauseClick"
+
+            <PomoIcon
+                class="select-none cursor-pointer"
+                :name="playButton ? 'pause' : 'play_arrow'"
+                @click="() => emit('play-pause')"
             />
-            <ph-play
-                v-else
-                class="cursor-pointer"
-                :size="32"
-                @click="handlePlayPauseClick"
-            />
-            <ph-skip-forward
-                class="cursor-pointer"
-                :size="32"
-                @click="handleSkipForwardClick"
+            <PomoIcon
+                class="select-none cursor-pointer"
+                name="skip_next"
+                @click="() => emit('skip-forward')"
             />
         </div>
         <div class="flex justify-between">
@@ -41,36 +35,26 @@
         </div>
     </div>
 </template>
-<script lang="ts">
-export default {
-    name: 'ThePlayer',
-    props: {
-        playerProgress: {
-            type: String,
-            default: '0%'
-        },
-        timeOfTheSong: {
-            type: String
-        },
-        timeToEnd: {
-            type: String
-        },
-        playButton: {
-            type: Boolean,
-            default: true
-        }
-    },
-    emits: ['play-pause', 'skip-back', 'skip-forward'],
-    methods: {
-        handlePlayPauseClick() {
-            this.$emit('play-pause');
-        },
-        handleSkipBackClick() {
-            this.$emit('skip-back');
-        },
-        handleSkipForwardClick() {
-            this.$emit('skip-forward');
-        }
+
+<script setup lang="ts">
+import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
+
+withDefaults(
+    defineProps<{
+        playerProgress: string;
+        timeOfTheSong: string;
+        timeToEnd: string;
+        playButton: boolean;
+    }>(),
+    {
+        playerProgress: '0%',
+        playButton: true
     }
-};
+);
+
+const emit = defineEmits<{
+    (e: 'play-pause'): void;
+    (e: 'skip-back'): void;
+    (e: 'skip-forward'): void;
+}>();
 </script>
