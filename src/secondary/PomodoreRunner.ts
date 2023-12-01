@@ -10,6 +10,7 @@ enum PomoRunnerEvent {
 export class PomoRunner {
     private readonly eventEmitter = new EventEmitter();
     private currentSession?: PomoSessionType;
+    private currentInterval?: NodeJS.Timeout;
     private _isPaused = false;
     private _started = false;
 
@@ -46,7 +47,7 @@ export class PomoRunner {
 
     onTick(callback: (secondsLeft: number) => void) {
         this.eventEmitter.on(PomoRunnerEvent.TICK, callback);
-        return () => this.eventEmitter.on(PomoRunnerEvent.TICK, callback);
+        return () => this.eventEmitter.off(PomoRunnerEvent.TICK, callback);
     }
 
     pause() {
@@ -58,6 +59,7 @@ export class PomoRunner {
     }
 
     startNextSession() {
+        clearInterval(this.currentInterval);
         this._started = true;
         this.skipSession();
         this.startSessionCountdown();
@@ -82,7 +84,7 @@ export class PomoRunner {
         this.emitTick(sessionLengthSeconds);
 
         let secondsPassed = 0;
-        const interval = setInterval(() => {
+        this.currentInterval = setInterval(() => {
             if (this._isPaused) return;
 
             secondsPassed++;
@@ -90,8 +92,10 @@ export class PomoRunner {
             this.emitTick(sessionLengthSeconds - secondsPassed);
 
             if (secondsPassed >= sessionLengthSeconds) {
+                console.log('session ended');
+
+                clearInterval(this.currentInterval);
                 this.emitSessionEnd();
-                clearInterval(interval);
             }
         }, 1000);
     }
