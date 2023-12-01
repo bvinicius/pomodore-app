@@ -53,6 +53,8 @@ export const usePomoRunner = () => {
     };
 
     const _startSessionCountdown = () => {
+        pomoStore.session.started = true;
+
         if (!pomoStore.session.timeLeft) {
             pomoStore.session.timeLeft = pomoStore.currentSessionLength;
         }
