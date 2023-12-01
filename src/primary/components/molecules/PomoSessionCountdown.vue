@@ -4,7 +4,8 @@
         :duration="from"
     >
         <span
-            class="text-2xl md:text-4xl font-semibold text-primary-400 tabular-nums"
+            class="text-2xl md:text-4xl font-semibold text-primary-600 tabular-nums transition-all"
+            :class="{ 'text-primary-300': timeLeft === 0 }"
         >
             {{ toMinuteFormat(timeLeft) }}
         </span>

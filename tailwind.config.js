@@ -10,8 +10,10 @@ module.exports = {
             },
             colors: {
                 primary: {
+                    300: '#E2E2E2',
                     400: '#41A3CD',
-                    500: '#4B8AA5'
+                    500: '#4B8AA5',
+                    600: '#769DAE'
                 },
                 'on-container': {
                     400: '#FFFCE2',
@@ -35,7 +37,8 @@ module.exports = {
                 'primary-active': '0px 0px 6px #F5F5F5'
             },
             animation: {
-                fade: 'fade 0.5s ease-in-out'
+                fade: 'fade 0.5s ease-in-out',
+                'fade-fast': 'fade 0.2s ease-in-out'
             },
             keyframes: {
                 fade: {

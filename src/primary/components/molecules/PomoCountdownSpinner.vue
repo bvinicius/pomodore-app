@@ -6,7 +6,7 @@
         <slot></slot>
         <svg class="absolute w-full h-full top-0 right-0 z-50">
             <circle
-                class="countdown__foreground-ring stroke-primary-400"
+                class="countdown__foreground-ring stroke-primary-600"
                 :r="radius"
                 cx="50%"
                 cy="50%"
@@ -14,7 +14,7 @@
         </svg>
         <svg class="absolute w-full h-full top-0 right-0 z-0">
             <circle
-                class="countdown__background-ring stroke-gray-500"
+                class="countdown__background-ring stroke-primary-300"
                 :r="radius"
                 cx="50%"
                 cy="50%"
@@ -46,7 +46,7 @@ const padding = computed(() =>
 const circunferencePx = computed(() => Math.PI * props.radius * 2 + 'px');
 const containerSizePx = computed(() => props.radius * 2 + padding.value + 'px');
 const durationAnimation = computed(
-    () => `countdown ${props.duration}s linear infinite forwards`
+    () => `countdown ${props.duration}s linear forwards`
 );
 </script>
 

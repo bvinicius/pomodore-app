@@ -1,25 +1,35 @@
 <template>
-    <div class="flex flex-col justify-between">
-        <div
-            v-if="pomoStore.session.current"
-            class="flex justify-center items-center"
-        >
-            <span class="text-2xl md:text-3xl font-semibold text-primary-400">
-                {{
-                    pomoStore.session.current === PomoSessionType.WORK
-                        ? 'Work session'
-                        : 'Break session'
-                }}
-            </span>
+    <PomoCard class="mx-auto">
+        <div class="flex flex-col justify-between">
+            <div
+                v-if="pomoStore.session.current"
+                class="flex justify-center items-center"
+            >
+                <span
+                    class="text-2xl md:text-3xl font-semibold text-on-container-500"
+                >
+                    {{
+                        pomoStore.session.current === PomoSessionType.WORK
+                            ? 'Work session'
+                            : 'Break session'
+                    }}
+                </span>
+            </div>
+            <PomoSessionCountdown
+                class="mx-auto"
+                :from="pomoStore.currentSessionLength * 60"
+                :radius="150"
+                :time-left="pomoStore.session.timeLeft || 0"
+            />
         </div>
-        <PomoSessionCountdown
-            v-if="pomoStore.session.timeLeft"
-            class="mx-auto"
-            :from="pomoStore.currentSessionLength * 60"
-            :radius="200"
-            :time-left="pomoStore.session.timeLeft"
-        />
-    </div>
+        <div
+            class="flex items-center justify-center mt-6 cursor-pointer"
+            @click="runner.startNextSession"
+        >
+            <PomoIcon name="fast_forward"></PomoIcon>
+            <span class="font-semibold">Skip to break</span>
+        </div>
+    </PomoCard>
 </template>
 
 <script setup lang="ts">
@@ -32,6 +42,8 @@ import { PomoRunner } from '@/secondary/PomodoreRunner';
 import { injectSafe } from '@/primary/infrastructure/dependency-injection';
 import { POMO_RUNNER } from '@/primary/infrastructure/dependency-symbols';
 import { HomeView } from '@/primary/infrastructure/router/homeViews';
+import PomoCard from '../molecules/PomoCard.vue';
+import PomoIcon from '../atoms/PomoIcon.vue';
 
 const router = useRouter();
 const pomoStore = usePomoStore();
