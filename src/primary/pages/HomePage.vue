@@ -7,38 +7,33 @@
                 >
                     Pomodore
                 </span>
-                <span class="font-semibold text-center">
+                <span
+                    v-if="isSettingsView"
+                    class="font-semibold text-center animate-fade"
+                >
                     A tool to do more things spending less time.
                 </span>
             </div>
 
-            <router-view
-                v-if="showRouter"
-                class="animate-fade"
-            >
-            </router-view>
+            <router-view> </router-view>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, provide, ref } from 'vue';
+import { provide, ref } from 'vue';
 import { POMO_RUNNER } from '@/primary/infrastructure/dependency-symbols';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
+import { useViewInfo } from '../infrastructure/composables/useViewInfo';
+
+const { isSettingsView } = useViewInfo();
 
 const pomoStore = usePomoStore();
-const showRouter = ref(false);
 
 const runner = pomoStore.settings
     ? ref<PomoRunner>(new PomoRunner(pomoStore.settings))
     : ref<PomoRunner>();
 
 provide(POMO_RUNNER, runner);
-
-onMounted(() => {
-    setTimeout(() => {
-        showRouter.value = true;
-    }, 500);
-});
 </script>

@@ -35,7 +35,7 @@ module.exports = {
                 'primary-active': '0px 0px 6px #F5F5F5'
             },
             animation: {
-                fade: 'fade 0.3s ease-in-out'
+                fade: 'fade 0.5s ease-in-out'
             },
             keyframes: {
                 fade: {
