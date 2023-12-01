@@ -12,10 +12,6 @@
         @apply text-on-container-500;
     }
 
-    ::selection {
-        @apply text-primary-container-400 bg-primary-500;
-    }
-
     .spin-buttons-none {
         -webkit-appearance: textfield;
         -moz-appearance: textfield;

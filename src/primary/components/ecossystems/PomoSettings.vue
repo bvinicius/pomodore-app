@@ -1,12 +1,12 @@
 <template>
-    <PomoCard>
-        <div class="flex flex-col gap-8">
-            <div class="flex flex-col gap-12">
+    <PomoCard class="mx-auto">
+        <div class="flex flex-col gap-8 animate-fade">
+            <div class="flex flex-col gap-6 md:gap-12">
                 <p class="text-center text-xs sm:text-sm md:text-base">
                     Please configure your pomodore as you wish.
                 </p>
                 <div
-                    class="flex flex-col md:flex-row justify-center items-center gap-12 md:gap-24"
+                    class="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-20"
                 >
                     <PomoSessionInput
                         v-model="pomoStore.settings.workSessionLength"
@@ -20,16 +20,16 @@
                     />
                 </div>
             </div>
-            <div class="flex justify-center mt-24">
-                <PomoButton
-                    class="flex items-center gap-2 px-8"
-                    @click="startSession"
-                >
-                    <span>{{ runner.started ? 'Continue' : 'Start' }}</span>
-                </PomoButton>
-            </div>
         </div>
     </PomoCard>
+    <div class="flex justify-center">
+        <PomoButton
+            class="flex items-center gap-2 px-8"
+            @click="startSession"
+        >
+            <span>{{ runner.started ? 'Continue' : 'Start' }}</span>
+        </PomoButton>
+    </div>
 </template>
 
 <script setup lang="ts">

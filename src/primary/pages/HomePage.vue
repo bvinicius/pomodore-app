@@ -1,6 +1,6 @@
 <template>
     <div class="animate-fade">
-        <div class="flex flex-col justify-center gap-24">
+        <div class="flex flex-col justify-center gap-12 md:gap-24">
             <div class="flex flex-col">
                 <span
                     class="text-4xl sm:text-8xl text-center font-bold select-none"
