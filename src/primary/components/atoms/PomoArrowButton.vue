@@ -1,6 +1,6 @@
 <template>
     <PomoButton
-        class="!rounded-full !text-on-container-300 !p-2"
+        class="!rounded-full !text-on-container-500 !p-2 !bg-transparent border-on-container-500"
         :class="{ 'rotate-180': down }"
     >
         <div class="flex justify-center items-center w-4 h-4">

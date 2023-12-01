@@ -1,34 +1,35 @@
 <template>
-    <div class="flex flex-col gap-8">
-        <div class="flex flex-col gap-12">
-            <p class="text-center text-xs sm:text-sm md:text-base">
-                Please configure your pomodore as you wish.
-            </p>
-            <div
-                class="flex flex-col md:flex-row justify-center items-center gap-12 md:gap-24"
-            >
-                <PomoSessionInput
-                    v-model="pomoStore.settings.workSessionLength"
-                    label="Work session"
-                    hint="min"
-                />
-                <PomoSessionInput
-                    v-model="pomoStore.settings.breakSessionLength"
-                    label="Break session"
-                    hint="min"
-                />
+    <PomoCard>
+        <div class="flex flex-col gap-8">
+            <div class="flex flex-col gap-12">
+                <p class="text-center text-xs sm:text-sm md:text-base">
+                    Please configure your pomodore as you wish.
+                </p>
+                <div
+                    class="flex flex-col md:flex-row justify-center items-center gap-12 md:gap-24"
+                >
+                    <PomoSessionInput
+                        v-model="pomoStore.settings.workSessionLength"
+                        label="Work session"
+                        hint="min"
+                    />
+                    <PomoSessionInput
+                        v-model="pomoStore.settings.breakSessionLength"
+                        label="Break session"
+                        hint="min"
+                    />
+                </div>
+            </div>
+            <div class="flex justify-center mt-24">
+                <PomoButton
+                    class="flex items-center gap-2 px-8"
+                    @click="startSession"
+                >
+                    <span>{{ runner.started ? 'Continue' : 'Start' }}</span>
+                </PomoButton>
             </div>
         </div>
-        <div class="flex justify-center mt-24">
-            <PomoButton
-                class="flex items-center gap-2"
-                @click="startSession"
-            >
-                <PomoIcon name="play_arrow" />
-                <span>{{ runner.started ? 'Continue' : 'Start' }}</span>
-            </PomoButton>
-        </div>
-    </div>
+    </PomoCard>
 </template>
 
 <script setup lang="ts">
@@ -38,11 +39,11 @@ import { PomoSettings } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionInput from '@/primary/components/molecules/PomoSessionInput.vue';
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
-import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import { injectSafe } from '@/primary/infrastructure/dependency-injection';
 import { PomoRunner } from '@/secondary/PomodoreRunner';
 import { POMO_RUNNER } from '@/primary/infrastructure/dependency-symbols';
 import { HomeView } from '@/primary/infrastructure/router/homeViews';
+import PomoCard from '../molecules/PomoCard.vue';
 
 const pomoStore = usePomoStore();
 const router = useRouter();

@@ -13,18 +13,18 @@
                     v-bind="$attrs"
                     v-model="vModel"
                     type="number"
-                    class="w-full py-3 font-semibold text-4xl md:text-6xl !text-primary-500 text-center rounded-xl pb-6 pomo-input spin-buttons-none"
+                    class="w-full py-3 font-semibold text-4xl md:text-6xl text-center rounded-xl pb-6 pomo-input spin-buttons-none"
                     :label="hint"
                 />
                 <span
-                    class="font-semibold text-on-container-400 absolute bottom-0 left-0 right-0 text-center pb-2 select-none"
+                    class="font-semibold text-gray-500 absolute bottom-0 left-0 right-0 text-center pb-2 select-none"
                 >
                     {{ hint }}
                 </span>
             </div>
         </div>
         <div
-            class="text-on-container-300 font-semibold text-sm md:text-base select-none"
+            class="text-on-container-500 font-semibold text-sm md:text-base select-none"
         >
             {{ label }}
         </div>

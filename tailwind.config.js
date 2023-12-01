@@ -2,9 +2,6 @@
 module.exports = {
     content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
     theme: {
-        fontFamily: {
-            sans: ['Montserrat', 'sans-serif']
-        },
         extend: {
             fontSize: {
                 '4xl': '2.375rem',
@@ -17,16 +14,12 @@ module.exports = {
                     500: '#4B8AA5'
                 },
                 'on-container': {
-                    300: '#aaa',
-                    400: '#919191'
+                    400: '#FFFCE2',
+                    500: '#323240'
                 },
                 'primary-container': {
-                    300: '#424250',
-                    400: '#323240',
-                    500: '#222230'
-                },
-                gray: {
-                    777: '#777'
+                    300: '#A7A7A7',
+                    400: '#323240'
                 }
             },
             spacing: {

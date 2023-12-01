@@ -1,7 +1,5 @@
 <template>
-    <div
-        class="w-screen h-screen bg-primary-container-500 px-12 py-8 md:px-24 md:py-12"
-    >
+    <div class="w-screen h-screen px-12 py-8 md:px-24 md:py-12">
         <router-view></router-view>
     </div>
 </template>

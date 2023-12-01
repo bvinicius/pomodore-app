@@ -1,11 +1,16 @@
 <template>
     <div class="animate-fade">
-        <div class="flex flex-col justify-center gap-8">
-            <h1
-                class="text-4xl sm:text-6xl text-center font-semibold text-primary-400 select-none"
-            >
-                Pomodore
-            </h1>
+        <div class="flex flex-col justify-center gap-24">
+            <div class="flex flex-col">
+                <span
+                    class="text-4xl sm:text-8xl text-center font-bold select-none"
+                >
+                    Pomodore
+                </span>
+                <span class="font-semibold text-center">
+                    A tool to do more things spending less time.
+                </span>
+            </div>
 
             <router-view
                 v-if="showRouter"
