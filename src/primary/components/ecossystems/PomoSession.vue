@@ -59,8 +59,6 @@ const { startNextSession, restartSesion, continueSession } = usePomoRunner();
 const pomoStore = usePomoStore();
 
 onMounted(() => {
-    if (!pomoStore.session.paused) {
-        continueSession();
-    }
+    continueSession();
 });
 </script>

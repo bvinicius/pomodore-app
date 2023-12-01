@@ -14,6 +14,11 @@ export const usePomoRunner = () => {
     };
 
     const continueSession = () => {
+        if (pomoStore.session.isOver) {
+            startNextSession();
+            return;
+        }
+
         clearInterval(interval.value);
         _startSessionCountdown();
     };
@@ -55,16 +60,17 @@ export const usePomoRunner = () => {
     const _startSessionCountdown = () => {
         pomoStore.session.started = true;
 
-        if (!pomoStore.session.timeLeft) {
+        if (!pomoStore.session.timeLeft || pomoStore.session.timeLeft <= 0) {
             pomoStore.session.timeLeft = pomoStore.currentSessionLength;
         }
 
         interval.value = setInterval(() => {
-            if (pomoStore.session.timeLeft) {
-                pomoStore.session.timeLeft--;
-            }
+            pomoStore.session.timeLeft = Math.max(
+                pomoStore.session.timeLeft - 1,
+                0
+            );
 
-            if (pomoStore.session.timeLeft === 0) {
+            if (pomoStore.session.timeLeft <= 0) {
                 pomoStore.session.isOver = true;
                 clearInterval(interval.value);
             }
