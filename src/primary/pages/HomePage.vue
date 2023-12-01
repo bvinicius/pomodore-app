@@ -4,7 +4,7 @@
             <div class="flex flex-col">
                 <span
                     class="text-4xl sm:text-8xl text-center font-bold select-none transition-all duration-500"
-                    :class="{ 'sm:text-4xl': isSessionView }"
+                    :class="{ 'sm:!text-4xl': isSessionView }"
                 >
                     Pomodore
                 </span>
