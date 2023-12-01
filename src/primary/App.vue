@@ -14,9 +14,7 @@ const pomoStore = usePomoStore();
 const showRouter = ref(false);
 
 const runner = pomoStore.settings
-    ? ref<PomoRunner>(
-          PomoRunner.fromState(pomoStore.settings, pomoStore.session)
-      )
+    ? ref<PomoRunner>(new PomoRunner(pomoStore.settings))
     : ref<PomoRunner>();
 
 provide(POMO_RUNNER, runner);

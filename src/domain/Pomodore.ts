@@ -9,12 +9,6 @@ export interface PomoSession {
     minutes: number;
 }
 
-export interface PomoSessionState {
-    current: PomoSessionType;
-    timeLeft: number;
-    isOver: boolean;
-}
-
 export enum PomoSessionType {
     WORK = 'WORK',
     BREAK = 'BREAK'
