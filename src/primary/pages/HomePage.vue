@@ -22,19 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { provide, ref } from 'vue';
-import { POMO_RUNNER } from '@/primary/infrastructure/dependency-symbols';
-import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
-import { PomoRunner } from '@/secondary/PomodoreRunner';
 import { useViewInfo } from '../infrastructure/composables/useViewInfo';
 
 const { isSettingsView, isSessionView } = useViewInfo();
-
-const pomoStore = usePomoStore();
-
-const runner = pomoStore.settings
-    ? ref<PomoRunner>(new PomoRunner(pomoStore.settings))
-    : ref<PomoRunner>();
-
-provide(POMO_RUNNER, runner);
 </script>

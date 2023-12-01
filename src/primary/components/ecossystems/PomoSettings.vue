@@ -27,43 +27,23 @@
             class="flex items-center gap-2 px-8"
             @click="startSession"
         >
-            <span>{{ runner.started ? 'Continue' : 'Start' }}</span>
+            <span>{{ pomoStore.session.started ? 'Continue' : 'Start' }}</span>
         </PomoButton>
     </div>
 </template>
 
 <script setup lang="ts">
-import { Ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import { PomoSettings } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionInput from '@/primary/components/molecules/PomoSessionInput.vue';
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
-import { injectSafe } from '@/primary/infrastructure/dependency-injection';
-import { PomoRunner } from '@/secondary/PomodoreRunner';
-import { POMO_RUNNER } from '@/primary/infrastructure/dependency-symbols';
 import { HomeView } from '@/primary/infrastructure/router/homeViews';
-import PomoCard from '../molecules/PomoCard.vue';
+import PomoCard from '@/primary/components/molecules/PomoCard.vue';
 
 const pomoStore = usePomoStore();
 const router = useRouter();
 
-const runner = injectSafe<Ref<PomoRunner>>(POMO_RUNNER);
-
-const pomodore = reactive<PomoSettings>({
-    workSessionLength: pomoStore.workSession || 1,
-    breakSessionLength: pomoStore.breakSession || 1,
-    sessions: pomoStore.settings?.sessions || 1
-});
-
 const startSession = () => {
-    if (!runner) {
-        throw 'Runner injection failed!';
-    }
-
-    if (!runner.value) {
-        runner.value = new PomoRunner(pomodore);
-    }
     router.push({ name: HomeView.session });
 };
 </script>

@@ -4,6 +4,14 @@ export interface PomoSettings {
     sessions: number;
 }
 
+export interface PomoSessionState {
+    current: PomoSessionType;
+    timeLeft: number;
+    isOver: boolean;
+    started: boolean;
+    paused: boolean;
+}
+
 export interface PomoSession {
     type: PomoSessionType;
     minutes: number;

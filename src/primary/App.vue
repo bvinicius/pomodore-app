@@ -5,23 +5,16 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, provide, ref } from 'vue';
-import { POMO_RUNNER } from '@/primary/infrastructure/dependency-symbols';
+import { onMounted } from 'vue';
+import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
-import { PomoRunner } from '@/secondary/PomodoreRunner';
 
 const pomoStore = usePomoStore();
-const showRouter = ref(false);
-
-const runner = pomoStore.settings
-    ? ref<PomoRunner>(new PomoRunner(pomoStore.settings))
-    : ref<PomoRunner>();
-
-provide(POMO_RUNNER, runner);
+const { continueSession } = usePomoRunner();
 
 onMounted(() => {
-    setTimeout(() => {
-        showRouter.value = true;
-    }, 500);
+    if (pomoStore.session.started) {
+        continueSession();
+    }
 });
 </script>
