@@ -8,21 +8,37 @@ export const usePomoRunner = () => {
     const pomoStore = usePomoStore();
 
     const startNextSession = () => {
-        console.log('startNextSession');
         clearInterval(interval.value);
-        skipSession();
-        startSessionCountdown();
+        _skipSession();
+        _startSessionCountdown();
     };
 
     const continueSession = () => {
-        console.log('continueSession');
-
         clearInterval(interval.value);
-        pomoStore.session.started = true;
-        startSessionCountdown();
+        _startSessionCountdown();
     };
 
-    const skipSession = () => {
+    const resume = () => {
+        pomoStore.session.paused = false;
+    };
+
+    const pause = () => {
+        pomoStore.session.paused = true;
+    };
+
+    const restartSesion = () => {
+        pomoStore.session = {
+            timeLeft: pomoStore.currentSessionLength * 60,
+            isOver: false,
+            started: true,
+            paused: false,
+            current: pomoStore.session.current
+        };
+
+        continueSession();
+    };
+
+    const _skipSession = () => {
         pomoStore.session.current === PomoSessionType.WORK
             ? (pomoStore.session.current = PomoSessionType.BREAK)
             : (pomoStore.session.current = PomoSessionType.WORK);
@@ -36,8 +52,7 @@ export const usePomoRunner = () => {
         };
     };
 
-    const startSessionCountdown = () => {
-        console.log('startSessionCountdown');
+    const _startSessionCountdown = () => {
         if (!pomoStore.session.timeLeft) {
             pomoStore.session.timeLeft = pomoStore.currentSessionLength;
         }
@@ -54,13 +69,5 @@ export const usePomoRunner = () => {
         }, 1000);
     };
 
-    const resume = () => {
-        pomoStore.session.paused = false;
-    };
-
-    const pause = () => {
-        pomoStore.session.paused = true;
-    };
-
-    return { startNextSession, continueSession, resume, pause };
+    return { startNextSession, continueSession, resume, pause, restartSesion };
 };

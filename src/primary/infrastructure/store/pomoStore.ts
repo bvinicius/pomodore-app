@@ -8,6 +8,7 @@ import {
 interface PomoState {
     settings: PomoSettings;
     session: PomoSessionState;
+    currentView: 'session' | 'settings';
 }
 
 const config: PomoSettings = {
@@ -25,7 +26,8 @@ export const usePomoStore = defineStore('pomodore', {
             isOver: false,
             started: false,
             paused: false
-        }
+        },
+        currentView: 'settings'
     }),
     getters: {
         workSession: (state) => state.settings?.workSessionLength,
@@ -33,7 +35,15 @@ export const usePomoStore = defineStore('pomodore', {
         currentSessionLength: (state) =>
             state.session.current === PomoSessionType.WORK
                 ? state.settings.workSessionLength
-                : state.settings.breakSessionLength
+                : state.settings.breakSessionLength,
+        isSettingsView: (state) => state.currentView === 'settings',
+        isSessionView: (state) => state.currentView === 'session'
+    },
+    actions: {
+        toggleView() {
+            this.currentView =
+                this.currentView === 'settings' ? 'session' : 'settings';
+        }
     },
     persist: true
 });

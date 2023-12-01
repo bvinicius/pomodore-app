@@ -1,5 +1,4 @@
 import { RouteRecordRaw, createRouter, createWebHashHistory } from 'vue-router';
-import { homeViews } from '@/primary/infrastructure/router/homeViews';
 
 const HomePage = () => import('@/primary/pages/HomePage.vue');
 const StoragePage = () => import('@/primary/pages/StoragePage.vue');
@@ -13,8 +12,7 @@ export const routes: RouteRecordRaw[] = [
     {
         component: HomePage,
         name: RootPage.home,
-        path: '/',
-        children: homeViews
+        path: '/'
     },
     {
         component: StoragePage,
