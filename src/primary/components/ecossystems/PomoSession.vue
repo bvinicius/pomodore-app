@@ -23,11 +23,18 @@
             />
         </div>
         <div
-            class="flex items-center justify-center mt-6 cursor-pointer"
+            class="flex items-center justify-center mt-6 cursor-pointer text-gray-777"
             @click="runner.startNextSession"
         >
             <PomoIcon name="fast_forward"></PomoIcon>
-            <span class="font-semibold">Skip to break</span>
+            <span class="font-semibold"
+                >Skip to
+                {{
+                    pomoStore.session.current === PomoSessionType.BREAK
+                        ? 'work session'
+                        : 'break session'
+                }}</span
+            >
         </div>
     </PomoCard>
 </template>

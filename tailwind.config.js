@@ -22,6 +22,9 @@ module.exports = {
                 'primary-container': {
                     300: '#A7A7A7',
                     400: '#323240'
+                },
+                gray: {
+                    777: '#777777'
                 }
             },
             spacing: {
