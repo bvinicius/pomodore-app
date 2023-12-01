@@ -1,4 +1,8 @@
-import { PomoSettings, PomoSessionType } from '@/domain/Pomodore';
+import {
+    PomoSettings,
+    PomoSessionType,
+    PomoSessionState
+} from '@/domain/Pomodore';
 import EventEmitter from 'events';
 
 enum PomoRunnerEvent {
@@ -11,10 +15,19 @@ export class PomoRunner {
     private readonly eventEmitter = new EventEmitter();
     private currentSession?: PomoSessionType;
     private currentInterval?: NodeJS.Timeout;
+    private startingPoint = 0;
     private _isPaused = false;
     private _started = false;
 
     constructor(private pomodore: PomoSettings) {}
+
+    static fromState(settings: PomoSettings, session: PomoSessionState) {
+        const runner = new PomoRunner(settings);
+        runner.currentSession = session.current;
+        runner.startingPoint = session.timeLeft;
+        runner._started = true;
+        return runner;
+    }
 
     private get currentSessionLength() {
         if (!this.currentSession) {
@@ -80,7 +93,9 @@ export class PomoRunner {
     private startSessionCountdown() {
         this.emitSessionStart();
 
-        const sessionLengthSeconds = this.currentSessionLength * 60;
+        const sessionLengthSeconds =
+            this.currentSessionLength * 60 - this.startingPoint;
+
         this.emitTick(sessionLengthSeconds);
 
         let secondsPassed = 0;
@@ -92,8 +107,6 @@ export class PomoRunner {
             this.emitTick(sessionLengthSeconds - secondsPassed);
 
             if (secondsPassed >= sessionLengthSeconds) {
-                console.log('session ended');
-
                 clearInterval(this.currentInterval);
                 this.emitSessionEnd();
             }
