@@ -17,7 +17,7 @@
                 </span>
             </div>
 
-            <PomoCard class="mx-auto">
+            <PomoCard class="mx-auto transition-all">
                 <PomoSettings
                     v-if="pomoStore.isSettingsView"
                     v-model:break-session-length="settings.breakSessionLength"
@@ -35,7 +35,7 @@
                     @click="onButtonClick"
                 >
                     <span>{{
-                        pomoStore.session.started ? 'Continue' : 'Start'
+                        pomoStore.session.started ? 'Restart' : 'Start'
                     }}</span>
                 </PomoButton>
             </div>
@@ -62,15 +62,9 @@ const settings = reactive({
 });
 
 const onButtonClick = () => {
-    const changedSettings =
-        pomoStore.workSession !== settings.workSessionLength ||
-        pomoStore.breakSession !== settings.breakSessionLength;
-
-    if (changedSettings && pomoStore.session.started) {
-        pomoStore.updateSettings(settings);
-        pomoStore.session.current = PomoSessionType.WORK;
-        restartSesion();
-    }
+    pomoStore.updateSettings(settings);
+    pomoStore.session.current = PomoSessionType.WORK;
+    restartSesion();
 
     pomoStore.toggleView();
 };

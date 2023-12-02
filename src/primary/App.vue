@@ -3,3 +3,18 @@
         <router-view></router-view>
     </div>
 </template>
+
+<script setup lang="ts">
+import { onMounted } from 'vue';
+import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
+import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
+
+const { continueSession } = usePomoRunner();
+const pomoStore = usePomoStore();
+
+onMounted(() => {
+    if (pomoStore.session.started) {
+        continueSession();
+    }
+});
+</script>

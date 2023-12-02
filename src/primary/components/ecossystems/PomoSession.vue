@@ -47,18 +47,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { PomoSessionType } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionCountdown from '@/primary/components/molecules/PomoSessionCountdown.vue';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 
-const { startNextSession, restartSesion, continueSession } = usePomoRunner();
+const { startNextSession, restartSesion } = usePomoRunner();
 
 const pomoStore = usePomoStore();
-
-onMounted(() => {
-    continueSession();
-});
 </script>
