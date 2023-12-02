@@ -9,12 +9,13 @@ import { onMounted } from 'vue';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 
-const { continueSession } = usePomoRunner();
+const { continueSession, pause } = usePomoRunner();
 const pomoStore = usePomoStore();
 
 onMounted(() => {
     if (pomoStore.session.started) {
         continueSession();
+        pause();
     }
 });
 </script>
