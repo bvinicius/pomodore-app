@@ -18,7 +18,11 @@
             </div>
 
             <PomoCard class="mx-auto">
-                <PomoSettings v-if="pomoStore.isSettingsView" />
+                <PomoSettings
+                    v-if="pomoStore.isSettingsView"
+                    v-model:break-session-length="settings.breakSessionLength"
+                    v-model:work-session-length="settings.workSessionLength"
+                />
                 <PomoSession v-else />
             </PomoCard>
 
@@ -28,7 +32,7 @@
             >
                 <PomoButton
                     class="flex items-center gap-2 px-8"
-                    @click="pomoStore.toggleView()"
+                    @click="onButtonClick"
                 >
                     <span>{{
                         pomoStore.session.started ? 'Continue' : 'Start'
@@ -40,11 +44,34 @@
 </template>
 
 <script setup lang="ts">
+import { reactive } from 'vue';
+import { PomoSessionType } from '@/domain/Pomodore';
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import PomoSession from '@/primary/components/ecossystems/PomoSession.vue';
 import PomoSettings from '@/primary/components/ecossystems/PomoSettings.vue';
 import PomoCard from '@/primary/components/molecules/PomoCard.vue';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
+import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 
 const pomoStore = usePomoStore();
+const { restartSesion } = usePomoRunner();
+
+const settings = reactive({
+    workSessionLength: pomoStore.workSession,
+    breakSessionLength: pomoStore.breakSession
+});
+
+const onButtonClick = () => {
+    const changedSettings =
+        pomoStore.workSession !== settings.workSessionLength ||
+        pomoStore.breakSession !== settings.breakSessionLength;
+
+    if (changedSettings && pomoStore.session.started) {
+        pomoStore.updateSettings(settings);
+        pomoStore.session.current = PomoSessionType.WORK;
+        restartSesion();
+    }
+
+    pomoStore.toggleView();
+};
 </script>

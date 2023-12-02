@@ -1,7 +1,6 @@
 export interface PomoSettings {
     workSessionLength: number;
     breakSessionLength: number;
-    sessions: number;
 }
 
 export interface PomoSessionState {

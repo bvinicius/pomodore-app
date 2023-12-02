@@ -13,8 +13,7 @@ interface PomoState {
 
 const config: PomoSettings = {
     workSessionLength: 40,
-    breakSessionLength: 5,
-    sessions: 3
+    breakSessionLength: 5
 };
 
 export const usePomoStore = defineStore('pomodore', {
@@ -40,6 +39,9 @@ export const usePomoStore = defineStore('pomodore', {
         isSessionView: (state) => state.currentView === 'session'
     },
     actions: {
+        updateSettings(settings: PomoSettings) {
+            this.settings = settings;
+        },
         toggleView() {
             this.currentView =
                 this.currentView === 'settings' ? 'session' : 'settings';
