@@ -79,6 +79,10 @@ export const usePomoRunner = () => {
         }
 
         interval.value = setInterval(() => {
+            if (pomoStore.session.paused) {
+                return;
+            }
+
             pomoStore.session.timeLeft = Math.max(
                 pomoStore.session.timeLeft - 1,
                 0

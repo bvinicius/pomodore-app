@@ -33,6 +33,7 @@ const props = withDefaults(
         duration?: number;
         startFrom?: number;
         radius?: number;
+        paused?: boolean;
     }>(),
     {
         duration: 10,
@@ -48,7 +49,9 @@ const padding = computed(() =>
 const circunferencePx = computed(() => Math.PI * props.radius * 2 + 'px');
 const containerSizePx = computed(() => props.radius * 2 + padding.value + 'px');
 const durationAnimation = computed(
-    () => `countdown ${props.duration - props.startFrom}s linear forwards`
+    () =>
+        `countdown ${props.duration - props.startFrom}s linear forwards` +
+        (props.paused ? ' paused' : ' running')
 );
 const initialDashoffset = computed(() => {
     const percent = props.startFrom / props.duration;

@@ -4,6 +4,7 @@
         :radius="200"
         :duration="duration"
         :start-from="secondsPassed"
+        :paused="paused"
     >
         <span
             class="text-2xl md:text-4xl font-semibold text-primary-600 tabular-nums transition-all"
@@ -22,6 +23,7 @@ import PomoCountdownSpinner from '@/primary/components/molecules/PomoCountdownSp
 const props = defineProps<{
     duration: number;
     timeLeft: number;
+    paused?: boolean;
 }>();
 
 const secondsPassed = ref(props.duration - props.timeLeft);
