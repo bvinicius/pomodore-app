@@ -44,6 +44,16 @@ export const usePomoRunner = () => {
         continueSession();
     };
 
+    const clearSession = () => {
+        pomoStore.session = {
+            timeLeft: pomoStore.currentSessionLength * 60,
+            isOver: false,
+            started: false,
+            paused: false,
+            current: pomoStore.session.current
+        };
+    };
+
     const _skipSession = () => {
         pomoStore.session.current === PomoSessionType.WORK
             ? (pomoStore.session.current = PomoSessionType.BREAK)
@@ -92,5 +102,12 @@ export const usePomoRunner = () => {
         )} - ${session} | Pomodore`;
     };
 
-    return { startNextSession, continueSession, resume, pause, restartSesion };
+    return {
+        startNextSession,
+        continueSession,
+        resume,
+        pause,
+        restartSesion,
+        clearSession
+    };
 };

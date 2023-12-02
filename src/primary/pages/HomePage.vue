@@ -28,9 +28,31 @@
 
             <div
                 v-if="pomoStore.isSettingsView"
-                class="flex justify-center"
+                class="flex justify-center animate-fade"
             >
+                <div
+                    v-if="pomoStore.session.started"
+                    class="flex flex-col gap-6 text-center text-xs sm:text-sm md:text-base text-red-700 animate-fade-fast"
+                >
+                    <span
+                        >You have an active session.
+                        <b
+                            class="underline cursor-pointer tabular-nums"
+                            @click="pomoStore.toggleView()"
+                        >
+                            See Pomodore</b
+                        >
+                    </span>
+                    <PomoButton
+                        outline
+                        class="border-red-700 hover:border-red-700 mx-auto"
+                        @click="clearSession"
+                    >
+                        <span class="text-red-700"> Finish Pomodore </span>
+                    </PomoButton>
+                </div>
                 <PomoButton
+                    v-if="!pomoStore.session.started"
                     class="flex items-center gap-2 px-8"
                     @click="onButtonClick"
                 >
@@ -54,7 +76,7 @@ import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 
 const pomoStore = usePomoStore();
-const { restartSesion } = usePomoRunner();
+const { restartSesion, clearSession } = usePomoRunner();
 
 const settings = reactive({
     workSessionLength: pomoStore.workSession,
