@@ -15,8 +15,9 @@
             </span>
         </div>
         <PomoSessionCountdown
+            :key="pomoStore.session.current"
             class="mx-auto"
-            :from="pomoStore.currentSessionLength * 60"
+            :duration="pomoStore.currentSessionLength * 60"
             :radius="150"
             :time-left="pomoStore.session.timeLeft || 0"
         />

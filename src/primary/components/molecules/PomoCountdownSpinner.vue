@@ -31,10 +31,12 @@ const CONTAINER_PADDING_RATIO = 0.1;
 const props = withDefaults(
     defineProps<{
         duration?: number;
+        startFrom?: number;
         radius?: number;
     }>(),
     {
         duration: 10,
+        startFrom: 0,
         radius: 24
     }
 );
@@ -46,14 +48,17 @@ const padding = computed(() =>
 const circunferencePx = computed(() => Math.PI * props.radius * 2 + 'px');
 const containerSizePx = computed(() => props.radius * 2 + padding.value + 'px');
 const durationAnimation = computed(
-    () => `countdown ${props.duration}s linear forwards`
+    () => `countdown ${props.duration - props.startFrom}s linear forwards`
 );
+const initialDashoffset = computed(() => {
+    const percent = props.startFrom / props.duration;
+    return `${Math.PI * props.radius * 2 * percent}px`;
+});
 </script>
 
 <style>
 .countdown__background-ring {
     stroke-dasharray: v-bind(circunferencePx);
-    stroke-dashoffset: 0px;
     stroke-linecap: round;
     stroke-width: 4px;
     fill: none;
@@ -61,7 +66,6 @@ const durationAnimation = computed(
 
 .countdown__foreground-ring {
     stroke-dasharray: v-bind(circunferencePx);
-    stroke-dashoffset: 0px;
     stroke-linecap: round;
     stroke-width: 4px;
     fill: none;
@@ -70,7 +74,7 @@ const durationAnimation = computed(
 
 @keyframes countdown {
     from {
-        stroke-dashoffset: 0px;
+        stroke-dashoffset: v-bind(initialDashoffset);
     }
     to {
         stroke-dashoffset: v-bind(circunferencePx);
