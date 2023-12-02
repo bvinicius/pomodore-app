@@ -17,14 +17,23 @@
                 </span>
             </div>
 
-            <PomoCard class="mx-auto transition-all">
+            <PomoCard
+                v-if="pomoStore.isSettingsView"
+                class="mx-auto transition-all"
+            >
                 <PomoSettings
-                    v-if="pomoStore.isSettingsView"
                     v-model:break-session-length="settings.breakSessionLength"
                     v-model:work-session-length="settings.workSessionLength"
                 />
-                <PomoSession v-else />
             </PomoCard>
+            <DelayWrapper
+                v-else
+                :amount="100"
+            >
+                <PomoCard class="mx-auto transition-all animate-fade">
+                    <PomoSession />
+                </PomoCard>
+            </DelayWrapper>
 
             <div
                 v-if="pomoStore.isSettingsView"
@@ -32,7 +41,7 @@
             >
                 <div
                     v-if="pomoStore.session.started"
-                    class="flex flex-col gap-6 text-center text-xs sm:text-sm md:text-base text-red-700 animate-fade-fast"
+                    class="flex flex-col gap-6 text-center text-xs sm:text-sm md:text-base animate-fade-fast"
                 >
                     <span
                         >You have an active session.
@@ -72,6 +81,7 @@ import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import PomoSession from '@/primary/components/ecossystems/PomoSession.vue';
 import PomoSettings from '@/primary/components/ecossystems/PomoSettings.vue';
 import PomoCard from '@/primary/components/molecules/PomoCard.vue';
+import DelayWrapper from '@/primary/components/molecules/DelayWrapper.vue';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 

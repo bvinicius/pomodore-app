@@ -52,6 +52,8 @@ export const usePomoRunner = () => {
             paused: false,
             current: pomoStore.session.current
         };
+        _updateMetaTitle();
+        clearInterval(interval.value);
     };
 
     const _skipSession = () => {
@@ -92,6 +94,11 @@ export const usePomoRunner = () => {
     };
 
     const _updateMetaTitle = () => {
+        if (!pomoStore.session.started) {
+            document.title = `Pomodore`;
+            return;
+        }
+
         const session =
             pomoStore.session.current === PomoSessionType.WORK
                 ? 'Work session'
