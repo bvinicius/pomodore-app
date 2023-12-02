@@ -4,6 +4,7 @@ import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { toMinuteFormat } from '@/secondary/utils/date-utils';
 
 const interval = ref<NodeJS.Timeout>();
+const audio = new Audio('/audio/alarm.mp3');
 
 export const usePomoRunner = () => {
     const pomoStore = usePomoStore();
@@ -71,6 +72,7 @@ export const usePomoRunner = () => {
     };
 
     const _startSessionCountdown = () => {
+        _stopAudio();
         _updateMetaTitle();
         pomoStore.session.started = true;
 
@@ -91,8 +93,7 @@ export const usePomoRunner = () => {
             _updateMetaTitle();
 
             if (pomoStore.session.timeLeft <= 0) {
-                pomoStore.session.isOver = true;
-                clearInterval(interval.value);
+                _onSessionEnd();
             }
         }, 1000);
     };
@@ -111,6 +112,22 @@ export const usePomoRunner = () => {
         document.title = `${toMinuteFormat(
             pomoStore.session.timeLeft
         )} - ${session} | Pomodore`;
+    };
+
+    const _onSessionEnd = () => {
+        pomoStore.session.isOver = true;
+        clearInterval(interval.value);
+        _playAudio();
+    };
+
+    const _playAudio = () => {
+        audio.currentTime = 0;
+        audio.play();
+    };
+
+    const _stopAudio = () => {
+        audio.pause();
+        audio.currentTime = 0;
     };
 
     return {
