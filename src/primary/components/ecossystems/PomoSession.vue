@@ -4,14 +4,22 @@
             v-if="pomoStore.session.current"
             class="flex justify-center items-center"
         >
-            <span
-                class="text-2xl md:text-3xl font-semibold text-on-container-500"
+            <div
+                v-if="pomoStore.session.isOver"
+                class="flex flex-col items-center animate-fade"
             >
-                {{
-                    pomoStore.session.current === PomoSessionType.WORK
-                        ? 'Work session'
-                        : 'Break session'
-                }}
+                <span class="text-2xl md:text-3xl font-semibold">
+                    Time's up!
+                </span>
+                <span class="font-xs md:font-sm">{{
+                    `${sessionName} is done.`
+                }}</span>
+            </div>
+            <span
+                v-else
+                class="text-2xl md:text-3xl font-semibold text-on-container-500 animate-fade"
+            >
+                {{ sessionName }}
             </span>
         </div>
         <PomoSessionCountdown
@@ -22,7 +30,21 @@
             :time-left="pomoStore.session.timeLeft"
             :paused="pomoStore.session.paused"
         />
-        <div class="flex justify-center gap-4 text-gray-777">
+        <PomoButton
+            v-if="pomoStore.session.isOver"
+            class="mx-auto"
+            outline
+            @click="startNextSession"
+        >
+            <div class="flex items-center gap-2">
+                <PomoIcon name="skip_next" />
+                Start next session
+            </div>
+        </PomoButton>
+        <div
+            v-else
+            class="flex justify-center gap-4 text-gray-777"
+        >
             <PomoIcon
                 name="restart_alt"
                 button
@@ -43,13 +65,21 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { PomoSessionType } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionCountdown from '@/primary/components/molecules/PomoSessionCountdown.vue';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
+import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 
 const { startNextSession, restartSesion, pause, resume } = usePomoRunner();
+
+const sessionName = computed(() =>
+    pomoStore.session.current === PomoSessionType.WORK
+        ? 'Work session'
+        : 'Break session'
+);
 
 const pomoStore = usePomoStore();
 </script>
