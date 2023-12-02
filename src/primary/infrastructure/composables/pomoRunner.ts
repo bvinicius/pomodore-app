@@ -1,6 +1,7 @@
 import { ref } from 'vue';
-import { usePomoStore } from '../store/pomoStore';
 import { PomoSessionType } from '@/domain/Pomodore';
+import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
+import { toMinuteFormat } from '@/secondary/utils/date-utils';
 
 const interval = ref<NodeJS.Timeout>();
 
@@ -58,6 +59,7 @@ export const usePomoRunner = () => {
     };
 
     const _startSessionCountdown = () => {
+        _updateMetaTitle();
         pomoStore.session.started = true;
 
         if (!pomoStore.session.timeLeft || pomoStore.session.timeLeft <= 0) {
@@ -70,11 +72,24 @@ export const usePomoRunner = () => {
                 0
             );
 
+            _updateMetaTitle();
+
             if (pomoStore.session.timeLeft <= 0) {
                 pomoStore.session.isOver = true;
                 clearInterval(interval.value);
             }
         }, 1000);
+    };
+
+    const _updateMetaTitle = () => {
+        const session =
+            pomoStore.session.current === PomoSessionType.WORK
+                ? 'Work session'
+                : 'Break session';
+
+        document.title = `${toMinuteFormat(
+            pomoStore.session.timeLeft
+        )} - ${session} | Pomodore`;
     };
 
     return { startNextSession, continueSession, resume, pause, restartSesion };
