@@ -34,11 +34,11 @@ export const usePomoRunner = () => {
 
     const restartSesion = () => {
         pomoStore.session = {
-            timeLeft: pomoStore.currentSessionLength * 60,
+            current: pomoStore.session.current,
             isOver: false,
-            started: true,
             paused: false,
-            current: pomoStore.session.current
+            started: true,
+            timeLeft: pomoStore.currentSessionLength * 60
         };
 
         continueSession();

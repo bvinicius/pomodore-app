@@ -19,7 +19,7 @@
             class="mx-auto"
             :duration="pomoStore.currentSessionLength * 60"
             :radius="150"
-            :time-left="pomoStore.session.timeLeft || 0"
+            :time-left="pomoStore.session.timeLeft"
         />
         <div class="flex flex-col items-start gap-2">
             <div
