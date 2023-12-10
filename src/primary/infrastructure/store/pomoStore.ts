@@ -36,7 +36,11 @@ export const usePomoStore = defineStore('pomodore', {
                 ? state.settings.workSessionLength
                 : state.settings.breakSessionLength,
         isSettingsView: (state) => state.currentView === 'settings',
-        isSessionView: (state) => state.currentView === 'session'
+        isSessionView: (state) => state.currentView === 'session',
+        nextSession: (state) =>
+            state.session.current === PomoSessionType.WORK
+                ? PomoSessionType.BREAK
+                : PomoSessionType.WORK
     },
     actions: {
         updateSettings(settings: PomoSettings) {

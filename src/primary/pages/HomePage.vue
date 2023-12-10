@@ -1,6 +1,6 @@
 <template>
     <div class="animate-fade">
-        <div class="flex flex-col justify-center gap-12 md:gap-12">
+        <div class="flex flex-col justify-center gap-6 md:gap-12">
             <div class="flex flex-col">
                 <span
                     class="text-4xl sm:text-8xl text-center font-bold select-none transition-all duration-500 cursor-pointer mx-auto"
@@ -11,7 +11,7 @@
                 </span>
                 <span
                     v-if="pomoStore.isSettingsView"
-                    class="font-semibold text-center animate-fade-fast"
+                    class="hidden sm:block font-semibold text-center animate-fade-fast"
                 >
                     A tool to do more things spending less time.
                 </span>

@@ -11,15 +11,12 @@
                 <span class="text-2xl md:text-3xl font-semibold">
                     Time's up!
                 </span>
-                <span class="font-xs md:font-sm">{{
-                    `${sessionName} is done.`
-                }}</span>
             </div>
             <span
                 v-else
                 class="text-2xl md:text-3xl font-semibold text-on-container-500 animate-fade"
             >
-                {{ sessionName }}
+                {{ pomoStore.session.current.toString() }} session
             </span>
         </div>
         <PomoSessionCountdown
@@ -38,7 +35,7 @@
         >
             <div class="flex items-center gap-2">
                 <PomoIcon name="skip_next" />
-                Start next session
+                {{ `Start ${pomoStore.nextSession.toString()}` }}
             </div>
         </PomoButton>
         <div
@@ -68,8 +65,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { PomoSessionType } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionCountdown from '@/primary/components/molecules/PomoSessionCountdown.vue';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
@@ -77,12 +72,6 @@ import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 
 const { startNextSession, restartSesion, pause, resume } = usePomoRunner();
-
-const sessionName = computed(() =>
-    pomoStore.session.current === PomoSessionType.WORK
-        ? 'Work session'
-        : 'Break session'
-);
 
 const pomoStore = usePomoStore();
 </script>

@@ -17,6 +17,6 @@ export interface PomoSession {
 }
 
 export enum PomoSessionType {
-    WORK = 'WORK',
-    BREAK = 'BREAK'
+    WORK = 'Work',
+    BREAK = 'Break'
 }
