@@ -48,16 +48,19 @@
             <PomoIcon
                 name="restart_alt"
                 button
+                title="Restart session"
                 @click="restartSesion"
             ></PomoIcon>
             <PomoIcon
                 :name="pomoStore.session.paused ? 'play_arrow' : 'pause'"
                 button
+                :title="pomoStore.session.paused ? 'Resume' : 'Pause'"
                 @click="() => (pomoStore.session.paused ? resume() : pause())"
             ></PomoIcon>
             <PomoIcon
                 name="fast_forward"
                 button
+                title="Start next session"
                 @click="startNextSession"
             ></PomoIcon>
         </div>
