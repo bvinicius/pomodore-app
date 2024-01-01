@@ -2,17 +2,17 @@ import { PomoSessionType } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { toMinuteFormat } from '@/secondary/utils/date-utils';
 import { injectSafe } from '@/primary/infrastructure/dependency-injection';
-import { COUNTER_WORKER } from '@/primary/infrastructure/dependency-symbols';
+import { POMO_COUNTER } from '@/primary/infrastructure/dependency-symbols';
+import { PomoCounter } from '@/domain/PomoCounter';
 
 const audio = new Audio('/audio/alarm.mp3');
 
 export const usePomoRunner = () => {
     const pomoStore = usePomoStore();
-    const counterWorker = injectSafe<Worker>(COUNTER_WORKER);
-    const worker = counterWorker;
+    const pomoCounter = injectSafe<PomoCounter>(POMO_COUNTER);
 
     const startNextSession = () => {
-        worker.postMessage({ type: 'stop' });
+        pomoCounter.stop();
         _skipSession();
         _startSessionCountdown();
     };
@@ -23,17 +23,17 @@ export const usePomoRunner = () => {
             return;
         }
 
-        worker.postMessage({ type: 'stop' });
+        pomoCounter.stop();
         _startSessionCountdown();
     };
 
     const resume = () => {
-        worker.postMessage({ type: 'start' });
+        pomoCounter.start();
         pomoStore.session.paused = false;
     };
 
     const pause = () => {
-        worker.postMessage({ type: 'stop' });
+        pomoCounter.stop();
         pomoStore.session.paused = true;
     };
 
@@ -58,7 +58,7 @@ export const usePomoRunner = () => {
             current: pomoStore.session.current
         };
         _updateMetaTitle();
-        worker.postMessage({ type: 'stop' });
+        pomoCounter.stop();
     };
 
     const _skipSession = () => {
@@ -84,25 +84,8 @@ export const usePomoRunner = () => {
             pomoStore.session.timeLeft = pomoStore.currentSessionLength;
         }
 
-        worker.postMessage({ type: 'start' });
-        worker.onmessage = (message) => {
-            if (message.data.type === 'tick') {
-                if (pomoStore.session.paused) {
-                    return;
-                }
-
-                pomoStore.session.timeLeft = Math.max(
-                    pomoStore.session.timeLeft - 1,
-                    0
-                );
-
-                _updateMetaTitle();
-
-                if (pomoStore.session.timeLeft <= 0) {
-                    _onSessionEnd();
-                }
-            }
-        };
+        pomoCounter.start();
+        pomoCounter.onTick(_onTick);
     };
 
     const _updateMetaTitle = () => {
@@ -123,8 +106,25 @@ export const usePomoRunner = () => {
 
     const _onSessionEnd = () => {
         pomoStore.session.isOver = true;
-        worker.postMessage({ type: 'stop' });
+        pomoCounter.stop();
         _playAudio();
+    };
+
+    const _onTick = () => {
+        if (pomoStore.session.paused) {
+            return;
+        }
+
+        pomoStore.session.timeLeft = Math.max(
+            pomoStore.session.timeLeft - 1,
+            0
+        );
+
+        _updateMetaTitle();
+
+        if (pomoStore.session.timeLeft <= 0) {
+            _onSessionEnd();
+        }
     };
 
     const _playAudio = () => {

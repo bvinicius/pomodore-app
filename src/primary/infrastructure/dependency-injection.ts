@@ -1,6 +1,6 @@
 import { App, InjectionKey, inject } from 'vue';
 import {
-    COUNTER_WORKER,
+    POMO_COUNTER,
     FILE_SERVICE,
     MUSIC_PLAYER
 } from '@/primary/infrastructure/dependency-symbols';
@@ -8,11 +8,12 @@ import { FirebaseFileStorage } from '@/secondary/files-service/FirebaseFileServi
 import firebase from '@/primary/infrastructure/firebase';
 import { HowlerPlayer } from '@/secondary/music-player/HowlerPlayer';
 import MyWorker from '@/secondary/counter-worker/counter-worker?worker';
+import { PomoCounterInstance } from '@/secondary/counter-worker/PomoCounterInstance';
 
 export const provide = (app: App) => {
     app.provide(FILE_SERVICE, new FirebaseFileStorage(firebase));
     app.provide(MUSIC_PLAYER, new HowlerPlayer());
-    app.provide(COUNTER_WORKER, new MyWorker());
+    app.provide(POMO_COUNTER, new PomoCounterInstance(new MyWorker()));
 };
 
 export const injectSafe = <T>(key: InjectionKey<T>): T => {
