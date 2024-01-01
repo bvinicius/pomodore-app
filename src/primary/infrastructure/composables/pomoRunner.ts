@@ -1,16 +1,18 @@
-import { ref } from 'vue';
 import { PomoSessionType } from '@/domain/Pomodore';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { toMinuteFormat } from '@/secondary/utils/date-utils';
+import { injectSafe } from '@/primary/infrastructure/dependency-injection';
+import { COUNTER_WORKER } from '@/primary/infrastructure/dependency-symbols';
 
-const interval = ref<NodeJS.Timeout>();
 const audio = new Audio('/audio/alarm.mp3');
 
 export const usePomoRunner = () => {
     const pomoStore = usePomoStore();
+    const counterWorker = injectSafe<Worker>(COUNTER_WORKER);
+    const worker = counterWorker;
 
     const startNextSession = () => {
-        clearInterval(interval.value);
+        worker.postMessage({ type: 'stop' });
         _skipSession();
         _startSessionCountdown();
     };
@@ -21,15 +23,17 @@ export const usePomoRunner = () => {
             return;
         }
 
-        clearInterval(interval.value);
+        worker.postMessage({ type: 'stop' });
         _startSessionCountdown();
     };
 
     const resume = () => {
+        worker.postMessage({ type: 'start' });
         pomoStore.session.paused = false;
     };
 
     const pause = () => {
+        worker.postMessage({ type: 'stop' });
         pomoStore.session.paused = true;
     };
 
@@ -54,7 +58,7 @@ export const usePomoRunner = () => {
             current: pomoStore.session.current
         };
         _updateMetaTitle();
-        clearInterval(interval.value);
+        worker.postMessage({ type: 'stop' });
     };
 
     const _skipSession = () => {
@@ -80,22 +84,25 @@ export const usePomoRunner = () => {
             pomoStore.session.timeLeft = pomoStore.currentSessionLength;
         }
 
-        interval.value = setInterval(() => {
-            if (pomoStore.session.paused) {
-                return;
+        worker.postMessage({ type: 'start' });
+        worker.onmessage = (message) => {
+            if (message.data.type === 'tick') {
+                if (pomoStore.session.paused) {
+                    return;
+                }
+
+                pomoStore.session.timeLeft = Math.max(
+                    pomoStore.session.timeLeft - 1,
+                    0
+                );
+
+                _updateMetaTitle();
+
+                if (pomoStore.session.timeLeft <= 0) {
+                    _onSessionEnd();
+                }
             }
-
-            pomoStore.session.timeLeft = Math.max(
-                pomoStore.session.timeLeft - 1,
-                0
-            );
-
-            _updateMetaTitle();
-
-            if (pomoStore.session.timeLeft <= 0) {
-                _onSessionEnd();
-            }
-        }, 1000);
+        };
     };
 
     const _updateMetaTitle = () => {
@@ -116,7 +123,7 @@ export const usePomoRunner = () => {
 
     const _onSessionEnd = () => {
         pomoStore.session.isOver = true;
-        clearInterval(interval.value);
+        worker.postMessage({ type: 'stop' });
         _playAudio();
     };
 

@@ -10,6 +10,7 @@ import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 
 const { continueSession, pause } = usePomoRunner();
+
 const pomoStore = usePomoStore();
 
 onMounted(() => {
