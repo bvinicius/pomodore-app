@@ -23,7 +23,7 @@
             :key="pomoStore.session.current"
             class="mx-auto animate-fade"
             :duration="pomoStore.currentSessionLength * 60"
-            :radius="150"
+            :radius="120"
             :time-left="pomoStore.session.timeLeft"
             :paused="pomoStore.session.paused"
         />

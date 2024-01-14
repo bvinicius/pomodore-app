@@ -33,6 +33,12 @@
                 <PomoCard class="mx-auto transition-all animate-fade">
                     <PomoSession />
                 </PomoCard>
+                <PomoButton
+                    class="flex items-center gap-2 px-8 mx-auto"
+                    @click="pomoStore.toggleView()"
+                >
+                    <span>Back</span>
+                </PomoButton>
             </DelayWrapper>
 
             <div
@@ -65,9 +71,7 @@
                     class="flex items-center gap-2 px-8"
                     @click="onButtonClick"
                 >
-                    <span>{{
-                        pomoStore.session.started ? 'Restart' : 'Start'
-                    }}</span>
+                    <span>Start</span>
                 </PomoButton>
             </div>
         </div>

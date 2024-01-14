@@ -7,7 +7,7 @@
         :paused="paused"
     >
         <span
-            class="text-2xl md:text-4xl font-semibold text-primary-600 tabular-nums transition-all"
+            class="text-2xl md:text-3xl font-semibold text-primary-600 tabular-nums transition-all"
         >
             {{ toMinuteFormat(timeLeft) }}
         </span>
