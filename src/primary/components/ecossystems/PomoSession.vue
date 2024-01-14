@@ -14,7 +14,7 @@
             </div>
             <span
                 v-else
-                class="text-2xl md:text-3xl font-semibold text-on-container-500 animate-fade"
+                class="text-2xl md:text-2xl font-semibold text-on-container-500 animate-fade"
             >
                 {{ pomoStore.session.current.toString() }} session
             </span>
@@ -23,7 +23,7 @@
             :key="pomoStore.session.current"
             class="mx-auto animate-fade"
             :duration="pomoStore.currentSessionLength * 60"
-            :radius="120"
+            :radius="sm ? 90 : 120"
             :time-left="pomoStore.session.timeLeft"
             :paused="pomoStore.session.paused"
         />
@@ -70,8 +70,10 @@ import PomoSessionCountdown from '@/primary/components/molecules/PomoSessionCoun
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
+import { useScreenSize } from '@/primary/infrastructure/composables/screenSize';
 
 const { startNextSession, restartSesion, pause, resume } = usePomoRunner();
+const { sm } = useScreenSize();
 
 const pomoStore = usePomoStore();
 </script>
