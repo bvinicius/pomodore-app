@@ -6,7 +6,7 @@
 import { onMounted, ref } from 'vue';
 
 const props = defineProps<{
-    amount: number;
+    duration: number;
 }>();
 
 const showContent = ref(false);
@@ -14,6 +14,6 @@ const showContent = ref(false);
 onMounted(() => {
     setTimeout(() => {
         showContent.value = true;
-    }, props.amount);
+    }, props.duration);
 });
 </script>

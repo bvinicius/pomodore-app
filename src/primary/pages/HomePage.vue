@@ -19,20 +19,43 @@
 
             <DelayWrapper
                 v-if="pomoStore.isSettingsView"
-                :amount="100"
+                :duration="100"
             >
-                <PomoCard class="mx-auto transition-all">
-                    <PomoSettings
-                        v-model:break-session-length="
-                            settings.breakSessionLength
-                        "
-                        v-model:work-session-length="settings.workSessionLength"
-                    />
-                </PomoCard>
+                <div class="flex flex-col mx-auto gap-8">
+                    <PomoCard class="mx-auto transition-all">
+                        <PomoSettings
+                            v-model:break-session-length="
+                                settings.breakSessionLength
+                            "
+                            v-model:work-session-length="
+                                settings.workSessionLength
+                            "
+                        />
+                    </PomoCard>
+
+                    <PomoCard
+                        v-if="pomoStore.session.started"
+                        class="px-6 py-4 cursor-pointer"
+                        button
+                        @click="pomoStore.toggleView()"
+                    >
+                        <PomoSessionCompact />
+                    </PomoCard>
+
+                    <PomoButton
+                        v-else
+                        class="flex items-center gap-2 mx-auto"
+                        @click="onButtonClick"
+                    >
+                        <PomoIcon name="play_arrow" />
+                        <span>Start</span>
+                    </PomoButton>
+                </div>
             </DelayWrapper>
+
             <DelayWrapper
                 v-else
-                :amount="100"
+                :duration="100"
             >
                 <PomoCard class="mx-auto transition-all animate-fade">
                     <PomoSession />
@@ -45,42 +68,6 @@
                     <span>Back</span>
                 </PomoButton>
             </DelayWrapper>
-
-            <div
-                v-if="pomoStore.isSettingsView"
-                class="flex justify-center animate-fade"
-            >
-                <div
-                    v-if="pomoStore.session.started"
-                    class="flex flex-col gap-6 text-center text-xs sm:text-sm md:text-base animate-fade-fast"
-                >
-                    <span
-                        >You have an active session.
-                        <b
-                            class="underline cursor-pointer tabular-nums"
-                            @click="pomoStore.toggleView()"
-                        >
-                            See Pomodore</b
-                        >
-                    </span>
-                    <PomoButton
-                        outline
-                        class="border-red-700 hover:border-red-700 mx-auto text-red-700 gap-3"
-                        @click="clearSession"
-                    >
-                        <PomoIcon name="delete_outline" />
-                        <span> Finish Pomodore </span>
-                    </PomoButton>
-                </div>
-                <PomoButton
-                    v-if="!pomoStore.session.started"
-                    class="flex items-center gap-2"
-                    @click="onButtonClick"
-                >
-                    <PomoIcon name="play_arrow" />
-                    <span>Start</span>
-                </PomoButton>
-            </div>
         </div>
     </div>
 </template>
@@ -96,9 +83,10 @@ import DelayWrapper from '@/primary/components/molecules/DelayWrapper.vue';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
+import PomoSessionCompact from '@/primary/components/organisms/PomoSessionCompact.vue';
 
 const pomoStore = usePomoStore();
-const { restartSesion, clearSession } = usePomoRunner();
+const { restartSesion } = usePomoRunner();
 
 const settings = reactive({
     workSessionLength: pomoStore.workSession,

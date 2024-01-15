@@ -43,20 +43,20 @@
             class="flex justify-center gap-4 text-gray-777"
         >
             <PomoIcon
-                name="restart_alt"
                 button
+                name="restart_alt"
                 title="Restart session"
                 @click="restartSesion"
             ></PomoIcon>
             <PomoIcon
-                :name="pomoStore.session.paused ? 'play_arrow' : 'pause'"
                 button
+                :name="pomoStore.session.paused ? 'play_arrow' : 'pause'"
                 :title="pomoStore.session.paused ? 'Resume' : 'Pause'"
                 @click="() => (pomoStore.session.paused ? resume() : pause())"
             ></PomoIcon>
             <PomoIcon
-                name="fast_forward"
                 button
+                name="fast_forward"
                 title="Start next session"
                 @click="startNextSession"
             ></PomoIcon>
