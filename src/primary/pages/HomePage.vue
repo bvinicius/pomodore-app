@@ -89,8 +89,8 @@
 import { reactive } from 'vue';
 import { PomoSessionType } from '@/domain/Pomodore';
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
-import PomoSession from '@/primary/components/ecossystems/PomoSession.vue';
-import PomoSettings from '@/primary/components/ecossystems/PomoSettings.vue';
+import PomoSession from '@/primary/components/organisms/PomoSession.vue';
+import PomoSettings from '@/primary/components/organisms/PomoSettings.vue';
 import PomoCard from '@/primary/components/molecules/PomoCard.vue';
 import DelayWrapper from '@/primary/components/molecules/DelayWrapper.vue';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
