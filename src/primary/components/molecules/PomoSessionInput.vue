@@ -46,6 +46,8 @@ const props = defineProps<{
     modelValue?: number;
     hint?: string;
     label?: string;
+    min?: number;
+    max?: number;
 }>();
 
 const emit = defineEmits<{
@@ -62,18 +64,20 @@ const vModel = computed<number | undefined>({
 });
 
 const stepUp = () => {
-    if (!vModel.value) {
-        vModel.value = 0;
+    if (vModel.value === undefined) {
+        return (vModel.value = 0);
     }
 
-    vModel.value++;
+    const max = props.max ?? Infinity;
+    vModel.value = Math.min(max, vModel.value + 1);
 };
 
 const stepDown = () => {
-    if (!vModel.value) {
-        vModel.value = 0;
+    if (vModel.value === undefined) {
+        return (vModel.value = 0);
     }
 
-    vModel.value--;
+    const min = props.min ?? -Infinity;
+    vModel.value = Math.max(min, vModel.value - 1);
 };
 </script>

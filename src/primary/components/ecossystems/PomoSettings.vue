@@ -11,11 +11,13 @@
                     v-model="workModel"
                     label="Work session"
                     hint="min"
+                    :min="0"
                 />
                 <PomoSessionInput
                     v-model="breakModel"
                     label="Break session"
                     hint="min"
+                    :min="0"
                 />
             </div>
         </div>
