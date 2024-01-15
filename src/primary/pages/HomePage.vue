@@ -17,15 +17,19 @@
                 </span>
             </div>
 
-            <PomoCard
+            <DelayWrapper
                 v-if="pomoStore.isSettingsView"
-                class="mx-auto transition-all"
+                :amount="100"
             >
-                <PomoSettings
-                    v-model:break-session-length="settings.breakSessionLength"
-                    v-model:work-session-length="settings.workSessionLength"
-                />
-            </PomoCard>
+                <PomoCard class="mx-auto transition-all">
+                    <PomoSettings
+                        v-model:break-session-length="
+                            settings.breakSessionLength
+                        "
+                        v-model:work-session-length="settings.workSessionLength"
+                    />
+                </PomoCard>
+            </DelayWrapper>
             <DelayWrapper
                 v-else
                 :amount="100"
@@ -34,9 +38,10 @@
                     <PomoSession />
                 </PomoCard>
                 <PomoButton
-                    class="flex items-center gap-2 px-8 mx-auto"
+                    class="flex items-center justify-between gap-2 mx-auto"
                     @click="pomoStore.toggleView()"
                 >
+                    <PomoIcon name="arrow_back" />
                     <span>Back</span>
                 </PomoButton>
             </DelayWrapper>
@@ -60,17 +65,19 @@
                     </span>
                     <PomoButton
                         outline
-                        class="border-red-700 hover:border-red-700 mx-auto"
+                        class="border-red-700 hover:border-red-700 mx-auto text-red-700 gap-3"
                         @click="clearSession"
                     >
-                        <span class="text-red-700"> Finish Pomodore </span>
+                        <PomoIcon name="delete_outline" />
+                        <span> Finish Pomodore </span>
                     </PomoButton>
                 </div>
                 <PomoButton
                     v-if="!pomoStore.session.started"
-                    class="flex items-center gap-2 px-8"
+                    class="flex items-center gap-2"
                     @click="onButtonClick"
                 >
+                    <PomoIcon name="play_arrow" />
                     <span>Start</span>
                 </PomoButton>
             </div>
@@ -88,6 +95,7 @@ import PomoCard from '@/primary/components/molecules/PomoCard.vue';
 import DelayWrapper from '@/primary/components/molecules/DelayWrapper.vue';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
+import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 
 const pomoStore = usePomoStore();
 const { restartSesion, clearSession } = usePomoRunner();
