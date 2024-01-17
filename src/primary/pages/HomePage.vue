@@ -50,6 +50,13 @@
                         <PomoIcon name="play_arrow" />
                         <span>Start</span>
                     </PomoButton>
+
+                    <PomoButton
+                        class="flex items-center gap-2 mx-auto"
+                        @click="pip"
+                    >
+                        <span>PIP</span>
+                    </PomoButton>
                 </div>
             </DelayWrapper>
 
@@ -70,6 +77,11 @@
             </DelayWrapper>
         </div>
     </div>
+    <PomoSessionCountdown
+        :time-left="pomoStore.session.timeLeft"
+        :duration="pomoStore.currentSessionLength * 60"
+        :radius="90"
+    />
 </template>
 
 <script setup lang="ts">
@@ -84,6 +96,7 @@ import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import PomoSessionCompact from '@/primary/components/organisms/PomoSessionCompact.vue';
+import PomoSessionCountdown from '../components/molecules/PomoSessionCountdown.vue';
 
 const pomoStore = usePomoStore();
 const { restartSesion } = usePomoRunner();
@@ -99,5 +112,11 @@ const onButtonClick = () => {
     restartSesion();
 
     pomoStore.toggleView();
+};
+
+const pip = async () => {
+    const a = await documentPictureInPicture.requestWindow();
+    const el = document.getElementById('pomo');
+    console.log(a);
 };
 </script>
