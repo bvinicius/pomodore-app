@@ -44,7 +44,7 @@
         </PomoButton>
         <div
             v-else
-            class="flex justify-center gap-4 text-gray-777"
+            class="flex justify-around gap-4 text-gray-777"
         >
             <PomoIcon
                 button
@@ -52,35 +52,55 @@
                 title="Restart session"
                 @click="restartSesion"
             ></PomoIcon>
-            <PomoIcon
-                button
-                :name="pomoStore.session.paused ? 'play_arrow' : 'pause'"
-                :title="pomoStore.session.paused ? 'Resume' : 'Pause'"
-                @click="() => (pomoStore.session.paused ? resume() : pause())"
-            ></PomoIcon>
-            <PomoIcon
-                button
-                name="fast_forward"
-                title="Start next session"
-                @click="startNextSession"
-            ></PomoIcon>
+
+            <div class="flex gap-2">
+                <PomoIcon
+                    button
+                    :name="pomoStore.session.paused ? 'play_arrow' : 'pause'"
+                    :title="pomoStore.session.paused ? 'Resume' : 'Pause'"
+                    @click="
+                        () => (pomoStore.session.paused ? resume() : pause())
+                    "
+                ></PomoIcon>
+                <PomoIcon
+                    button
+                    name="fast_forward"
+                    title="Start next session"
+                    @click="startNextSession"
+                ></PomoIcon>
+            </div>
+
+            <div>
+                <PomoIcon
+                    v-if="isSupported"
+                    button
+                    name="picture_in_picture_alt"
+                    title="Open picture in picture"
+                    @click.stop="
+                        startPictureInPicture(PomoSessionPip, { pip: true })
+                    "
+                ></PomoIcon>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionCountdown from '@/primary/components/molecules/PomoSessionCountdown.vue';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import { useScreenSize } from '@/primary/infrastructure/composables/screenSize';
-import { computed } from 'vue';
+import { usePictureInPicture } from '@/primary/infrastructure/composables/pictureInPicture';
+import PomoSessionPip from '@/primary/components/organisms/PomoSessionPip.vue';
 
 const props = defineProps<{
     pip?: boolean;
 }>();
 
+const { isSupported, startPictureInPicture } = usePictureInPicture();
 const { startNextSession, restartSesion, pause, resume } = usePomoRunner();
 const { sm } = useScreenSize();
 

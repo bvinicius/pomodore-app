@@ -5,8 +5,10 @@ import { provide } from '@/primary/infrastructure/dependency-injection';
 const win = window as any;
 
 export const usePictureInPicture = () => {
-    const isActive = computed(() => !!win.documentPictureInPicture.window);
     const isSupported = computed(() => !!win.documentPictureInPicture);
+    const isActive = computed(
+        () => isSupported.value && !!win.documentPictureInPicture.window
+    );
 
     const startPictureInPicture = async (
         component: Component,

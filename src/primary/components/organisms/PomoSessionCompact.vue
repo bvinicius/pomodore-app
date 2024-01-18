@@ -40,19 +40,13 @@
 
         <div class="flex items-center gap-4">
             <PomoIcon
+                v-if="isSupported"
                 button
                 name="picture_in_picture_alt"
                 title="Open picture in picture"
                 @click.stop="
                     startPictureInPicture(PomoSessionPip, { pip: true })
                 "
-            ></PomoIcon>
-
-            <PomoIcon
-                button
-                name="open_in_new"
-                title="See session"
-                @click.stop="pomoStore.toggleView()"
             ></PomoIcon>
 
             <PomoIcon
@@ -75,7 +69,7 @@ import { toMinuteFormat } from '@/secondary/utils/date-utils';
 import PomoSessionPip from '@/primary/components/organisms/PomoSessionPip.vue';
 
 const { startNextSession, clearSession, pause, resume } = usePomoRunner();
-const { startPictureInPicture } = usePictureInPicture();
+const { startPictureInPicture, isSupported } = usePictureInPicture();
 
 const pomoStore = usePomoStore();
 </script>

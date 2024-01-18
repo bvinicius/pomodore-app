@@ -35,7 +35,7 @@
 
                     <PomoCard
                         v-if="pomoStore.session.started"
-                        class="px-6 py-4 cursor-pointer"
+                        class="p-4 md:p-6 cursor-pointer"
                         button
                         @click="pomoStore.toggleView()"
                     >
@@ -50,15 +50,6 @@
                         <PomoIcon name="play_arrow" />
                         <span>Start</span>
                     </PomoButton>
-
-                    <!-- <PomoButton
-                        class="flex items-center gap-2 mx-auto"
-                        @click="
-                            startPictureInPicture(PomoSession, { pip: true })
-                        "
-                    >
-                        <span>PIP</span>
-                    </PomoButton> -->
                 </div>
             </DelayWrapper>
 
