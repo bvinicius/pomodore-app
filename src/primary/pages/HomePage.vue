@@ -51,12 +51,14 @@
                         <span>Start</span>
                     </PomoButton>
 
-                    <PomoButton
+                    <!-- <PomoButton
                         class="flex items-center gap-2 mx-auto"
-                        @click="pip"
+                        @click="
+                            startPictureInPicture(PomoSession, { pip: true })
+                        "
                     >
                         <span>PIP</span>
-                    </PomoButton>
+                    </PomoButton> -->
                 </div>
             </DelayWrapper>
 
@@ -77,11 +79,6 @@
             </DelayWrapper>
         </div>
     </div>
-    <PomoSessionCountdown
-        :time-left="pomoStore.session.timeLeft"
-        :duration="pomoStore.currentSessionLength * 60"
-        :radius="90"
-    />
 </template>
 
 <script setup lang="ts">
@@ -96,10 +93,11 @@ import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import PomoSessionCompact from '@/primary/components/organisms/PomoSessionCompact.vue';
-import PomoSessionCountdown from '../components/molecules/PomoSessionCountdown.vue';
+import { usePictureInPicture } from '../infrastructure/composables/pictureInPicture';
 
 const pomoStore = usePomoStore();
 const { restartSesion } = usePomoRunner();
+const { startPictureInPicture } = usePictureInPicture();
 
 const settings = reactive({
     workSessionLength: pomoStore.workSession,
@@ -114,9 +112,9 @@ const onButtonClick = () => {
     pomoStore.toggleView();
 };
 
-const pip = async () => {
-    const a = await documentPictureInPicture.requestWindow();
-    const el = document.getElementById('pomo');
-    console.log(a);
+window.onblur = () => {
+    if (!pomoStore.session.paused && pomoStore.session.started) {
+        startPictureInPicture(PomoSession, { pip: true });
+    }
 };
 </script>

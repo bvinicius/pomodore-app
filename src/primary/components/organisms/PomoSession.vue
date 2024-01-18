@@ -1,7 +1,10 @@
 <template>
-    <div class="flex flex-col justify-between gap-8">
+    <div
+        class="flex flex-col justify-between gap-8"
+        :class="{ 'py-8': pip }"
+    >
         <div
-            v-if="pomoStore.session.current"
+            v-if="pomoStore.session.current && !pip"
             class="flex justify-center items-center"
         >
             <div
@@ -23,7 +26,7 @@
             :key="pomoStore.session.current"
             class="mx-auto animate-fade"
             :duration="pomoStore.currentSessionLength * 60"
-            :radius="sm ? 90 : 120"
+            :radius="circleRadius"
             :time-left="pomoStore.session.timeLeft"
             :paused="pomoStore.session.paused"
         />
@@ -71,9 +74,22 @@ import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import { useScreenSize } from '@/primary/infrastructure/composables/screenSize';
+import { computed } from 'vue';
+
+const props = defineProps<{
+    pip?: boolean;
+}>();
 
 const { startNextSession, restartSesion, pause, resume } = usePomoRunner();
 const { sm } = useScreenSize();
 
 const pomoStore = usePomoStore();
+
+const circleRadius = computed(() => {
+    if (props.pip) {
+        return 60;
+    }
+
+    return sm.value ? 90 : 120;
+});
 </script>
