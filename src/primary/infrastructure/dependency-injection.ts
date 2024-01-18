@@ -3,8 +3,9 @@ import { POMO_COUNTER } from '@/primary/infrastructure/dependency-symbols';
 import MyWorker from '@/secondary/counter-worker/counter-worker?worker';
 import { PomoCounterInstance } from '@/secondary/counter-worker/PomoCounterInstance';
 
+const worker = new MyWorker();
 export const provide = (app: App) => {
-    app.provide(POMO_COUNTER, new PomoCounterInstance(new MyWorker()));
+    app.provide(POMO_COUNTER, new PomoCounterInstance(worker));
 };
 
 export const injectSafe = <T>(key: InjectionKey<T>): T => {
