@@ -43,7 +43,9 @@
                 button
                 name="picture_in_picture_alt"
                 title="Open picture in picture"
-                @click.stop="startPictureInPicture(PomoSession, { pip: true })"
+                @click.stop="
+                    startPictureInPicture(PomoSessionPip, { pip: true })
+                "
             ></PomoIcon>
 
             <PomoIcon
@@ -70,7 +72,7 @@ import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import { usePictureInPicture } from '@/primary/infrastructure/composables/pictureInPicture';
 import { toMinuteFormat } from '@/secondary/utils/date-utils';
-import PomoSession from '@/primary/components/organisms/PomoSession.vue';
+import PomoSessionPip from '@/primary/components/organisms/PomoSessionPip.vue';
 
 const { startNextSession, clearSession, pause, resume } = usePomoRunner();
 const { startPictureInPicture } = usePictureInPicture();

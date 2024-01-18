@@ -29,6 +29,7 @@
             :radius="circleRadius"
             :time-left="pomoStore.session.timeLeft"
             :paused="pomoStore.session.paused"
+            no-controls
         />
         <PomoButton
             v-if="pomoStore.session.isOver"
