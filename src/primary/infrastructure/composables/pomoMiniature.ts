@@ -18,8 +18,7 @@ export const usePomoMiniature = () => {
     };
 
     const toggleMiniature = () => {
-        if (isActive.value) closeMiniature();
-        else openMiniature();
+        isActive() ? closeMiniature() : openMiniature();
     };
 
     return {

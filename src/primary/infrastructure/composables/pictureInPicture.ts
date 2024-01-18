@@ -6,15 +6,14 @@ const win = window as any;
 
 export const usePictureInPicture = () => {
     const isSupported = computed(() => !!win.documentPictureInPicture);
-    const isActive = computed(
-        () => isSupported.value && !!win.documentPictureInPicture.window
-    );
+    const isActive = () =>
+        isSupported.value && !!win.documentPictureInPicture.window;
 
     const startPictureInPicture = async (
         component: Component,
         props: Record<string, unknown> = {}
     ) => {
-        if (isActive.value) return console.log('PIP is already active');
+        if (isActive()) return console.log('PIP is already active');
         if (!isSupported.value) return console.log('PIP is not supported');
 
         const rootEl = mountComponent(component, props);
@@ -22,7 +21,7 @@ export const usePictureInPicture = () => {
     };
 
     const closePictureInPicture = () => {
-        if (!isActive.value) return;
+        if (!isActive()) return;
         win.documentPictureInPicture.window.close();
     };
 
