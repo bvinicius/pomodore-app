@@ -72,13 +72,11 @@
 
             <div>
                 <PomoIcon
-                    v-if="isSupported"
+                    v-if="isMiniatureAvailable"
                     button
                     name="picture_in_picture_alt"
                     title="Open picture in picture"
-                    @click.stop="
-                        startPictureInPicture(PomoSessionPip, { pip: true })
-                    "
+                    @click.stop="toggleMiniature"
                 ></PomoIcon>
             </div>
         </div>
@@ -93,14 +91,14 @@ import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import { useScreenSize } from '@/primary/infrastructure/composables/screenSize';
-import { usePictureInPicture } from '@/primary/infrastructure/composables/pictureInPicture';
-import PomoSessionPip from '@/primary/components/organisms/PomoSessionPip.vue';
+import { usePomoMiniature } from '@/primary/infrastructure/composables/pomoMiniature';
 
 const props = defineProps<{
     pip?: boolean;
 }>();
 
-const { isSupported, startPictureInPicture } = usePictureInPicture();
+const { toggleMiniature, isMiniatureAvailable } = usePomoMiniature();
+
 const { startNextSession, restartSesion, pause, resume } = usePomoRunner();
 const { sm } = useScreenSize();
 

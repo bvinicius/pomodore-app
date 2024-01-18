@@ -21,7 +21,17 @@ export const usePictureInPicture = () => {
         return startPipWindow(rootEl);
     };
 
-    return { startPictureInPicture, isActive, isSupported };
+    const closePictureInPicture = () => {
+        if (!isActive.value) return;
+        win.documentPictureInPicture.window.close();
+    };
+
+    return {
+        startPictureInPicture,
+        closePictureInPicture,
+        isActive,
+        isSupported
+    };
 };
 
 async function startPipWindow(rootEl: HTMLElement) {
