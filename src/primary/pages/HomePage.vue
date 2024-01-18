@@ -93,11 +93,9 @@ import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import PomoSessionCompact from '@/primary/components/organisms/PomoSessionCompact.vue';
-import { usePictureInPicture } from '../infrastructure/composables/pictureInPicture';
 
 const pomoStore = usePomoStore();
 const { restartSesion } = usePomoRunner();
-const { startPictureInPicture } = usePictureInPicture();
 
 const settings = reactive({
     workSessionLength: pomoStore.workSession,
@@ -110,11 +108,5 @@ const onButtonClick = () => {
     restartSesion();
 
     pomoStore.toggleView();
-};
-
-window.onblur = () => {
-    if (!pomoStore.session.paused && pomoStore.session.started) {
-        startPictureInPicture(PomoSession, { pip: true });
-    }
 };
 </script>
