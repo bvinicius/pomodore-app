@@ -14,6 +14,7 @@
         "type-check": "vue-tsc --noEmit -p tsconfig.json --composite false"
     },
     "dependencies": {
+        "@vercel/speed-insights": "^1.0.5",
         "events": "^3.3.0",
         "material-icons": "^1.13.12",
         "pinia": "^2.1.3",
