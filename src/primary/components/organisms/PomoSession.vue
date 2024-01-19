@@ -76,7 +76,7 @@
                     button
                     name="picture_in_picture_alt"
                     title="Open picture in picture"
-                    @click.stop="toggleMiniature"
+                    @click.stop="onMiniatureClick"
                 ></PomoIcon>
             </div>
         </div>
@@ -97,7 +97,8 @@ const props = defineProps<{
     pip?: boolean;
 }>();
 
-const { toggleMiniature, isMiniatureAvailable } = usePomoMiniature();
+const { toggleMiniature, isMiniatureAvailable, isMiniatureOpen } =
+    usePomoMiniature();
 
 const { startNextSession, restartSesion, pause, resume } = usePomoRunner();
 const { sm } = useScreenSize();
@@ -111,4 +112,11 @@ const circleRadius = computed(() => {
 
     return sm.value ? 90 : 120;
 });
+
+const onMiniatureClick = () => {
+    if (!isMiniatureOpen()) {
+        pomoStore.toggleView();
+    }
+    toggleMiniature();
+};
 </script>

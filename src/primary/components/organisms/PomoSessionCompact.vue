@@ -40,13 +40,11 @@
 
         <div class="flex items-center gap-4">
             <PomoIcon
-                v-if="isSupported"
+                v-if="isMiniatureAvailable"
                 button
                 name="picture_in_picture_alt"
                 title="Open picture in picture"
-                @click.stop="
-                    startPictureInPicture(PomoSessionPip, { pip: true })
-                "
+                @click.stop="toggleMiniature()"
             ></PomoIcon>
 
             <PomoIcon
@@ -64,12 +62,11 @@
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
-import { usePictureInPicture } from '@/primary/infrastructure/composables/pictureInPicture';
 import { toMinuteFormat } from '@/secondary/utils/date-utils';
-import PomoSessionPip from '@/primary/components/organisms/PomoSessionPip.vue';
+import { usePomoMiniature } from '@/primary/infrastructure/composables/pomoMiniature';
 
 const { startNextSession, clearSession, pause, resume } = usePomoRunner();
-const { startPictureInPicture, isSupported } = usePictureInPicture();
+const { toggleMiniature, isMiniatureAvailable } = usePomoMiniature();
 
 const pomoStore = usePomoStore();
 </script>
