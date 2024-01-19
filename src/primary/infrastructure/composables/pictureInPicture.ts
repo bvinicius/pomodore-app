@@ -36,7 +36,7 @@ export const usePictureInPicture = () => {
 async function startPipWindow(rootEl: HTMLElement) {
     const pipWindow = await win.documentPictureInPicture.requestWindow({
         width: 240,
-        height: 190
+        height: 220
     });
 
     appendStyles(pipWindow);
