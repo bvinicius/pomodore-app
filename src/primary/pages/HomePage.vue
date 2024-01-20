@@ -60,13 +60,25 @@
                 <PomoCard class="mx-auto transition-all animate-fade">
                     <PomoSession />
                 </PomoCard>
-                <PomoButton
-                    class="flex items-center justify-between gap-2 mx-auto animate-fade"
-                    @click="pomoStore.toggleView()"
-                >
-                    <PomoIcon name="arrow_back" />
-                    <span>Back</span>
-                </PomoButton>
+
+                <div class="flex justify-center gap-4">
+                    <PomoButton
+                        class="flex items-center justify-between gap-2 animate-fade"
+                        @click="pomoStore.toggleView()"
+                    >
+                        <PomoIcon name="arrow_back" />
+                        <span>Back</span>
+                    </PomoButton>
+
+                    <PomoButton
+                        class="flex items-center justify-between gap-2 animate-fade"
+                        variant="error"
+                        @click="onDeleteClick"
+                    >
+                        <PomoIcon name="delete_outline" />
+                        <span>Finish</span>
+                    </PomoButton>
+                </div>
             </DelayWrapper>
         </div>
     </div>
@@ -86,7 +98,7 @@ import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import PomoSessionCompact from '@/primary/components/organisms/PomoSessionCompact.vue';
 
 const pomoStore = usePomoStore();
-const { restartSesion } = usePomoRunner();
+const { restartSesion, clearSession } = usePomoRunner();
 
 const settings = reactive({
     workSessionLength: pomoStore.workSession,
@@ -98,6 +110,11 @@ const onButtonClick = () => {
     pomoStore.session.current = PomoSessionType.WORK;
     restartSesion();
 
+    pomoStore.toggleView();
+};
+
+const onDeleteClick = () => {
+    clearSession();
     pomoStore.toggleView();
 };
 </script>
