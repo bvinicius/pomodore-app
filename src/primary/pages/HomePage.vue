@@ -22,8 +22,12 @@
                 :duration="100"
             >
                 <div class="flex flex-col mx-auto gap-8">
-                    <PomoCard class="mx-auto transition-all">
+                    <PomoCard
+                        class="flex flex-col gap-8 mx-auto transition-all"
+                        :class="{ '!pb-6': showStartButton }"
+                    >
                         <PomoSettings
+                            :key="pomoStore.id"
                             v-model:break-session-length="
                                 settings.breakSessionLength
                             "
@@ -31,6 +35,25 @@
                                 settings.workSessionLength
                             "
                         />
+
+                        <PomoButton
+                            v-if="showStartButton"
+                            class="flex items-center gap-2 mx-auto animate-fade-fast"
+                            @click="onButtonClick"
+                        >
+                            <PomoIcon
+                                :name="
+                                    pomoStore.session.started
+                                        ? 'restart_alt'
+                                        : 'play_arrow'
+                                "
+                            />
+                            <span>{{
+                                pomoStore.session.started
+                                    ? 'Apply and restart'
+                                    : 'Start'
+                            }}</span>
+                        </PomoButton>
                     </PomoCard>
 
                     <PomoCard
@@ -39,17 +62,8 @@
                         button
                         @click="pomoStore.toggleView()"
                     >
-                        <PomoSessionCompact />
+                        <PomoSessionCompact :key="pomoStore.session.id" />
                     </PomoCard>
-
-                    <PomoButton
-                        v-else
-                        class="flex items-center gap-2 mx-auto animate-fade-fast"
-                        @click="onButtonClick"
-                    >
-                        <PomoIcon name="play_arrow" />
-                        <span>Start</span>
-                    </PomoButton>
                 </div>
             </DelayWrapper>
 
@@ -85,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import { PomoSessionType } from '@/domain/Pomodore';
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import PomoSession from '@/primary/components/organisms/PomoSession.vue';
@@ -100,21 +114,44 @@ import PomoSessionCompact from '@/primary/components/organisms/PomoSessionCompac
 const pomoStore = usePomoStore();
 const { restartSesion, clearSession } = usePomoRunner();
 
+const editMode = ref(false);
+
 const settings = reactive({
     workSessionLength: pomoStore.workSession,
     breakSessionLength: pomoStore.breakSession
 });
 
+// const hasUnsavedChanges = computed(() => {
+//     return (
+//         settings.workSessionLength !== pomoStore.workSession ||
+//         settings.breakSessionLength !== pomoStore.breakSession
+//     );
+// });
+
+const showStartButton = computed(() => {
+    return !pomoStore.session.started || editMode.value;
+});
+
 const onButtonClick = () => {
+    const hasActiveSession = pomoStore.session.started;
     pomoStore.updateSettings(settings);
     pomoStore.session.current = PomoSessionType.WORK;
     restartSesion();
+    editMode.value = false;
 
-    pomoStore.toggleView();
+    if (!hasActiveSession) pomoStore.toggleView();
 };
 
 const onDeleteClick = () => {
     clearSession();
     pomoStore.toggleView();
 };
+
+watch(
+    () => settings,
+    () => {
+        editMode.value = true;
+    },
+    { deep: true }
+);
 </script>

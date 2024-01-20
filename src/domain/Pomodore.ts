@@ -4,6 +4,7 @@ export interface PomoSettings {
 }
 
 export interface PomoSessionState {
+    id: number;
     current: PomoSessionType;
     timeLeft: number;
     isOver: boolean;

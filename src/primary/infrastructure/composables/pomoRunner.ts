@@ -39,6 +39,7 @@ export const usePomoRunner = () => {
 
     const restartSesion = () => {
         pomoStore.session = {
+            id: pomoStore.session.id + 1,
             current: pomoStore.session.current,
             isOver: false,
             paused: false,
@@ -51,6 +52,7 @@ export const usePomoRunner = () => {
 
     const clearSession = () => {
         pomoStore.session = {
+            id: pomoStore.session.id + 1,
             timeLeft: pomoStore.currentSessionLength * 60,
             isOver: false,
             started: false,
@@ -67,6 +69,7 @@ export const usePomoRunner = () => {
             : (pomoStore.session.current = PomoSessionType.WORK);
 
         pomoStore.session = {
+            id: pomoStore.session.id + 1,
             timeLeft: pomoStore.currentSessionLength * 60,
             isOver: false,
             started: true,
