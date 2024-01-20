@@ -44,7 +44,7 @@
 
                     <PomoButton
                         v-else
-                        class="flex items-center gap-2 mx-auto"
+                        class="flex items-center gap-2 mx-auto animate-fade-fast"
                         @click="onButtonClick"
                     >
                         <PomoIcon name="play_arrow" />
@@ -61,7 +61,7 @@
                     <PomoSession />
                 </PomoCard>
                 <PomoButton
-                    class="flex items-center justify-between gap-2 mx-auto"
+                    class="flex items-center justify-between gap-2 mx-auto animate-fade"
                     @click="pomoStore.toggleView()"
                 >
                     <PomoIcon name="arrow_back" />
