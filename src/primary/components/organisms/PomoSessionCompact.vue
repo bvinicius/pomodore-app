@@ -45,7 +45,7 @@
             ></PomoIcon>
         </div>
 
-        <div class="flex items-center gap-4">
+        <div class="hidden items-center gap-4 md:flex">
             <PomoIcon
                 v-if="isMiniatureAvailable"
                 button

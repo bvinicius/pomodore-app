@@ -83,15 +83,6 @@
                         <PomoIcon name="arrow_back" />
                         <span>Back</span>
                     </PomoButton>
-
-                    <PomoButton
-                        class="flex items-center justify-between gap-2 animate-fade"
-                        variant="error"
-                        @click="onDeleteClick"
-                    >
-                        <PomoIcon name="delete_outline" />
-                        <span>Finish</span>
-                    </PomoButton>
                 </div>
             </DelayWrapper>
         </div>

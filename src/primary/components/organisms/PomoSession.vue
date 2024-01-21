@@ -59,13 +59,21 @@
                 ></PomoIcon>
             </div>
 
-            <div>
+            <div class="flex gap-2">
                 <PomoIcon
                     v-if="isMiniatureAvailable"
                     button
                     name="picture_in_picture_alt"
                     title="Open picture in picture"
                     @click.stop="onMiniatureClick"
+                ></PomoIcon>
+
+                <PomoIcon
+                    button
+                    class="text-red-700"
+                    name="delete_outline"
+                    title="End current session"
+                    @click.stop="onDeleteClick"
                 ></PomoIcon>
             </div>
         </div>
@@ -90,7 +98,8 @@ const { toggleMiniature, isMiniatureAvailable, isMiniatureOpen } =
     usePomoMiniature();
 
 const { isMuted, toggleAlarmVolume } = useAlarm();
-const { startNextSession, restartSesion, pause, resume } = usePomoRunner();
+const { startNextSession, restartSesion, pause, resume, clearSession } =
+    usePomoRunner();
 const { sm } = useScreenSize();
 
 const pomoStore = usePomoStore();
@@ -108,5 +117,10 @@ const onMiniatureClick = () => {
         pomoStore.toggleView();
     }
     toggleMiniature();
+};
+
+const onDeleteClick = () => {
+    clearSession();
+    pomoStore.toggleView();
 };
 </script>
