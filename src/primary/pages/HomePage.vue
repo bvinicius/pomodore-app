@@ -103,7 +103,7 @@ import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import PomoSessionCompact from '@/primary/components/organisms/PomoSessionCompact.vue';
 
 const pomoStore = usePomoStore();
-const { restartSesion, clearSession } = usePomoRunner();
+const { restartSesion } = usePomoRunner();
 
 const editMode = ref(false);
 
@@ -111,13 +111,6 @@ const settings = reactive({
     workSessionLength: pomoStore.workSession,
     breakSessionLength: pomoStore.breakSession
 });
-
-// const hasUnsavedChanges = computed(() => {
-//     return (
-//         settings.workSessionLength !== pomoStore.workSession ||
-//         settings.breakSessionLength !== pomoStore.breakSession
-//     );
-// });
 
 const showStartButton = computed(() => {
     return !pomoStore.session.started || editMode.value;
@@ -131,11 +124,6 @@ const onButtonClick = () => {
     editMode.value = false;
 
     if (!hasActiveSession) pomoStore.toggleView();
-};
-
-const onDeleteClick = () => {
-    clearSession();
-    pomoStore.toggleView();
 };
 
 watch(
