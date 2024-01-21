@@ -1,7 +1,10 @@
 <template>
     <span
         class="material-icons"
-        :class="{ 'cursor-pointer hover:opacity-70': button }"
+        :class="{
+            'cursor-pointer hover:opacity-70': button && !disabled,
+            'pointer-events-none opacity-50': disabled
+        }"
         >{{ name }}</span
     >
 </template>
@@ -10,5 +13,6 @@
 defineProps<{
     name: string;
     button?: boolean;
+    disabled?: boolean;
 }>();
 </script>

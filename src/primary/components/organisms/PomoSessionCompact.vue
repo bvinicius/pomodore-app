@@ -23,6 +23,13 @@
         <div class="flex items-center gap-4">
             <PomoIcon
                 button
+                :name="isMuted ? 'volume_off' : 'volume_up'"
+                :title="isMuted ? 'Alarm muted' : 'Mute alarm'"
+                @click.stop="toggleAlarmVolume"
+            ></PomoIcon>
+
+            <PomoIcon
+                button
                 :name="pomoStore.session.paused ? 'play_arrow' : 'pause'"
                 :title="pomoStore.session.paused ? 'Resume' : 'Pause'"
                 @click.stop="
@@ -64,9 +71,11 @@ import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import { toMinuteFormat } from '@/secondary/utils/date-utils';
 import { usePomoMiniature } from '@/primary/infrastructure/composables/pomoMiniature';
+import { useAlarm } from '@/primary/infrastructure/composables/alarm';
 
 const { startNextSession, clearSession, pause, resume } = usePomoRunner();
 const { toggleMiniature, isMiniatureAvailable } = usePomoMiniature();
+const { isMuted, toggleAlarmVolume } = useAlarm();
 
 const pomoStore = usePomoStore();
 </script>

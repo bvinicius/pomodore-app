@@ -4,10 +4,10 @@ import { toMinuteFormat } from '@/secondary/utils/date-utils';
 import { injectSafe } from '@/primary/infrastructure/dependency-injection';
 import { POMO_COUNTER } from '@/primary/infrastructure/dependency-symbols';
 import { PomoCounter } from '@/domain/PomoCounter';
-
-const audio = new Audio('/audio/alarm.mp3');
+import { useAlarm } from '@/primary/infrastructure/composables/alarm';
 
 export const usePomoRunner = () => {
+    const { stopAlarm, playAlarm } = useAlarm();
     const pomoStore = usePomoStore();
     const pomoCounter = injectSafe<PomoCounter>(POMO_COUNTER);
 
@@ -79,7 +79,7 @@ export const usePomoRunner = () => {
     };
 
     const _startSessionCountdown = () => {
-        _stopAudio();
+        stopAlarm();
         _updateMetaTitle();
         pomoStore.session.started = true;
 
@@ -110,7 +110,7 @@ export const usePomoRunner = () => {
     const _onSessionEnd = () => {
         pomoStore.session.isOver = true;
         pomoCounter.stop();
-        _playAudio();
+        playAlarm();
     };
 
     const _onTick = () => {
@@ -128,16 +128,6 @@ export const usePomoRunner = () => {
         if (pomoStore.session.timeLeft <= 0) {
             _onSessionEnd();
         }
-    };
-
-    const _playAudio = () => {
-        audio.currentTime = 0;
-        audio.play();
-    };
-
-    const _stopAudio = () => {
-        audio.pause();
-        audio.currentTime = 0;
     };
 
     return {

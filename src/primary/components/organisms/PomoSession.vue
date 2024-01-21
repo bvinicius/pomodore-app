@@ -7,19 +7,14 @@
             v-if="pomoStore.session.current && !pip"
             class="flex justify-center items-center"
         >
-            <div
-                v-if="pomoStore.session.isOver"
-                class="flex flex-col items-center animate-fade"
-            >
-                <span class="text-2xl md:text-3xl font-semibold">
-                    Time's up!
-                </span>
-            </div>
             <span
-                v-else
                 class="text-2xl md:text-2xl font-semibold text-on-container-500 animate-fade"
             >
-                {{ pomoStore.session.current.toString() }} session
+                {{
+                    pomoStore.session.isOver
+                        ? `Time's up!`
+                        : `${pomoStore.session.current.toString()} session`
+                }}
             </span>
         </div>
         <PomoSessionCountdown
@@ -31,21 +26,7 @@
             :paused="pomoStore.session.paused"
             no-controls
         />
-        <PomoButton
-            v-if="pomoStore.session.isOver"
-            class="mx-auto"
-            outline
-            @click="startNextSession"
-        >
-            <div class="flex items-center gap-2">
-                <PomoIcon name="skip_next" />
-                {{ `Start ${pomoStore.nextSession.toString()}` }}
-            </div>
-        </PomoButton>
-        <div
-            v-else
-            class="flex justify-around gap-4 text-gray-777"
-        >
+        <div class="flex justify-around gap-4 text-gray-777">
             <PomoIcon
                 button
                 name="restart_alt"
@@ -56,6 +37,14 @@
             <div class="flex gap-2">
                 <PomoIcon
                     button
+                    :name="isMuted ? 'volume_off' : 'volume_up'"
+                    :title="isMuted ? 'Alarm muted' : 'Mute alarm'"
+                    @click.stop="toggleAlarmVolume"
+                ></PomoIcon>
+
+                <PomoIcon
+                    button
+                    :disabled="pomoStore.session.isOver"
                     :name="pomoStore.session.paused ? 'play_arrow' : 'pause'"
                     :title="pomoStore.session.paused ? 'Resume' : 'Pause'"
                     @click="
@@ -88,10 +77,10 @@ import { computed } from 'vue';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionCountdown from '@/primary/components/molecules/PomoSessionCountdown.vue';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
-import PomoButton from '@/primary/components/atoms/PomoButton.vue';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import { useScreenSize } from '@/primary/infrastructure/composables/screenSize';
 import { usePomoMiniature } from '@/primary/infrastructure/composables/pomoMiniature';
+import { useAlarm } from '@/primary/infrastructure/composables/alarm';
 
 const props = defineProps<{
     pip?: boolean;
@@ -100,6 +89,7 @@ const props = defineProps<{
 const { toggleMiniature, isMiniatureAvailable, isMiniatureOpen } =
     usePomoMiniature();
 
+const { isMuted, toggleAlarmVolume } = useAlarm();
 const { startNextSession, restartSesion, pause, resume } = usePomoRunner();
 const { sm } = useScreenSize();
 
