@@ -139,7 +139,7 @@ const onButtonClick = () => {
 const share = () => {
     createSession();
     const url = `${window.location.origin}/${pomoStore.id}`;
-    location.href = url;
+    window.open(url, '_blank');
 };
 
 watch(
