@@ -4,6 +4,7 @@ import {
     PomoSessionType,
     PomoSettings
 } from '@/domain/Pomodore';
+import { createId } from '@/secondary/utils/id-utils';
 
 interface PomoState {
     id: number;
@@ -19,7 +20,7 @@ const config: PomoSettings = {
 
 export const usePomoStore = defineStore('pomodore', {
     state: (): PomoState => ({
-        id: Math.random(),
+        id: createId(),
         settings: { ...config },
         session: {
             id: 0,
@@ -48,7 +49,7 @@ export const usePomoStore = defineStore('pomodore', {
     actions: {
         updateSettings(settings: PomoSettings) {
             this.settings = settings;
-            this.id++;
+            this.id = createId();
         },
         toggleView() {
             this.currentView =

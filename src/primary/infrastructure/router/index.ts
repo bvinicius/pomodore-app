@@ -1,4 +1,4 @@
-import { RouteRecordRaw, createRouter, createWebHashHistory } from 'vue-router';
+import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 
 const HomePage = () => import('@/primary/pages/HomePage.vue');
 
@@ -14,6 +14,6 @@ export const routes: RouteRecordRaw[] = [
     }
 ];
 
-const router = createRouter({ routes, history: createWebHashHistory() });
+const router = createRouter({ routes, history: createWebHistory() });
 
 export default router;

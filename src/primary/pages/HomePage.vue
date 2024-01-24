@@ -83,6 +83,14 @@
                         <PomoIcon name="arrow_back" />
                         <span>Back</span>
                     </PomoButton>
+
+                    <PomoButton
+                        class="flex items-center justify-between gap-2 animate-fade"
+                        @click="share"
+                    >
+                        <PomoIcon name="share" />
+                        <span>Share</span>
+                    </PomoButton>
                 </div>
             </DelayWrapper>
         </div>
@@ -101,9 +109,11 @@ import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
 import PomoSessionCompact from '@/primary/components/organisms/PomoSessionCompact.vue';
+import { useMultiplayer } from '../infrastructure/composables/multiplayer';
 
 const pomoStore = usePomoStore();
 const { restartSesion } = usePomoRunner();
+const { createSession } = useMultiplayer();
 
 const editMode = ref(false);
 
@@ -124,6 +134,12 @@ const onButtonClick = () => {
     editMode.value = false;
 
     if (!hasActiveSession) pomoStore.toggleView();
+};
+
+const share = () => {
+    createSession();
+    const url = `${window.location.origin}/${pomoStore.id}`;
+    location.href = url;
 };
 
 watch(

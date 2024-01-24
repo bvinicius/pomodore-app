@@ -8,18 +8,27 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { SpeedInsights } from '@vercel/speed-insights/vue';
 import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
+import { useMultiplayer } from './infrastructure/composables/multiplayer';
 
+const router = useRouter();
 const { continueSession, pause } = usePomoRunner();
+const { joinSession } = useMultiplayer();
 
 const pomoStore = usePomoStore();
 
-onMounted(() => {
+onMounted(async () => {
     if (pomoStore.session.started) {
         continueSession();
         pause();
+    }
+
+    await router.isReady();
+    if (router.currentRoute.value.params.id) {
+        joinSession(router.currentRoute.value.params.id.toString());
     }
 });
 </script>
