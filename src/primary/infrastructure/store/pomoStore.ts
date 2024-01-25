@@ -6,7 +6,7 @@ import {
 } from '@/domain/Pomodore';
 import { createId } from '@/secondary/utils/id-utils';
 
-interface PomoState {
+export interface PomoState {
     id: number;
     settings: PomoSettings;
     session: PomoSessionState;
