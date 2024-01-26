@@ -5,10 +5,10 @@
     >
         <div
             v-if="pomoStore.session.current && !pip"
-            class="flex justify-center items-center"
+            class="flex items-center justify-center"
         >
             <span
-                class="text-2xl md:text-2xl font-semibold text-on-container-500 animate-fade"
+                class="animate-fade text-2xl font-semibold text-on-container-500 md:text-2xl"
             >
                 {{
                     pomoStore.session.isOver

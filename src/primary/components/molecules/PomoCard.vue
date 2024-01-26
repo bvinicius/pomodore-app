@@ -1,7 +1,7 @@
 <template>
     <div
-        class="p-6 md:p-12 bg-primary-container-300/20 shadow-md rounded-xl"
-        :class="{ 'cursor-pointer hover:opacity-70 transition-all': button }"
+        class="rounded-xl bg-primary-container-300/20 p-6 shadow-md md:p-12"
+        :class="{ 'cursor-pointer transition-all hover:opacity-70': button }"
     >
         <slot></slot>
     </div>

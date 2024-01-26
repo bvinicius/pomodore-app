@@ -3,7 +3,7 @@
         <div class="flex flex-col justify-center gap-6 md:gap-12">
             <div class="flex flex-col">
                 <span
-                    class="text-4xl sm:text-8xl text-center font-bold select-none transition-all duration-500 cursor-pointer mx-auto"
+                    class="mx-auto cursor-pointer select-none text-center text-4xl font-bold transition-all duration-500 sm:text-8xl"
                     :class="{ 'sm:!text-4xl': !pomoStore.isSettingsView }"
                     @click="pomoStore.currentView = 'settings'"
                 >
@@ -11,7 +11,7 @@
                 </span>
                 <span
                     v-if="pomoStore.isSettingsView"
-                    class="hidden sm:block font-semibold text-center animate-fade-fast"
+                    class="hidden animate-fade-fast text-center font-semibold sm:block"
                 >
                     A tool to do more things spending less time.
                 </span>
@@ -21,9 +21,9 @@
                 v-if="pomoStore.isSettingsView"
                 :duration="100"
             >
-                <div class="flex flex-col mx-auto gap-8">
+                <div class="mx-auto flex flex-col gap-8">
                     <PomoCard
-                        class="flex flex-col gap-8 mx-auto transition-all"
+                        class="mx-auto flex flex-col gap-8 transition-all"
                         :class="{ '!pb-6': showStartButton }"
                     >
                         <PomoSettings
@@ -38,7 +38,7 @@
 
                         <PomoButton
                             v-if="showStartButton"
-                            class="flex items-center gap-2 mx-auto animate-fade-fast"
+                            class="mx-auto flex animate-fade-fast items-center gap-2"
                             @click="onButtonClick"
                         >
                             <PomoIcon
@@ -58,7 +58,7 @@
 
                     <PomoCard
                         v-if="pomoStore.session.started"
-                        class="p-4 md:p-6 cursor-pointer"
+                        class="cursor-pointer p-4 md:p-6"
                         button
                         @click="pomoStore.toggleView()"
                     >
@@ -71,13 +71,13 @@
                 v-else
                 :duration="100"
             >
-                <PomoCard class="mx-auto transition-all animate-fade">
+                <PomoCard class="mx-auto animate-fade transition-all">
                     <PomoSession />
                 </PomoCard>
 
                 <div class="flex justify-center gap-4">
                     <PomoButton
-                        class="flex items-center justify-between gap-2 animate-fade"
+                        class="flex animate-fade items-center justify-between gap-2"
                         @click="pomoStore.toggleView()"
                     >
                         <PomoIcon name="arrow_back" />
@@ -85,7 +85,7 @@
                     </PomoButton>
 
                     <PomoButton
-                        class="flex items-center justify-between gap-2 animate-fade"
+                        class="flex animate-fade items-center justify-between gap-2"
                         @click="share"
                     >
                         <PomoIcon name="share" />

@@ -1,10 +1,10 @@
 <template>
     <div
-        class="flex relative justify-center items-center"
+        class="relative flex items-center justify-center"
         :style="{ width: containerSizePx, height: containerSizePx }"
     >
         <slot></slot>
-        <svg class="absolute w-full h-full top-0 right-0 z-50">
+        <svg class="absolute right-0 top-0 z-50 h-full w-full">
             <circle
                 class="countdown__foreground-ring stroke-primary-600"
                 :r="radius"
@@ -12,7 +12,7 @@
                 cy="50%"
             ></circle>
         </svg>
-        <svg class="absolute w-full h-full top-0 right-0 z-0">
+        <svg class="absolute right-0 top-0 z-0 h-full w-full">
             <circle
                 class="countdown__background-ring stroke-primary-300"
                 :r="radius"

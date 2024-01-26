@@ -10,10 +10,10 @@
         @mouseleave="hoveringCountdown = false"
     >
         <div
-            class="absolute z-[100] text-gray-600 rounded-full top-0 left-0 right-0 bottom-0 transition-all duration-150 ease-in backdrop-blur-[3px] flex justify-center items-center gap-2"
+            class="absolute bottom-0 left-0 right-0 top-0 z-[100] flex items-center justify-center gap-2 rounded-full text-gray-600 backdrop-blur-[3px] transition-all duration-150 ease-in"
             :class="{
                 'opacity-100': showControls,
-                'opacity-0 pointer-events-none': !showControls
+                'pointer-events-none opacity-0': !showControls
             }"
         >
             <PomoIcon
@@ -30,7 +30,7 @@
             ></PomoIcon>
         </div>
         <span
-            class="text-2xl md:text-3xl font-semibold text-primary-600 tabular-nums transition-all"
+            class="text-2xl font-semibold tabular-nums text-primary-600 transition-all md:text-3xl"
         >
             {{ toMinuteFormat(timeLeft) }}
         </span>

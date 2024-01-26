@@ -2,7 +2,7 @@
     <div class="flex flex-col items-center">
         <div class="relatve flex items-center gap-2">
             <div
-                class="absolute z-50 -translate-x-10 md:relative md:translate-x-0 flex flex-col gap-2"
+                class="absolute z-50 flex -translate-x-10 flex-col gap-2 md:relative md:translate-x-0"
             >
                 <PomoArrowButton @click="stepUp" />
                 <PomoArrowButton
@@ -11,22 +11,22 @@
                 />
             </div>
             <div class="flex-col">
-                <div class="w-24 md:w-32 relative">
+                <div class="relative w-24 md:w-32">
                     <PomoInput
                         v-bind="$attrs"
                         v-model="vModel"
                         type="number"
-                        class="w-full py-3 font-semibold text-4xl md:text-6xl text-center rounded-xl pb-6 pomo-input spin-buttons-none"
+                        class="pomo-input spin-buttons-none w-full rounded-xl py-3 pb-6 text-center text-4xl font-semibold md:text-6xl"
                         :label="hint"
                     />
                     <span
-                        class="font-semibold text-gray-500 absolute bottom-0 left-0 right-0 text-center pb-2 select-none"
+                        class="absolute bottom-0 left-0 right-0 select-none pb-2 text-center font-semibold text-gray-500"
                     >
                         {{ hint }}
                     </span>
                 </div>
                 <div
-                    class="text-on-container-500 text-center font-semibold text-sm md:text-base select-none"
+                    class="select-none text-center text-sm font-semibold text-on-container-500 md:text-base"
                 >
                     {{ label }}
                 </div>

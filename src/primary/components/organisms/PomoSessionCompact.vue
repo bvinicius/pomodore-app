@@ -1,18 +1,18 @@
 <template>
     <div
         :key="pomoStore.session.current"
-        class="flex justify-between gap-6 animate-fade"
+        class="flex animate-fade justify-between gap-6"
     >
         <div
             class="flex flex-col items-start transition-all"
             :class="{ 'opacity-50': pomoStore.session.paused }"
         >
-            <div class="tabular-nums text-2xl font-bold">
+            <div class="text-2xl font-bold tabular-nums">
                 {{ toMinuteFormat(pomoStore.session.timeLeft) }}
             </div>
             <div
                 v-if="pomoStore.session.current"
-                class="flex justify-center items-center"
+                class="flex items-center justify-center"
             >
                 <span class="text-m">
                     {{ pomoStore.session.current.toString() }} session

@@ -1,22 +1,22 @@
 <template>
-    <div class="fixed bottom-0 left-0 px-4 py-4 w-full">
+    <div class="fixed bottom-0 left-0 w-full px-4 py-4">
         <div
             :style="{ left: playerProgress }"
-            class="text-primary-400 flex items-center justify-center gap-8 mb-2"
+            class="mb-2 flex items-center justify-center gap-8 text-primary-400"
         >
             <PomoIcon
-                class="select-none cursor-pointer"
+                class="cursor-pointer select-none"
                 name="skip_previous"
                 @click="() => emit('skip-back')"
             />
 
             <PomoIcon
-                class="select-none cursor-pointer"
+                class="cursor-pointer select-none"
                 :name="playButton ? 'pause' : 'play_arrow'"
                 @click="() => emit('play-pause')"
             />
             <PomoIcon
-                class="select-none cursor-pointer"
+                class="cursor-pointer select-none"
                 name="skip_next"
                 @click="() => emit('skip-forward')"
             />
@@ -25,8 +25,8 @@
             <p class="text-gray-500">{{ timeOfTheSong }}</p>
             <p class="text-gray-500">{{ timeToEnd }}</p>
         </div>
-        <div class="flex flex-nowrap gap-4 items-center">
-            <div class="w-full h-2 rounded bg-gray-400 relative cursor-pointer">
+        <div class="flex flex-nowrap items-center gap-4">
+            <div class="relative h-2 w-full cursor-pointer rounded bg-gray-400">
                 <span
                     class="block h-2 rounded bg-primary-500"
                     :style="{ width: playerProgress }"

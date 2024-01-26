@@ -3,7 +3,7 @@
         ref="input"
         v-model="vModel"
         type="text"
-        class="bg-transparent border border-on-container-500 text-on-container-500 py-1 px-2 rounded-md focus-visible:outline-blue"
+        class="focus-visible:outline-blue rounded-md border border-on-container-500 bg-transparent px-2 py-1 text-on-container-500"
         @focus="input?.select()"
     />
 </template>
