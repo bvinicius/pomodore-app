@@ -39,11 +39,13 @@
 
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue';
-import { toMinuteFormat } from '@/secondary/utils/date-utils';
-import PomoCountdownSpinner from '@/primary/components/molecules/PomoCountdownSpinner.vue';
-import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
-import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
+
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
+import PomoCountdownSpinner from '@/primary/components/molecules/PomoCountdownSpinner.vue';
+import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
+import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
+
+import { toMinuteFormat } from '@/secondary/utils/date-utils';
 
 const props = defineProps<{
     duration: number;

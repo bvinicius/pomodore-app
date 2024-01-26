@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia';
+
 import {
     PomoSessionState,
     PomoSessionType,
     PomoSettings
 } from '@/domain/Pomodore';
+
 import { createId } from '@/secondary/utils/id-utils';
 
 export interface PomoState {

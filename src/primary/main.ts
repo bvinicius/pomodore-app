@@ -3,9 +3,10 @@ import { createPinia } from 'pinia';
 import { createPersistedState } from 'pinia-plugin-persistedstate';
 
 import '@/primary/index.css';
+
 import App from '@/primary/App.vue';
-import router from '@/primary/infrastructure/router';
 import { provide } from '@/primary/infrastructure/dependency-injection';
+import router from '@/primary/infrastructure/router';
 
 const app = createApp(App);
 

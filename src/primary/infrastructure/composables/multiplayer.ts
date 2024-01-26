@@ -1,8 +1,11 @@
 import { watch } from 'vue';
 import { createClient, RealtimeChannel } from '@supabase/supabase-js';
 
-import { PomoState, usePomoStore } from '../store/pomoStore';
-import { usePomoRunner } from './pomoRunner';
+import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
+import {
+    PomoState,
+    usePomoStore
+} from '@/primary/infrastructure/store/pomoStore';
 
 interface JoinOptions {
     admin: boolean;

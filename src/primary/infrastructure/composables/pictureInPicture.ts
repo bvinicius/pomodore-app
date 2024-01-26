@@ -1,4 +1,5 @@
 import { Component, computed, createApp } from 'vue';
+
 import { provide } from '@/primary/infrastructure/dependency-injection';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

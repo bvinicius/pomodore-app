@@ -8,11 +8,12 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 import { SpeedInsights } from '@vercel/speed-insights/vue';
-import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
+import { useRouter } from 'vue-router';
+
+import { useMultiplayer } from '@/primary/infrastructure/composables/multiplayer';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
-import { useMultiplayer } from './infrastructure/composables/multiplayer';
+import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 
 const router = useRouter();
 const { continueSession, pause } = usePomoRunner();

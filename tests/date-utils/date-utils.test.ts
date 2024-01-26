@@ -1,5 +1,6 @@
+import { describe, expect, test } from 'vitest';
+
 import { toMinuteFormat } from '@/secondary/utils/date-utils';
-import { describe, test, expect } from 'vitest';
 
 describe('date-utils', () => {
     describe('toMinuteFormat', () => {

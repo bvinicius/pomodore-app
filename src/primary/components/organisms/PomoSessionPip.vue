@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoSessionCountdown from '@/primary/components/molecules/PomoSessionCountdown.vue';
+import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 
 const pomoStore = usePomoStore();
 </script>

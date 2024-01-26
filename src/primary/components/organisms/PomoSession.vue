@@ -82,13 +82,14 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
-import PomoSessionCountdown from '@/primary/components/molecules/PomoSessionCountdown.vue';
+
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
+import PomoSessionCountdown from '@/primary/components/molecules/PomoSessionCountdown.vue';
+import { useAlarm } from '@/primary/infrastructure/composables/alarm';
+import { usePomoMiniature } from '@/primary/infrastructure/composables/pomoMiniature';
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import { useScreenSize } from '@/primary/infrastructure/composables/screenSize';
-import { usePomoMiniature } from '@/primary/infrastructure/composables/pomoMiniature';
-import { useAlarm } from '@/primary/infrastructure/composables/alarm';
+import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 
 const props = defineProps<{
     pip?: boolean;

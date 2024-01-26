@@ -66,12 +66,13 @@
 </template>
 
 <script setup lang="ts">
-import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
-import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
-import { toMinuteFormat } from '@/secondary/utils/date-utils';
-import { usePomoMiniature } from '@/primary/infrastructure/composables/pomoMiniature';
 import { useAlarm } from '@/primary/infrastructure/composables/alarm';
+import { usePomoMiniature } from '@/primary/infrastructure/composables/pomoMiniature';
+import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
+import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
+
+import { toMinuteFormat } from '@/secondary/utils/date-utils';
 
 const { startNextSession, clearSession, pause, resume } = usePomoRunner();
 const { toggleMiniature, isMiniatureAvailable } = usePomoMiniature();

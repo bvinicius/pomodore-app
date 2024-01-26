@@ -1,5 +1,7 @@
-import { App, InjectionKey, inject } from 'vue';
+import { App, inject, InjectionKey } from 'vue';
+
 import { POMO_COUNTER } from '@/primary/infrastructure/dependency-symbols';
+
 import MyWorker from '@/secondary/counter-worker/counter-worker?worker';
 import { PomoCounterInstance } from '@/secondary/counter-worker/PomoCounterInstance';
 

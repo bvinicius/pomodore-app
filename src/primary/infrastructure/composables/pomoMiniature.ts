@@ -1,5 +1,5 @@
 import PomoSessionPipVue from '@/primary/components/organisms/PomoSessionPip.vue';
-import { usePictureInPicture } from './pictureInPicture';
+import { usePictureInPicture } from '@/primary/infrastructure/composables/pictureInPicture';
 
 export const usePomoMiniature = () => {
     const {

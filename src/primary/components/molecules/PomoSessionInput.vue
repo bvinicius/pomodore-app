@@ -37,8 +37,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import PomoInput from '@/primary/components/atoms/PomoInput.vue';
+
 import PomoArrowButton from '@/primary/components/atoms/PomoArrowButton.vue';
+import PomoInput from '@/primary/components/atoms/PomoInput.vue';
 
 defineOptions({ inheritAttrs: false });
 

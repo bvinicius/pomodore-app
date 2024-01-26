@@ -99,17 +99,19 @@
 
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from 'vue';
+
 import { PomoSessionType } from '@/domain/Pomodore';
+
 import PomoButton from '@/primary/components/atoms/PomoButton.vue';
-import PomoSession from '@/primary/components/organisms/PomoSession.vue';
-import PomoSettings from '@/primary/components/organisms/PomoSettings.vue';
-import PomoCard from '@/primary/components/molecules/PomoCard.vue';
-import DelayWrapper from '@/primary/components/molecules/DelayWrapper.vue';
-import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
-import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
 import PomoIcon from '@/primary/components/atoms/PomoIcon.vue';
+import DelayWrapper from '@/primary/components/molecules/DelayWrapper.vue';
+import PomoCard from '@/primary/components/molecules/PomoCard.vue';
+import PomoSession from '@/primary/components/organisms/PomoSession.vue';
 import PomoSessionCompact from '@/primary/components/organisms/PomoSessionCompact.vue';
-import { useMultiplayer } from '../infrastructure/composables/multiplayer';
+import PomoSettings from '@/primary/components/organisms/PomoSettings.vue';
+import { useMultiplayer } from '@/primary/infrastructure/composables/multiplayer';
+import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
+import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 
 const pomoStore = usePomoStore();
 const { restartSesion } = usePomoRunner();

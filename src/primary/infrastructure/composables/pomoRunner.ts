@@ -1,10 +1,12 @@
+import { PomoCounter } from '@/domain/PomoCounter';
 import { PomoSessionType } from '@/domain/Pomodore';
-import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
-import { toMinuteFormat } from '@/secondary/utils/date-utils';
+
+import { useAlarm } from '@/primary/infrastructure/composables/alarm';
 import { injectSafe } from '@/primary/infrastructure/dependency-injection';
 import { POMO_COUNTER } from '@/primary/infrastructure/dependency-symbols';
-import { PomoCounter } from '@/domain/PomoCounter';
-import { useAlarm } from '@/primary/infrastructure/composables/alarm';
+import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
+
+import { toMinuteFormat } from '@/secondary/utils/date-utils';
 
 export const usePomoRunner = () => {
     const { stopAlarm, playAlarm } = useAlarm();
