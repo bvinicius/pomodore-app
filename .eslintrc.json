@@ -1,20 +1,34 @@
 {
-  "root": true,
-  "env": {
-    "node": true
-  },
-  "extends": [
-    "plugin:vue/vue3-recommended",
-    "eslint:recommended",
-    "@vue/eslint-config-typescript/recommended",
-    "@vue/eslint-config-prettier"
-  ],
-  "rules": {
-    "@typescript-eslint/no-explicit-any": "error",
-    "@typescript-eslint/no-unused-vars": "error",
-    "prettier/prettier": "error",
-    "vue/require-default-prop": "off",
-    "vue/attributes-order": "error",
-    "vue/no-v-html": "error"
-  }
+    "root": true,
+    "env": {
+        "node": true
+    },
+    "extends": [
+        "plugin:vue/vue3-recommended",
+        "eslint:recommended",
+        "@vue/eslint-config-typescript/recommended",
+        "@vue/eslint-config-prettier"
+    ],
+    "rules": {
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-unused-vars": "error",
+        "prettier/prettier": "error",
+        "no-restricted-imports": [
+            "error",
+            {
+                "patterns": [".*"]
+            }
+        ],
+        "vue/require-default-prop": "off",
+        "vue/attributes-order": "error",
+        "vue/no-v-html": "error"
+    },
+    "overrides": [
+        {
+            "files": ["./src/primary/main.ts"],
+            "rules": {
+                "no-restricted-imports": "off"
+            }
+        }
+    ]
 }

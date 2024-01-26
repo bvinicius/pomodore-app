@@ -1,5 +1,6 @@
 import { computed, watchEffect } from 'vue';
-import { usePreferencesStore } from '../store/preferencesStore';
+
+import { usePreferencesStore } from '@/primary/infrastructure/store/preferencesStore';
 
 const audio = new Audio('/audio/alarm.mp3');
 
