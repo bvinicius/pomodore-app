@@ -1,3 +1,9 @@
+export interface PomoState {
+    id: number;
+    settings: PomoSettings;
+    session: PomoSessionState;
+}
+
 export interface PomoSettings {
     workSessionLength: number;
     breakSessionLength: number;

@@ -1,97 +1,68 @@
 import { watch } from 'vue';
-import { createClient, RealtimeChannel } from '@supabase/supabase-js';
+
+import { PomoMultiplayerService } from '@/domain/multiplayer/PomoMultiplayerService';
 
 import { usePomoRunner } from '@/primary/infrastructure/composables/pomoRunner';
-import {
-    PomoState,
-    usePomoStore
-} from '@/primary/infrastructure/store/pomoStore';
-
-interface JoinOptions {
-    admin: boolean;
-}
-
-interface PomoMuiltiplayerMessage {
-    type: 'pause' | 'play' | 'skip-session' | 'sync';
-    payload: PomoState;
-}
-
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_API_KEY as string;
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+import { injectSafe } from '@/primary/infrastructure/dependency-injection';
+import { POMO_MULTIPLAYER_SERVICE } from '@/primary/infrastructure/dependency-symbols';
+import { usePomoStore } from '@/primary/infrastructure/store/pomoStore';
 
 export const useMultiplayer = () => {
+    const multiplayerService = injectSafe<PomoMultiplayerService>(
+        POMO_MULTIPLAYER_SERVICE
+    );
+
     const pomoStore = usePomoStore();
     const { continueSession } = usePomoRunner();
 
-    const createSession = () => {
-        joinSession(pomoStore.id.toString(), { admin: true });
+    const createSession = async () => {
+        await multiplayerService.createSession(pomoStore.id.toString());
+        watchPomodoreState();
     };
 
-    const joinSession = (roomId: string, opts: Partial<JoinOptions> = {}) => {
-        const room = supabase.channel(roomId);
+    const joinSession = async (roomId: string) => {
+        await multiplayerService.joinSession(roomId);
 
-        if (!opts.admin) {
-            room.on('presence', { event: 'sync' }, () => {
-                const state = room.presenceState<PomoMuiltiplayerMessage>();
-                const data = Object.values(
-                    state
-                ).flat()[0] as PomoMuiltiplayerMessage;
-
-                pomoStore.$state = data.payload;
-                continueSession();
-            });
-        }
-
-        room.subscribe((status) => {
-            if (status === 'SUBSCRIBED') {
-                console.log('Now listening to changes in realtime...');
-            }
-
-            if (opts.admin) {
-                watch(
-                    () => pomoStore.session.paused,
-                    (value) => {
-                        commit(room, {
-                            type: value ? 'pause' : 'play',
-                            payload: pomoStore.$state
-                        });
-                    }
-                );
-
-                watch(
-                    () => pomoStore.session.current,
-                    () => {
-                        commit(room, {
-                            type: 'skip-session',
-                            payload: pomoStore.$state
-                        });
-                    }
-                );
-
-                watch(
-                    () => pomoStore.session.timeLeft,
-                    (value) => {
-                        // Only sync every 10 seconds
-                        if (value % 10 !== 0) return;
-
-                        console.log('SYNC');
-                        commit(room, {
-                            type: 'sync',
-                            payload: pomoStore.$state
-                        });
-                    }
-                );
-            }
+        multiplayerService.onMessage((message) => {
+            pomoStore.$state = {
+                ...message.payload,
+                currentView: pomoStore.currentView
+            };
+            continueSession();
         });
     };
 
-    const commit = (
-        room: RealtimeChannel,
-        message: PomoMuiltiplayerMessage
-    ) => {
-        room.track(message);
+    const watchPomodoreState = () => {
+        watch(
+            () => pomoStore.session.paused,
+            () =>
+                multiplayerService.emit({
+                    type: 'pause',
+                    payload: pomoStore.$state
+                })
+        );
+
+        watch(
+            () => pomoStore.session.current,
+            () => {
+                multiplayerService.emit({
+                    type: 'skip-session',
+                    payload: pomoStore.$state
+                });
+            }
+        );
+
+        watch(
+            () => pomoStore.session.timeLeft,
+            (value) => {
+                // Only sync every 10 seconds
+                if (value % 10 !== 0) return;
+                multiplayerService.emit({
+                    type: 'sync',
+                    payload: pomoStore.$state
+                });
+            }
+        );
     };
 
     return { createSession, joinSession };

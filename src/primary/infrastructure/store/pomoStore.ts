@@ -1,27 +1,20 @@
 import { defineStore } from 'pinia';
 
-import {
-    PomoSessionState,
-    PomoSessionType,
-    PomoSettings
-} from '@/domain/Pomodore';
+import { PomoSessionType, PomoSettings, PomoState } from '@/domain/Pomodore';
 
 import { createId } from '@/secondary/utils/id-utils';
-
-export interface PomoState {
-    id: number;
-    settings: PomoSettings;
-    session: PomoSessionState;
-    currentView: 'session' | 'settings';
-}
 
 const config: PomoSettings = {
     workSessionLength: 40,
     breakSessionLength: 5
 };
 
+type PomoStoreState = PomoState & {
+    currentView: 'settings' | 'session';
+};
+
 export const usePomoStore = defineStore('pomodore', {
-    state: (): PomoState => ({
+    state: (): PomoStoreState => ({
         id: createId(),
         settings: { ...config },
         session: {

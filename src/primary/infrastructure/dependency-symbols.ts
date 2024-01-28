@@ -1,1 +1,2 @@
 export const POMO_COUNTER = Symbol('POMO_COUNTER');
+export const POMO_MULTIPLAYER_SERVICE = Symbol('POMO_MULTIPLAYER_SERVICE');
