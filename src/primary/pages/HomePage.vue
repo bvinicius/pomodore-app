@@ -13,7 +13,7 @@
                     v-if="pomoStore.isSettingsView"
                     class="hidden sm:block font-semibold text-center animate-fade-fast"
                 >
-                    A tool to do more things spending less time.
+                    Focus better. Finish faster.
                 </span>
             </div>
 
