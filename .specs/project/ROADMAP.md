@@ -1,7 +1,7 @@
 # Roadmap
 
 **Current Milestone:** M1 — Real Pomodoro
-**Status:** Planning
+**Status:** Long-break cycle specified — see `.specs/features/long-break-cycle/`
 
 ---
 
@@ -12,13 +12,13 @@
 
 ### Features
 
-**Long-break cycle** - PLANNED
+**Long-break cycle** - SPECIFIED (`.specs/features/long-break-cycle/`)
 
-- Configurable "long break after N pomodoros" (e.g. every 4th break is a long break)
+- Configurable "long break after N pomodoros", default 4
 - Long-break length setting alongside existing work/break lengths
-- Cycle counter that advances on completed work sessions and resets appropriately
+- Cycle counter that advances on every work session (natural *or* skipped) and resets after the long break; progress shown in the UI
 - Session-type logic in `pomoRunner` / `pomoStore` extended from WORK/BREAK to include LONG_BREAK
-- Optional: auto-start-next-session toggle (small companion quality-of-life win)
+- Auto-start-next-session toggle deferred to its own feature
 
 ---
 
