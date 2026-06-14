@@ -68,3 +68,17 @@ Two persisted Pinia stores (via `pinia-plugin-persistedstate`):
 ### Tests
 
 Tests live in `tests/**/*.test.ts`. The test environment does not use jsdom by default — tests are plain Vitest unit tests. Current coverage is limited to `date-utils`.
+
+## Spec tracking
+
+This project uses `/tlc-spec-driven`. Keep `.specs/project/` in sync as work progresses:
+
+- **`.specs/project/PROJECT.md`** — update when the vision, goals, principles, or non-goals shift.
+- **`.specs/project/STATE.md`** — update when:
+  - A decision is made (add to `## Decisions` with date and rationale).
+  - A milestone or task completes (remove or mark done).
+  - A blocker appears or is resolved.
+  - An idea is deferred (add to `## Deferred ideas`).
+  - A non-obvious lesson is learned (add to `## Lessons / notes`).
+
+Update these files at the end of any session where something meaningful changed — not mid-task.
