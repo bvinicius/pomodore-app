@@ -11,6 +11,9 @@ export const usePomoRunner = () => {
     const pomoStore = usePomoStore();
     const pomoCounter = injectSafe<PomoCounter>(POMO_COUNTER);
 
+    let _tickStartTime: number | null = null;
+    let _timeLeftAtTickStart: number | null = null;
+
     const startNextSession = () => {
         pomoCounter.stop();
         _skipSession();
@@ -28,11 +31,15 @@ export const usePomoRunner = () => {
     };
 
     const resume = () => {
+        _tickStartTime = Date.now();
+        _timeLeftAtTickStart = pomoStore.session.timeLeft;
         pomoCounter.start();
         pomoStore.session.paused = false;
     };
 
     const pause = () => {
+        _tickStartTime = null;
+        _timeLeftAtTickStart = null;
         pomoCounter.stop();
         pomoStore.session.paused = true;
     };
@@ -87,6 +94,9 @@ export const usePomoRunner = () => {
             pomoStore.session.timeLeft = pomoStore.currentSessionLength;
         }
 
+        _tickStartTime = Date.now();
+        _timeLeftAtTickStart = pomoStore.session.timeLeft;
+
         pomoCounter.start();
         pomoCounter.onTick(_onTick);
     };
@@ -118,10 +128,15 @@ export const usePomoRunner = () => {
             return;
         }
 
-        pomoStore.session.timeLeft = Math.max(
-            pomoStore.session.timeLeft - 1,
-            0
-        );
+        if (_tickStartTime !== null && _timeLeftAtTickStart !== null) {
+            const elapsed = Math.floor((Date.now() - _tickStartTime) / 1000);
+            pomoStore.session.timeLeft = Math.max(_timeLeftAtTickStart - elapsed, 0);
+        } else {
+            pomoStore.session.timeLeft = Math.max(
+                pomoStore.session.timeLeft - 1,
+                0
+            );
+        }
 
         _updateMetaTitle();
 
