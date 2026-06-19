@@ -1,28 +1,42 @@
 import { Component, computed, createApp } from 'vue';
 import { provide } from '@/primary/infrastructure/dependency-injection';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const win = window as any;
+let pipWindow: Window | null = null;
 
 export const usePictureInPicture = () => {
-    const isSupported = computed(() => !!win.documentPictureInPicture);
-    const isActive = () =>
-        isSupported.value && !!win.documentPictureInPicture.window;
+    const isSupported = computed(() => true);
+    const isActive = () => !!pipWindow && !pipWindow.closed;
 
-    const startPictureInPicture = async (
+    const startPictureInPicture = (
         component: Component,
         props: Record<string, unknown> = {}
     ) => {
         if (isActive()) return console.log('PIP is already active');
-        if (!isSupported.value) return console.log('PIP is not supported');
+
+        const popup = window.open(
+            '',
+            '_blank',
+            'popup=yes,width=240,height=220'
+        );
+
+        if (!popup) return console.log('Popup was blocked');
+
+        pipWindow = popup;
+        popup.addEventListener('beforeunload', () => {
+            pipWindow = null;
+        });
+
+        appendStyles(popup);
+        popup.document.body.style.margin = '0';
 
         const rootEl = mountComponent(component, props);
-        return startPipWindow(rootEl);
+        popup.document.body.appendChild(rootEl);
     };
 
     const closePictureInPicture = () => {
         if (!isActive()) return;
-        win.documentPictureInPicture.window.close();
+        pipWindow?.close();
+        pipWindow = null;
     };
 
     return {
@@ -33,14 +47,19 @@ export const usePictureInPicture = () => {
     };
 };
 
-async function startPipWindow(rootEl: HTMLElement) {
-    const pipWindow = await win.documentPictureInPicture.requestWindow({
-        width: 240,
-        height: 220
+function appendStyles(target: Window) {
+    [...document.styleSheets].forEach((styleSheet) => {
+        try {
+            const cssRules = [...styleSheet.cssRules]
+                .map((rule) => rule.cssText)
+                .join('');
+            const style = document.createElement('style');
+            style.textContent = cssRules;
+            target.document.head.appendChild(style);
+        } catch {
+            // cross-origin stylesheets are not accessible
+        }
     });
-
-    appendStyles(pipWindow);
-    pipWindow.document.body.appendChild(rootEl);
 }
 
 function mountComponent(
@@ -50,19 +69,5 @@ function mountComponent(
     const app = createApp(component, props);
     provide(app);
     const vm = app.mount(document.createElement('div'));
-    const rootEl = vm.$el as HTMLElement;
-    return rootEl;
-}
-
-function appendStyles(pipWindow: Window) {
-    [...document.styleSheets].forEach((styleSheet) => {
-        const cssRules = [...styleSheet.cssRules]
-            .map((rule) => rule.cssText)
-            .join('');
-
-        const style = document.createElement('style');
-
-        style.textContent = cssRules;
-        pipWindow.document.head.appendChild(style);
-    });
+    return vm.$el as HTMLElement;
 }

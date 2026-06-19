@@ -130,7 +130,10 @@ export const usePomoRunner = () => {
 
         if (_tickStartTime !== null && _timeLeftAtTickStart !== null) {
             const elapsed = Math.floor((Date.now() - _tickStartTime) / 1000);
-            pomoStore.session.timeLeft = Math.max(_timeLeftAtTickStart - elapsed, 0);
+            pomoStore.session.timeLeft = Math.max(
+                _timeLeftAtTickStart - elapsed,
+                0
+            );
         } else {
             pomoStore.session.timeLeft = Math.max(
                 pomoStore.session.timeLeft - 1,
