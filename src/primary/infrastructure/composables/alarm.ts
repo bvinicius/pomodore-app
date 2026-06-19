@@ -2,6 +2,15 @@ import { computed, watchEffect } from 'vue';
 import { usePreferencesStore } from '../store/preferencesStore';
 
 const audio = new Audio('/audio/alarm.mp3');
+let pendingAlarm = false;
+
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && pendingAlarm) {
+        pendingAlarm = false;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+    }
+});
 
 export const useAlarm = () => {
     const preferencesStore = usePreferencesStore();
@@ -9,13 +18,14 @@ export const useAlarm = () => {
     const isMuted = computed(() => preferencesStore.alarmVolume === 0);
 
     const playAlarm = () => {
-        console.log('volume', preferencesStore.alarmVolume);
-
         audio.currentTime = 0;
-        audio.play();
+        audio.play().catch(() => {
+            pendingAlarm = true;
+        });
     };
 
     const stopAlarm = () => {
+        pendingAlarm = false;
         audio.pause();
         audio.currentTime = 0;
     };
